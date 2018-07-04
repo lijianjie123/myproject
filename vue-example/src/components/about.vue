@@ -17,11 +17,38 @@
                 <router-link :to = "{name:'hobby'}" tag = "li"><a>hobby</a></router-link>
             </ul>
             <hr>
+            测试数据：{{test}}
             <!-- 渲染对应的子组件 -->
             <router-view></router-view>
             </div>
 </template>
 <script>
+export default {
+  data() {
+    return {
+      test: "改变前"
+    };
+  },
+  beforeCreate() {
+    console.log("beforeCreate");
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log("beforeRouterEnter");
+    console.log(this); //这里访问不到this
+    next(vm => {
+      vm.test = "改变了";
+    });
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    console.log("beforeRouteUpdate");
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    //离开组件
+    next();
+  }
+};
 </script>
 <style>
 </style>

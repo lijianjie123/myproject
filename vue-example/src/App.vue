@@ -10,36 +10,169 @@
             <span>home</span>
           </router-link>
           <!-- <a href="/about">about</a> -->
-          <router-link  :to="{path:'/about'}"  tag = "li" event = "mouseover"  active-class = "active">
+          <router-link  to="/about"  tag = "li" event = "mouseover"  active-class = "active">
            <i></i>
            <span>about</span>
           </router-link>
+
+          <router-link  to="/user"  tag = "li" event = "mouseover"  active-class = "active">
+           <i></i>
+           <span>user</span>
+          </router-link>
           <!-- <a href="/document">document</a> -->
-          <router-link  :to="{path:'/document'}"  tag = "li" event = "mouseover">
+          <router-link  :to="{path:'/document#abc'}"  tag = "li" event = "mouseover">
           <i></i>
            <span>document</span>
           </router-link>
       </ul>
     </div>
-    <!-- 告诉路由  把组件渲染在这   这里的class 最终会把class渲染到对应组件的跟节点 上去，  跟节点有类名  这里也有  最终是  拼接类名   就是组件上  两个类名都存在-->
-    <router-view class="center"></router-view>
-
+    当前导航下标：{{$route.meta.index}}
+<div class="main">
+    <!-- 把要有效果的 元素  放到<transition>过度动效标签内 -->
+      <!-- mode = "in-out" 过渡模式     in-out：新元素先进行过度，完成之后当前元素过渡离开     out-in：当前元素先进行过渡，完成之后新元素过渡进入-->
+    <!-- <transition mode = "out-in" name = "left"> -->  
+      <!-- 去掉了mode  -->
+      <transition  :name = "names"> 
+      <!-- 告诉路由  把组件渲染在这   这里的class 最终会把class渲染到对应组件的跟节点 上去，  跟节点有类名  这里也有  最终是  拼接类名   就是组件上  两个类名都存在-->
+      <router-view class="center"></router-view>
+    </transition>
     <router-view name="slider"></router-view>
+</div> 
   </div>
 </template>
 
 <script>
 export default {
   name: "App",
+
+  watch: {
+    $route(to, from) {
+      console.log(to.meta.index); //目标导航下标
+      console.log(from.meta.index); //离开导航下标
+
+      if (to.meta.index < from.meta.index) {
+        this.names = "right";
+      } else {
+        this.names = "left";
+      }
+    }
+  },
   data() {
     return {
-      index: "/home"
+      index: "/home",
+      names: "left"
     };
   }
 };
 </script>
 
 <style>
+.center {
+  /* text-align: center; */
+
+  width: 100%;
+  height: 100%;
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.main {
+  position: relative;
+}
+
+/* // 过度动效样式写法 
+.v-enter {
+  opacity: 0;
+}
+.v-enter-to {
+  opacity: 1;
+}
+.v-enter-active {
+  transition: 1s;
+}
+.v-leave {
+  opacity: 1;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-leave-active {
+  transition: 2s;
+}
+
+.left-enter {
+  transform: translateX(100%);
+}
+.left-enter-to {
+  transform: translateX(0);
+}
+.left-enter-active {
+  transition: 2s;
+}
+.left-leave {
+  transform: translateX(0);
+}
+.left-leave-to {
+  transform: translateX(-100%);
+}
+.left-leav-active {
+  transition: 2s;
+}
+
+.right-enter {
+  transform: translateX(-100%);
+}
+.right-enter-to {
+  transform: translateX(100%);
+}
+.right-enter-active,
+.right-leave-active {
+  transition: 2s;
+}
+
+.right-leave-to {
+  transform: translateX(-100%);
+}*/
+.v-enter {
+  opacity: 0;
+}
+.v-enter-to {
+  opacity: 1;
+}
+.v-enter-active {
+  transition: 1s;
+}
+.v-leave {
+  opacity: 1;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-leave-active {
+  transition: 1s;
+}
+.left-enter {
+  transform: translateX(100%);
+}
+.left-enter-active,
+.left-leave-active {
+  transition: 1s;
+}
+.left-leave-to {
+  transform: translateX(-100%);
+}
+.right-enter {
+  transform: translateX(-100%);
+}
+.right-enter-active,
+.right-leave-active {
+  transition: 1s;
+}
+.right-leave-to {
+  transform: translateX(100%);
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -9,7 +9,7 @@ export default {};
 <style>
 .slider {
   width: 200px;
-  height: 100px;
+  height: 2000px;
   float: left;
   border-right: 1px solid #000;
 }
