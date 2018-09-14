@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //var div1 = document.getElementById('div1');
+    getId('div1').onclick = function(){
+    };
+    function getId(id){
+        return document.getElementById(id);
+    }
+</script>
+<script>
+    window.onload = function(){
+        console.log(fn1(5));// 1 2 3  4 5
+        alert(fn1(7));// 1 2 3  4 5 6 7
+
+        function fn1(num){ //num代表了 arr的长度
+            var arr = [];
+            for(var i=0; i<num; i++){
+                arr.push(i);
+            }
+            return arr;
+        }
+    }
+
+</script>
+<script>
+    alert(sum(1,2,3));    //参数为 1 2 3
+    alert(sum(1,2,3,4));  //参数为 1 2 3 4
+                        //当参数的个数不能确定的时候用arguments
+function sum(){
+    var n = 0;
+    for(var i= 0; i<arguments.length; i++){
+        n += arguments[i];
+    }
+    return n;
+}
+
+</script>
+
+<script>
+    alert(sum(1,2,3,'+'));    //参数为 1 2 3
+    alert(sum(10,2,3,4,'-'));  // 1
+    //当参数的个数不能确定的时候用arguments
+    function sum(){
+        var n = 0;
+        var m = 0;
+        for(var i= 0; i<arguments.length-1; i++){
+           m = arguments[i-1];
+            n= arguments[i]
+        }
+        return n;
+    }
+
+</script>
+<div id="div1">
+
+</div>
+<input type="button" value="点击">
+</body>
+</html>

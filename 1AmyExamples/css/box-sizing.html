@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .imgBox img{
+            width: 140px;
+            height: 140px;
+            padding: 20px;
+            border: 20px solid orange;
+            margin: 10px;
+        }
+        #contentBox img{
+            -moz-box-sizing: content-box;
+            -webkit-box-sizing: content-box;
+            -o-box-sizing: content-box;
+            -ms-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+        #borderBox img{
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -o-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div id ="contentBox">
+    <div class="imgBox"><img src="../img2/banner1.jpg"></div>
+
+</div>
+<div id ="borderBox">
+    <div class="imgBox"><img src="../img2/banner1.jpg"></div>
+
+</div>
+
+</body>
+</html>

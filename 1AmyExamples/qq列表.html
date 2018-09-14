@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{ margin: 0;}
+        ul, li{ list-style-type: none; }
+        div { width: 200px; margin: 0 auto; border: 1px solid #000;}
+        h3 { margin: 0; font-size: 15px; background: #ccc;}
+        .active{ background:yellow;}
+        ul{ display: none;}
+    </style>
+</head>
+<body>
+<div>
+    <h3 class="">分组一</h3>
+    <ul>
+        <li>分组11</li>
+        <li>分组12</li>
+        <li>分组13</li>
+        <li>分组14</li>
+    </ul>
+    <h3>分组二</h3>
+    <ul>
+        <li>分组21</li>
+        <li>分组22</li>
+        <li>分组23</li>
+        <li>分组24</li>
+    </ul>
+    <h3>分组三</h3>
+    <ul>
+        <li>分组31</li>
+        <li>分组32</li>
+        <li>分组33</li>
+        <li>分组34</li>
+    </ul>
+    <h3>分组四</h3>
+    <ul>
+        <li>分组41</li>
+        <li>分组42</li>
+        <li>分组43</li>
+        <li>分组44</li>
+    </ul>
+</div>
+<script>
+    window.onload = function(){
+        var h3s = document.getElementsByTagName('h3');
+        var uls = document.getElementsByTagName('ul');
+        for(var i= 0; i<h3s.length; i++){
+            h3s[i].onoff = true; // true 代表展开的  false 代表收缩
+            h3s[i].index = i;
+            h3s[i].onclick = function(){
+                if(this.onoff){
+                    alert(true);
+                    this.className = 'active';
+                    uls[this.index].style.display = 'block';
+                }else{
+                    alert(0);
+                    this.className = '';
+                    uls[this.index].style.display = 'none';
+                }
+                this.onoff = !this.onoff;
+            }
+        }
+
+
+    }
+</script>
+<!--<script>
+    var h3s = document.getElementsByTagName('h3');
+    var uls = document.getElementsByTagName('ul');
+    var list = document.getElementsByTagName('li');
+    for(var i= 0; i<list.length; i++){
+        list[i].onmouseover = function(){
+            for(var i= 0; i<list.length; i++){
+                this.style.background =  '';
+            }
+            this.style.background =  'pink';
+        };
+        list[i].onmouseout = function(){
+            for(var i= 0; i<list.length; i++){
+                this.style.background =  '';
+            }
+        }
+    }
+
+    for( var i=0; i<h3s.length; i++){
+
+        h3s[i].onoff = true; // 添加开关
+        h3s[i].index = i; // 添加自定义属性（索引值）
+        h3s[i].onclick =  function(){
+            /*for(var i=0; i<h3s.length; i++){
+             //所有被点击h3以外的所有h3
+             if(i!= this.index){
+             h3s[i].className = '';
+             h3s[i].onoff = true;
+             uls[i].style.display = 'none';
+             }
+
+             }*/
+            if(this.onoff){
+                this.className = 'active';
+                uls[this.index].style.display ='block';
+            }else{
+                this.className = '';
+                uls[this.index].style.display ='none';
+            }
+            this.onoff = !this.onoff;  //给开关取反
+        }
+    }
+</script>-->
+</body>
+</html>

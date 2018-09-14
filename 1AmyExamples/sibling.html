@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Untitled Document</title>
+    <script type="text/javascript" src = "jquery-1.8.2.min.js"></script>
+    <style>
+        *{ padding: 0;margin: 0;}
+        li{list-style: none;
+            height:30px; line-height: 30px; display: block; cursor: pointer}
+       ul { width:150px; color: #000; margin: 0 auto; border: 1px solid #000; background: #f1f1f1;  }
+        .hui{ background: #ccc;}
+        .orange{ background: orange;  color: #fff}
+        .green{ background: green;}
+        .pink{ background: deeppink;}
+        .this{ background: #5a5a5a}
+
+    </style>
+
+<script>
+    window.onload = function(){
+        var ul = document.getElementsByTagName('ul')[0];
+        //var ali = ul.children;
+        var oli = ul.childNodes;
+        alert(oli.length)
+        //alert(ali.length)
+        var first = ul.firstElementChild;
+        var last = ul.lastElementChild;
+        for(var i=0; i<ali.length; i++){
+            ali[i].onmouseover = function(){
+                if(this == first || this == last ){
+                    //this.previousElementSibling.className = 'orange';
+                    //this.nextElementSibling.className = 'orange';
+                    this.className = 'orange';
+                }else{
+                    this.className = 'this';
+                    this.nextElementSibling.className = 'pink';
+                    this.previousElementSibling.className = 'green';
+                    first.className = 'orange';
+                    last.className = 'orange';
+                }
+            }
+            ali[i].onmouseout = function(){
+                for(var i=0; i<ali.length; i++){
+                    ali[i].className = '';
+
+                }
+                first.className = 'hui';
+                last.className = 'hui';
+
+            }
+        }
+    }
+</script>
+</head>
+
+<body>
+
+<ul id="ul">
+    <li class="hui">11</li>
+    <li class="">11</li>
+    <li>22</li>
+    <li class="">33</li>
+    <li>44</li>
+    <li>55</li>
+    <li>66</li>
+    <li>77</li>
+    <li class="hui">88</li>
+</ul>
+
+</body>
+</html>

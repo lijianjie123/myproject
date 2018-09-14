@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{ background: #f9f9f9}
+        #menu{ width: 50px;-webkit-transform-origin: center center;
+            height:540px; position: fixed; right: 20px; bottom: 20px;;}
+        #menu_list{ height: 22px; width: 22px; position: relative; margin: 4px;  }
+        #menu_list img{ border-radius: 0px; position: absolute; left: 0px; top:0px; -webkit-transition: 0.5s all ease;}
+        #home{ width: 22px;
+            height:22px;
+            background: url("img2/tubiao1.png") no-repeat;
+            border-radius: 0px; position: absolute; left: 0px; top:0px; transition: 1s;
+            }
+    </style>
+    <script>
+        window.onload = function(){
+            var oHome = document.getElementById('home');
+            var oImg = document.getElementById('menu_list').getElementsByTagName('img');
+            var btnOff = true;
+            var iR = -150;
+            for(var i = 0; i<oImg.length; i++){
+                oImg[i].onclick = function(){
+                    this.style.transition = "0.3s";
+                    this.style.transform = 'scale(2) rotate(-720deg)';
+                    this.style.opacity = 0.1;
+                    addEnd(this,end);
+                };
+            }
+            function end(){
+                this.style.transition = "0.1s";
+                this.style.transform = 'scale(1) rotate(-720deg)';
+                this.style.opacity = 1;
+                removeEnd(this,end);
+            }
+            oHome.onclick = function(){
+                if(btnOff){
+                    this.style.WebkitTransform = 'rotate(-360deg)';
+
+                    for(var i = 0; i<oImg.length; i++){
+                        var olt = toLT(iR, 90/4*i);
+                        oImg[i].style.transition = "0.5s "+i*100+"ms"; //0.5空格  是遵循transition样式的写法-webkit-transition: 0.5s all ease;
+                        //console.log("0.5s" +i*100+"ms");
+                        oImg[i].style.left =olt.l + 'px';
+                        oImg[i].style.top =olt.t + 'px';
+                        oImg[i].style.WebkitTransform = 'scale(1) rotate(-720deg)';
+                    }
+                }else{
+                    this.style.WebkitTransform = 'scale(1) rotate(360deg)';
+                    for(var i = 0; i<oImg.length; i++){
+
+                        oImg[i].style.transition = "0.5s " +(oImg.length-i-1)*100+ "ms";
+                        oImg[i].style.left =0 + 'px';
+                        oImg[i].style.top =0 + 'px';
+                        oImg[i].style.WebkitTransform = 'scale(1) rotate(0deg)';
+                    }
+                }
+                btnOff = !btnOff;
+            };
+
+            function toLT(iR,iDeg){
+                //var iLeft = Math.round( Math.sin(iDeg/180*Math.PI)*iR);// 对边的长度 left
+               // var iTop = Math.round( Math.cos(iDeg/180*Math.PI)*iR);// 邻边的长度 top
+                return{l:Math.round( Math.sin(iDeg/180*Math.PI)*iR),
+                    t:Math.round( Math.cos(iDeg/180*Math.PI)*iR)}
+            }
+
+            function addEnd(obj,fn){
+                obj.addEventListener('WebkitTransitionEnd',fn,false);
+                obj.addEventListener('transitionend',fn,false);
+            }
+            function removeEnd(obj,fn){
+                obj.removeEventListener('WebkitTransitionEnd',fn,false);
+                obj.removeEventListener('transitionend',fn,false);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id = "menu">
+        <div id="menu_list">
+            <img src="img2/tubiao1.png" />
+            <img src="img2/tubiao1.png" />
+            <img src="img2/tubiao1.png" />
+            <img src="img2/tubiao1.png" />
+            <img src="img2/tubiao1.png" />
+
+        </div>
+        <div id = "home"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{ width: 518px;
+            height:200px; }
+    </style>
+</head>
+<body>
+<div>
+    <img src="img2/banner1.png">
+    <input type="button" value="换背景">
+    <input type="button" value="停">
+</div>
+</body>
+<script>
+    window.onload = function(){
+        var  div = document.getElementsByTagName('div')[0];
+        var  img = document.getElementsByTagName('img')[0];
+        var  inputs = document.getElementsByTagName('input');
+        var arr = ['img2/banner1.png','img2/banner2.png', 'img2/banner3.png'];
+        var timer = null;
+        var num = 0;
+         inputs[0].onoff = true; //true开定时器 false关定时器
+        inputs[0].onclick = function(){
+            if(this.onoff){
+
+                alert('开');
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    img.src = arr[num];
+                    num++;
+                    /*if(num>arr.length-1){
+                     num = 0;
+                     }*/
+                    //取模
+                    num%=arr.length;
+
+                },1000);
+                this.onoff = false;
+
+            }else{
+                alert('关');
+                clearInterval(timer);
+                this.onoff = true;
+
+            }
+
+        }
+        /*inputs[1].onclick = function(){
+            clearInterval(timer);
+        }*/
+
+
+
+
+    }
+
+</script>
+</html>

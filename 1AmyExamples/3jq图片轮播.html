@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src = "jquery-1.8.2.min.js"></script>
+    <style type="text/css">
+        body,div,ul,li,a,img{margin: 0;padding: 0;}
+        ul,li{list-style: none;}
+        a{text-decoration: none;}
+
+        #wrapper{position: relative;margin: 30px auto;width: 518px;height: 200px;overflow: hidden;}
+        #banner{width: 400000px;height: 200px;}
+        .imgList{position:relative;height:200px;z-index: 10;overflow: hidden;}
+        .imgList li{float:left;display: inline;}
+        #prev,
+        #next{position: absolute;top:80px; width:20px;
+            height:50px; display:block;z-index: 20;cursor: pointer;opacity: 1;filter:alpha(opacity=100); background: red}
+        #prev{left: 10px;}
+        #next{right: 10px;}
+        #prev:hover,
+        #next:hover{opacity: 0.5;filter:alpha(opacity=50);}
+        .bg{position: absolute;bottom: 0;width: 400px;height: 40px;z-index:20;opacity: 0.4;filter:alpha(opacity=40);background: black;}
+        .infoList{position: absolute;left: 10px;bottom: 10px;z-index: 30;}
+        .infoList li{display: none;}
+        .infoList .infoOn{display: inline;color: white;}
+        .indexList{position: absolute;right: 10px;bottom: 5px;z-index: 30;}
+        .indexList li{float: left;margin-right: 5px;padding: 2px 4px;border: 2px solid black;background: grey;cursor: pointer;}
+        .indexList .indexOn{background: red;font-weight: bold;color: white;}
+    </style>
+</head>
+<body>
+<div id="wrapper"><!-- 最外层部分 -->
+    <div id="banner"><!-- 轮播部分 -->
+        <ul class="imgList" id="imgList"  style = ""><!-- 图片部分 -->
+            <li><a href="#"><img src="img2/banner1.png" width="518px" height="200px" alt="puss in boots1"></a></li>
+            <li><a href="#"><img src="img2/banner2.png" width="518px" height="200px" alt="puss in boots2"></a></li>
+            <li><a href="#"><img src="img2/banner3.png" width="518px" height="200px" alt="puss in boots3"></a></li>
+        </ul>
+        <a id="prev"></a>
+        <a id="next"></a>
+        <div class="bg"></div> <!-- 图片底部背景层部分-->
+        <ul class="infoList" ><!-- 图片左下角文字信息部分 -->
+            <li  id="con">puss in boots1</li>
+            <li class="infoOn">puss in boots2</li><!--http://www.jb51.net/article/64662.htm-->
+            <li>puss in boots3</li>
+
+        </ul>
+
+        <ul class="indexList" id="indexList"><!-- 图片右下角序号部分 -->
+            <li class="indexOn">1</li>
+            <li>2</li>
+            <li>3</li>
+
+        </ul>
+    </div>
+</div>
+<script>
+/*window.onload = function(){
+    var imgList = document.getElementById('imgList');
+    var imgs = imgList.getElementsByTagName('img');
+    var lisImg = imgList.getElementsByTagName('li');
+
+    var prev = document.getElementById('prev');
+    var next = document.getElementById('next');
+
+    var indexList = document.getElementById('indexList');
+    var indexLi = indexList.getElementsByTagName('li');
+
+    var infoList = document.getElementById('imgList');
+    var infoLi = infoList.getElementsByTagName('li');
+    var con = document.getElementById('con');
+    var arrcon = ["puss in boots1", "puss in boots2", "puss in boots3", "puss in boots4","puss in boots5"];
+
+    var num = 0;
+
+    prev.onclick = function(){
+        num --;
+        if(num<0){
+            num = indexLi.length - 1;
+        }
+        tab();
+    }
+    next.onclick = function(){
+        num ++;
+        if(num > indexLi.length - 1){
+            num = 0;
+        }
+        tab();
+    }
+
+    for(var i=0; i<indexLi.length; i++){
+        indexLi[i].index  = i;
+        indexLi[i].onclick = function(){
+            num = this.index;
+            tab();
+        };
+        infoLi[num].className = 'infoOn';
+    }
+    function tab(){
+        for(var i=0; i<indexLi.length; i++){
+
+            indexLi[i].className = '';
+            //infoLi[i].className = '';  //用切换类名的方式改变左下角的内容  为什么实现不了呢
+        }
+        indexLi[num].className = 'indexOn';
+        //infoLi[num].className = 'infoOn'; //用切换类名的方式改变左下角的内容  为什么实现不了呢
+        con.innerHTML = arrcon[num];
+        imgList.style.left = -num*518+'px';
+    }
+}*/
+var next = document.getElementById('next');
+next.onclick(function(){
+    $.ajax({
+        type:'get',
+        url:'https://www.baidu.com/img/baidu_85beaf5496f291521eb75ba38eacbd87.svg',
+        data:'',
+        success:function(data){
+            alert(data);
+        }
+    });
+})
+
+
+</script>
+<!--<script>
+
+    /*$(function(){
+        var curIndex = 0;//当前index
+        var imgLen = $('.imgList li').length;// 图片总数
+        //console.log(imgLen);
+        var scrollLen = $('.imgList li').eq(0).width();
+        //var autoChange = null;
+
+        $('.imgList').width(imgLen*scrollLen);
+
+//        //左箭头移入移出和点击
+        $('#prev').hover(function(){
+            clearInterval(autoChange);
+            },function(){
+            autoChangeAgain();
+        });
+       $('#prev').click(function() {
+           if (curIndex < imgLen-1) {//
+                console.log(curIndex);
+               curIndex++;
+            }else{
+               curIndex = 0;
+           }
+           changeTo(curIndex);
+        });
+        //右箭头移入移出和点击
+        $('#next').hover(function(){
+            clearInterval(autoChange);
+            },function(){
+            autoChangeAgain();
+        });
+
+       $('#next').click(function() {
+            if (curIndex > 0) {//
+               console.log(curIndex);
+               curIndex&#45;&#45;; //&#45;&#45;后最小为0
+           }else{
+                curIndex = imgLen-1;
+            }
+           changeTo(curIndex);
+        });
+        //开启定时器
+        var autoChange = setInterval(function(){
+
+            if(curIndex < imgLen-1 ){ //与索引值大小比较 索引值最大为 4
+                curIndex ++; //  0<4; 1<4 ; 2< 4; 3<4； 即++后 1 2 3 4    最大为4；
+            }else{
+                curIndex = 0;
+            }
+            changeTo(curIndex);
+        },1000);
+
+        //清除后再开启定时器
+        function autoChangeAgain(){
+                autoChange= setInterval(function(){
+
+                    if(curIndex < imgLen-1 ){ //与索引值大小比较 索引值最大为 4
+                        curIndex ++; //  0<4; 1<4 ; 2< 4; 3<4； 即++后 1 2 3 4    最大为4；
+                    }else{
+                        curIndex = 0;
+                    }
+                    changeTo(curIndex);
+                },1000)
+        }
+
+
+
+        //图片轮播
+        //changeTo(1);
+        function changeTo(num){
+            $('.imgList').animate({left:-num*scrollLen},500);
+            $('.indexList li').removeClass('indexOn').eq(num).addClass('indexOn');
+            $('.infoList li').removeClass('infoOn').eq(num).addClass('infoOn');
+        }
+        //给数字绑定事件
+        $('.indexList li').each(function(item){
+            $(this).hover(function(){
+                clearInterval(autoChange);
+                console.log(item);
+                curIndex = item;
+                changeTo(item);
+
+            },function(){
+                autoChangeAgain();
+            })
+        });
+
+
+
+
+
+    })*/
+</script>-->
+</body>
+</html>

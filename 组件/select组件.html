@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>仿select</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<div style="float: left;">
+			<h2>自定义下拉框</h2>
+			<custom-select btn-value=" 查询" v-bind:list="list1"></custom-select>
+		</div>
+		<!-- <div style="float: left;">
+			<h2>自定义下拉框</h2>
+			<table>
+				<tr is="custom-select"></tr>  //is 扩展属性功能
+			</table>
+			<custom-select btn-value=" 查询"></custom-select>
+		</div> -->
+		<div style="float: left;">
+			<h2>自定义下拉框2</h2>
+			<custom-select btn-value=" 搜索" v-bind:list="list2"></custom-select>
+		</div>
+	</div>
+	<script>
+		//注册组件
+		Vue.component("custom-select", {
+			data: function () {
+				return {
+					selectShow: false,
+					val: "",
+				}
+			},
+			props: ["btnValue", "list"],
+			template: `<section class="warp">
+							<div class="searchIpt clearFix">
+								<div class="clearFix">
+									<input type="text" class="keyWord" :value="val"  @click = "selectShow = !selectShow"/>
+									<input type="button" :value="btnValue"">
+									<span></span>
+								</div>
+								<custom-list 
+								v-show = "selectShow" 
+								:listD = "list" 
+								v-on:receive = "changeValueHandle"
+								>
+								</custom-list>
+								
+							</div>
+						</section>`,
+			methods: {
+				changeValueHandle(item) {
+					alert("我被触发了,值为：" + item);
+					this.val = item;
+
+				}
+			}
+
+		})
+
+		Vue.component("custom-list", {
+			props: ["listD"],
+			template: `
+						<ul class="list" >
+							<li v-for = "item in listD" @click = "selectValueHandle(item)">{{item}}</li>
+						</ul>`,
+
+			methods: {
+				selectValueHandle: function (item) {
+					//在子组件有交互
+					// 子组件 ---》向父组件  传递数据   需要用到自定义事件， 父组件用$on监听自定义事件，$emit 触发父组件所关心的自定义事件   
+					//告知父级改变val 的值 需要触发一个自定义的事件  // 利用自定义事件通信$emit('自定义事件名'，'item 传递的每一项')
+					this.$emit("receive", item);
+					console.log(item);
+
+
+				}
+			}
+		})
+		let vm = new Vue({
+			el: "#app",
+			data: {
+				list1: ["北京", "上海", "杭州"],
+				list2: ["17-02-17", "17-02-18", "17-02-19"]
+			}
+
+		});
+	</script>
+
+	<!-- <script>
+		var keyWord = document.querySelector('.keyWord');
+		var list = document.querySelector('.list');
+		var lis = list.querySelectorAll('li');
+
+		keyWord.onfocus = function() {
+			list.style.display = 'block';
+		}
+
+		keyWord.onblur = function() {
+			setTimeout(function() {
+				list.style.display = 'none';
+			}, 80);
+		}
+
+		for (var i=0; i<lis.length; i++) {
+			lis[i].onclick = function() {
+				for (var i=0; i<lis.length; i++) {
+					lis[i].className = '';
+				}
+				this.className = 'active';
+				console.log( this.innerHTML );
+				keyWord.value = this.innerHTML;
+			}
+		}
+	</script> -->
+</body>
+
+</html>

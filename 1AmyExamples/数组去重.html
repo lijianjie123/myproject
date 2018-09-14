@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script>
+        var test = [1, 2, 2, 10, '1','2', 'a', 'a', 'b', '@', '@'];
+        var arr = [];
+        var arrCf = [];
+        alert(test.sort().length);
+        for( var i = 0; i<test.length; i++){
+            var num = 0 ;
+            if(test[i] != num ){
+                alert(0);
+                num = test[i];
+                arr.push(num);
+                console.log(arr);
+               // return num;
+
+            }else{
+                alert(1);
+                arrCf.push(num);
+               // return arrCf;
+            }
+        }
+        document.write(arr);
+    </script>-->
+    <!-- <script>
+        Array.prototype.distinct = function(){
+            var arr = this,
+                    result = [],
+                    i,
+                    j,
+                    len = arr.length;
+            for(i = 0; i < len; i++){
+               // console.log('arr[i]:'+arr[i]);
+                for(j = i + 1; j < len; j++){
+                    console.log(arr[j]);
+                    if(arr[i] === arr[j]){
+                        j = ++i;
+                    }
+                }
+                result.push(arr[i]);
+            }
+            return result;
+        };
+        var arrb = [1,2,1,4,4];
+        arrb.distinct();    //返回[3,4,2,1]
+    </script>-->
+    <!-- <script>
+        Array.prototype.distinct = function (){
+            var arr = this,
+                    result = [],
+                    len = arr.length;
+            arr.forEach(function(v, i ,arr){  //这里利用map，filter方法也可以实现
+                var bool = arr.indexOf(v,i+1);  //从传入参数的下一个索引值开始寻找是否存在重复
+                if(bool === -1){
+                    result.push(v);
+                }
+            })
+            return result;
+        };
+        var a = [1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,2,3,3,2,2,1,23,1,23,2,3,2,3,2,3];
+        var b = a.distinct();
+        console.log(b);
+        console.log(b.toString()); //1,23,2,3
+    </script> -->
+    <script>
+        var arr = ['abc', 'abcd', 'sss', '2', 'd', 't', '2', 'ss', 'f', '22', 'd'];
+
+        //定义一个新的数组
+
+        var s = [];
+
+        //遍历数组
+
+        for (var i = 0; i < arr.length; i++) {
+            console.log(s.indexOf(arr[i]))
+
+            if (s.indexOf(arr[i]) == -1) {  //判断在s数组中是否存在，不存在则push到s数组中
+
+                s.push(arr[i]);
+
+            }
+
+        }
+
+        console.log(s);
+    </script>
+
+
+</head>
+
+<body>
+
+</body>
+
+</html>

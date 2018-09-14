@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="./vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<div style="float: left;">
+			<h2>自定义的下拉框</h2>
+			<!-- 此处的key值 可以是烤串式，可以是驼峰式 普通单词也可以 但是要注意 组件中的props里的值 要用驼峰式  -->
+			<custom-select btn-value="查询" :list="list1"></custom-select>
+		</div>
+		<div style="float:left;">
+			<h2>自定义的下拉框2</h2>
+			<custom-select btn-value="搜索" :list="list2"></custom-select>
+		</div>
+
+	</div>
+	<script>
+		// var obj = {
+		// 	selectShow: false
+		// }
+		//注册组件
+		Vue.component("custom-select", {
+			// data: {//不能写成对象  要写成函数的形式
+			// 	selectShow: false
+			// },
+
+			// 组件中的data必须是函数
+			// 每个组件都是相互独立的，如果他们共用一个对象，在更改一个组件数据的时候，会影响其他组件， 如果是函数的话，每个组件都有自己独立的数据，相互之间不会影响
+			data() {
+				return { // return 的是属于自己的对象
+					selectShow: false,
+					val: ''//绑定到input上 的value 
+				}
+			},
+			// props里 的值  是组件上自定义的属性 即： btn-value  [props里要用驼峰式]
+			props: ["btnValue", "list"],//这里要用驼峰式  注册的下边的组件中<!--<input type="button" :value="btnValue">此处需要用绑定的形式:value = "btnValue"-->
+			template: `<section class="warp">
+					<div class="searchIpt clearFix">
+						<div class="clearFix">
+							<input type="text" class="keyWord" value="" :value = "val" @click="selectShow = !selectShow" />
+							<input type="button" :value="btnValue">
+							<span></span>
+						</div>
+						<!--把某一个组件放在另一个组件模板中  这个（某一个）组件就是子组件   （另一个）就是父组件-->
+						<!--下边绑定的:listKey 可以随意起   而list 是 上边的props中的 list-->
+						<!--@receive = "changeVal"  是绑定的自定义事件   receive  是自己定义的自定义事件名 changeVal 是事件处理函数  要把他写在当前的组件中 -->
+						<custom-list
+						 v-show = "selectShow" 
+						 :listKey = "list"
+						 @receive = "changeVal"
+						 ></custom-list>
+					</div>
+				</section>`,
+			methods: {
+				//  上边绑定的自定义事件函数
+				changeVal(value) {
+					console.log('我被触发了, 值为:' + value)
+					this.val = value;
+				}
+			}
+		})
+
+		Vue.component('custom-list', {
+			props: ["listKey"],
+			template: `<ul class="list" >
+							<li v-for = "item in listKey" @click = "selectValueHandle(item)">{{item}}</li>
+						</ul>
+
+						`,
+			// 因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。
+			methods: {
+				selectValueHandle(item) {
+					//子组件往父组件传递数据   需要用到自定义事件，父组件用$on监听自定义事件，  $emit 触发父组件所关心的自定义事件
+					//在子组件中有交互  告知父级，改变val的值 ，需要触发一个自定义事件
+					// li 上的点击事件 要传递给上边的input   需要用到this.$emit('自定义事件名', 要传的参数) 方法
+					this.$emit('receive', item)
+
+				}
+			}
+		})
+
+		// var data = {
+		// 	list1: ['北京', '上海', '广州',],
+		// 	list2: ['vue', 'react', 'js']
+		// }
+
+		new Vue({
+			el: "#app",
+			data: {
+				list1: ['北京', '上海', '广州',],
+				list2: ['vue', 'react', 'js']
+			}
+		});
+	</script>
+</body>
+
+</html>

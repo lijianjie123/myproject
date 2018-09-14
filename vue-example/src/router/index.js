@@ -163,6 +163,8 @@ router.afterEach((to, from, next) => {
   if (to.meta.title) {
     window.document.title = to.meta.title;
   } else {
+    window.document.title = "miaov";
+  }
   }
 });*/
 export default router; // 导出路由

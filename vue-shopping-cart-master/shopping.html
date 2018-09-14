@@ -18,8 +18,6 @@
                 <div class="tab-wrap">
                     <ul class="cate-tab">
                         <li class="cate" v-for='(cates,index) in cate' :class='{"tab-active": cate_index === index}' :key='index' @click="chooseType(index)">{{cates.des}}</li>
-
-
                     </ul>
                 </div>
                 <ul class="filter-bar">

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Untitled Document</title>
+    <script type="text/javascript" src = "jquery-1.8.2.min.js"></script>
+    <style>
+        *{ padding: 0;margin: 0;}
+        #wrap{position: relative; }
+        .div2{ position:absolute;
+            left:0px;
+            top:0px; width: 100px;  height: 100px;background:#33ee66; margin: 10px;}
+
+    </style>
+
+<script>
+    window.onload = function(){
+        var wrap = document.getElementById('wrap');
+        var div1 = document.getElementById('div1');
+        var div2 = document.getElementsByTagName('div')[1];
+        var input = document.getElementsByTagName('input');
+
+        var clientW = document.documentElement.clientWidth;
+        var clientH = document.documentElement.clientHeight;
+        var iW = div2.offsetWidth;
+        var iH = div2.offsetHeight;
+        div2.style.left = (clientW - iW)/2 + 'px';
+        div2.style.top = (clientH - iH)/2 + 'px';
+        alert(input.length);
+        input[0].onclick = function(){
+           // console.log(clientW);
+            //alert(div2.id);
+           // alert(input.length);
+            var elem = div2.cloneNode();
+            elem.style.left = 0 + 'px';
+            elem.style.top = 0 + 'px';
+            wrap.insertBefore(elem,wrap.children[0]);
+        }
+    }
+</script>
+</head>
+
+<body>
+
+<input type="button" value="点击克隆">
+
+<div id="wrap">
+
+    <div class="div2" >aa</div>
+</div>
+</body>
+</html>

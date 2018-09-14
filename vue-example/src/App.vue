@@ -27,17 +27,17 @@
       </ul>
     </div>
     当前导航下标：{{$route.meta.index}}
-<div class="main">
-    <!-- 把要有效果的 元素  放到<transition>过度动效标签内 -->
-      <!-- mode = "in-out" 过渡模式     in-out：新元素先进行过度，完成之后当前元素过渡离开     out-in：当前元素先进行过渡，完成之后新元素过渡进入-->
-    <!-- <transition mode = "out-in" name = "left"> -->  
-      <!-- 去掉了mode  -->
-      <transition  :name = "names"> 
-      <!-- 告诉路由  把组件渲染在这   这里的class 最终会把class渲染到对应组件的跟节点 上去，  跟节点有类名  这里也有  最终是  拼接类名   就是组件上  两个类名都存在-->
-      <router-view class="center"></router-view>
-    </transition>
-    <router-view name="slider"></router-view>
-</div> 
+    <div class="main">
+        <!-- 把要有效果的 元素  放到<transition>过度动效标签内 -->
+          <!-- mode = "in-out" 过渡模式     in-out：新元素先进行过度，完成之后当前元素过渡离开     out-in：当前元素先进行过渡，完成之后新元素过渡进入-->
+        <!-- <transition mode = "out-in" name = "left"> -->  
+          <!-- 去掉了mode  -->
+          <transition  :name = "names"> 
+          <!-- 告诉路由  把组件渲染在这   这里的class 最终会把class渲染到对应组件的跟节点 上去，  跟节点有类名  这里也有  最终是  拼接类名   就是组件上  两个类名都存在-->
+          <router-view class="center"></router-view>
+        </transition>
+        <router-view name="slider"></router-view>
+    </div> 
   </div>
 </template>
 

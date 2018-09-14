@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- <script>
+        // 获取后端图片数据列表 可能很多 比如100个 这时是一个json字符串
+        var imgJsonStr = "[{'img':'1.jpg'},{'img':'2.jpg'},{'img':'3.jpg'},{'img':'4.jpg'},{'img':'5.jpg'},{'img':'6.jpg'},{'img':'7.jpg'},{'img':'8.jpg'}]";
+        var imgJsonObj = eval(imgJsonStr); // $.parseJson(imgList); var obj = jQuery.parseJSON('{"name":"John"}');
+        createImg();
+        function getArrayItems(arr, num) {
+            //新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
+            var temp_array = new Array();
+            for (var index in arr) {
+                temp_array.push(arr[index]);
+            }
+            var return_array = new Array();
+            for (var i = 0; i < num; i++) {
+                if (temp_array.length > 0) {
+                    var arrIndex = Math.floor(Math.random() * temp_array.length);
+                    return_array[i] = temp_array[arrIndex];
+                    temp_array.splice(arrIndex, 1);
+                } else {
+                    break;
+                }
+            }
+            return return_array;
+        }
+        function createImg() {
+            var imgObj = getArrayItems(imgJsonObj, 8);
+
+            var imgListArr = new Array();
+            var imgListArrF = new Array();
+            var imgListArrS = new Array();
+            var imgListArrT = new Array();
+            for (imgIndex in imgObj) {
+                if (imgIndex <= 2) {
+                    imgListArrF.push(imgObj[imgIndex]);
+                } else if (imgIndex <= 5) {
+                    imgListArrS.push(imgObj[imgIndex]);
+                } else if (imgIndex <= 7) {
+                    imgListArrT.push(imgObj[imgIndex]);
+                } else {
+                    break;
+                }
+            }
+            imgListArr.push(imgListArrF);
+            imgListArr.push(imgListArrS);
+            imgListArr.push(imgListArrT);
+
+            var str = '';
+            var line_class = ['lineF', 'lineS', 'lineT'];
+            for (imgListLine in imgListArr) {
+                str += '<div class="' + line_class[imgListLine] + '">'
+                for (index in imgListArr[imgListLine]) {
+                    str += '<div class="boxF"><div class="boxS"><div class="boxT"><img src="../../style/official/single_game/kancolle/lang_common/img/' + imgListArr[imgListLine][index]['img'] + '"/><div class="overlay"><a href="#">+</a></div></div></div></div>'
+                }
+                str += '</div>';
+            }
+            document.getElementById("wrapScrollBigPic").innerHTML = '<a onclick="createImg()" class="change" href="javascript:voide(0);">change</a>' + str;
+        }
+
+    </script> -->
+
+
+</body>
+
+</html>

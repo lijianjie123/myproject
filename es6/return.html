@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>return验证测试</title>
+<!-- 
+    js中的return的作用
+    1.终止函数的继续运行
+    当遇到if...else时， 若出现return，就会出现终止运行， 不会继续做出判断
+    当返回的是true时， 将继续操作，
+    当返回的是false时， 将中断操作
+    2.返回函数值
+    返回函数中的值，外部调用函数时， 则会调用这个值。闭包中就是运用这个属性， 调用函数内部的 局部变量， 以不影响全局变量。
+ -->
+
+<!-- <script language="javascript">
+    function Login_Click(){
+        if(document.form1.UsName.value==""){
+            alert('用户名为空');
+        }
+        if(document.form1.UsPwd.value==""){
+            alert('密码为空');
+        }
+        alert('登陆成功');
+    }
+</script> -->
+<script language="javascript">
+    function Login_Click(){
+        if(document.form1.UsName.value==""){
+            alert('用户名为空');
+            return;
+        }
+        if(document.form1.UsPwd.value==""){
+            alert('密码为空');
+            return;
+        }
+        alert('登陆成功');
+    }
+    // PS：不加return的现象是先提示用户名没输入，然后提示密码没输入；加了return之后遇到一个没输入之后就不再继续检测
+</script>
+</head>
+<body>
+<form name="form1">
+<input type="text" name="UsName" >用户名
+<input type="password" name="UsPwd">密码
+<input type="button" name="Login" onClick="Login_Click();" >登陆
+</form>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>仿select</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="vue.js"></script>
+</head>
+
+<body>
+	<div class="app">
+		<div style="float: left;">
+			<h2>自定义组件1</h2>
+			<custom-select btn='搜索' :list='list1'></custom-select>
+		</div>
+		<div style="float: left;">
+			<h2>自定义组件2</h2>
+			<custom-select btn='查询' :list='list2'></custom-select>
+		</div>
+	</div>
+
+	<script>
+		Vue.component('custom-select', {
+			data: function () {
+				return {
+					selectShow: false,
+					val: "",
+				}
+			},
+			props: ['btn', 'list'],
+			template: `
+					<section class="warp">
+						<div class="searchIpt clearFix">
+							<div class="clearFix">
+								<input type="text" class="keyWord" :value="val"  @click = "selectShow = !selectShow"/>
+								<input type="button" :value="btn">
+								<span></span>
+							</div>
+							<custom-list 
+							v-show = "selectShow"
+							:listD = 'list'
+							@receive = "changeValue"
+							>
+							</custom-list>
+						</div>
+					</section>
+			
+			`,
+			methods: {
+				changeValue(val) {
+					this.val = val;
+
+				}
+			}
+		})
+
+		Vue.component('custom-list', {
+			props: ['listD'],
+			template: `
+						<ul class="list">
+							<li v-for = "item in listD"
+							@click = "selectValue(item)"
+							>{{item}}</li>
+							
+						</ul>
+					`,
+			methods: {
+				selectValue: function (item) {
+					this.$emit('receive', item);
+
+				}
+
+			}
+		})
+		let vm = new Vue({
+			el: ".app",
+			data: {
+				list1: ['北京', '上海', '广州'],
+				list2: ['css', 'html', 'js', 'vue']
+			}
+		})
+
+	</script>
+
+
+	<!-- <script>
+		var keyWord = document.querySelector('.keyWord');
+		var list = document.querySelector('.list');
+		var lis = list.querySelectorAll('li');
+
+		keyWord.onfocus = function() {
+			list.style.display = 'block';
+		}
+
+		keyWord.onblur = function() {
+			setTimeout(function() {
+				list.style.display = 'none';
+			}, 80);
+		}
+
+		for (var i=0; i<lis.length; i++) {
+			lis[i].onclick = function() {
+				for (var i=0; i<lis.length; i++) {
+					lis[i].className = '';
+				}
+				this.className = 'active';
+				console.log( this.innerHTML );
+				keyWord.value = this.innerHTML;
+			}
+		}
+	</script> -->
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.min.js"></script>
+</head>
+
+<body>
+    <!-- <script>
+        let arr = [1, 2, 3, 4, 5, 6];
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] * 2;
+        }
+    </script> -->
+
+    <!-- <script>
+        //map 方法
+        let arr = [1, 2, 3, 4, 5, 6];
+        arr = arr.map(function (item, index, arr) { //item 数组每一项，index 索引， arr数组
+            // console.log(item);
+            // console.log(index);
+            // console.log(arr);
+            return item * 2
+        })
+        console.log(arr);
+
+        // es6 写法
+        arr = arr.map(item => { return item * 2 })
+        arr = arr.map(item => item * 2);
+    </script> -->
+    <!-- <script>
+        //name:姓名，isHell：是否签到
+
+        var sporter = [{
+            name: 'aa',
+            isHell: null
+        }, {
+            name: 'bb',
+            isHell: null
+        }, {
+            name: 'bb',
+            isHell: true
+        }];
+        // console.log(sporter)
+
+        // sporter.map(function (item) {
+        //     if (item.isHell) {
+        //         item.isHell = 'true'
+        //     } else {
+        //         item.isHell = '--'
+        //     }
+        // })
+        // console.log(sporter);
+
+        // //map还有一个较常用的场景，也用上面那个数组，但是现在需要每一个球员的名字，不管他是否有签到。
+        // //item 为当前遍历的项，和arr[i]一样
+        // var arr1 = sporter.map(function (item) {
+        //     return item.name
+        // })
+        // console.log(arr1);
+
+        //filter
+        var arr2 = sporter.filter(function (item) {
+            return item.isHell
+        })
+
+        var arr2 = sporter.filter(item => { return item.isHell })
+        //或者
+        var arr2 = sporter.filter(item => item.isHell)
+        console.log(arr2);
+
+        /*item为当前遍历到的项,和arr[i]一样，index为当前遍历到的项的索引，和i一样，self就是当前数组，和arr一样*/
+        // r = arr.filter(function (item, index, self) {
+        //     return self.indexOf(item) == index;
+        // });
+
+
+    </script> -->
+
+    <!-- <script>
+
+        //数组去重
+        var r = [], arr = ['apple', 'strawberry', 'banana', 'pear', 'apple', 'orange', 'orange', 'strawberry'];
+        for (var i = 0; i < arr.length; i++) {
+            if (r.indexOf(arr[i]) === -1) {// indexof 查找某一项‘如：apple’  在数组中的下标，  如果没找到就会返回-1；
+                r.push(arr[i]);
+            }
+        }
+        console.log(r);
+
+
+        /*item为当前遍历到的项,和arr[i]一样，index为当前遍历到的项的索引，和i一样，self就是当前数组，和arr一样*/
+
+        r = arr.filter(function (item, index, self) { //item 数组每一项，index 索引， arr数组
+            return self.indexOf(item) == index;
+        })
+
+
+    </script> -->
+    <script>
+
+        // Every和Some为什么要一起写呢，因为这两个方法很像。
+        // every()对数组中的每一项运行给定函数，如果该函数对     '每一项'      都返回true，则返回true;
+        //  some()对数组中的每一项运行给定函数，如果该函数对     '任一项'      返回true，则返回true;
+
+
+        //可以设想这个场景，运动员进场如果需要每一个球员都必须签到，球队才能进场，实现这个需求就是
+        var sporter = [{
+            name: 'aa',
+            isHell: null
+        }, {
+            name: 'bb',
+            isHell: null
+        }, {
+            name: 'bb',
+            isHell: true
+        }];
+        // for  循环
+        // var isIn;
+        // for (var i = 0, len = sporter.length; i < len; i++) {
+        //     if (!sporter[i].isHell) {
+        //          isIn = false;
+        //          break;
+        //      }
+        // }
+        var arr = sporter.every(function (item) {
+            return item.isHell
+        })
+        console.log(arr);
+        //es6写法
+        var arr = sporter.every(item => { return item.isHell })
+        //或者
+        var arr = sporter.every(item => item.isHell)
+
+
+        //另一个场景，运动员进场只需要球队任意一个运动员签到，球队就能进场，实现这个需求就是
+
+        //for方式
+        var isIn;
+        for (var i = 0, len = sporter.length; i < len; i++) {
+            if (!sporter[i].isHell) {
+                isIn = true;
+                break;
+            }
+        }
+        //some方式
+        /*item为当前遍历到的项,和sporter[i]一样*/
+        var arr = sporter.some(function (item) { return item.isHell })
+        //es6写法
+        var arr = sporter.some(item => { return item.isHell })
+
+
+
+        //Foreach
+        //for方式
+
+        // for (var i = 0, len = sporter.length; i < len; i++) {
+        //     sporter[i].sex = '男';
+        //     sporter[i].age = 30;
+        // }
+        // console.log(sporter);
+
+
+        //forEach方式
+
+        /*item为当前遍历到的项,和arr[i]一样*/
+        //sporter.forEach(function (item) { item.sex = '男' })
+        //console.log(sporter);
+        //es6写法
+        sporter.forEach(item => { item.sex = '男' })
+        console.log(sporter);
+
+
+
+
+
+        //find：     方法返回传入一个测试条件（函数）符合条件的数组第一个元素。
+
+        //findIndex：方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。
+
+
+        //for方式
+
+        var getItem, arr = [11, 22, 33, 44, 55, 66];
+        for (var i = 0, len = arr.length; i < len; i++) {
+            if (arr[i] > 30) {
+                getItem = arr[i];
+                break;
+            }
+        }
+        //find
+
+        arr.find(function (val) { return val > 30 })
+        // es6写法
+
+        arr.find(val => val > 30)
+
+
+        // findIndex（）函数查找目标元素，找到就返回元素的位置， 找不到就返回 - 1
+        var alreadyIndex = Cart.cart.findIndex(function (item, index) {
+            // findIndex（）函数查找目标元素，找到就返回元素的位置， 找不到就返回-1
+            return item.id == goods.id; // -1     点击的时候查看这个item.id == goods.id值  是否相等，相等代表已经添加过了， 返回-1才是cart：[] 数组中不存在  然后进行添加
+            // 这里item.id == goods.id;返回商品所在的位置，
+        });
+
+        //indexOf 查找指定字符是在字符串中的下标。在则返回所在字符串下标；不在则返回-1.  
+        System.out.println(string.indexOf("b"));//indexOf(String str)；返回结果：-1，"b"不存在  
+
+    </script>
+
+
+</body>
+
+</html>

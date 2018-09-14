@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>仿select</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="vue.js"></script>
+
+</head>
+
+<body>
+	<div class="app">
+		<div style='float: left'>
+			<h2>自定义组件1</h2>
+			<custom-select btn="搜索" :list='list1'></custom-select>
+		</div>
+		<div style='float: left'>
+			<h2>自定义组件2</h2>
+			<custom-select btn="查询" :list='list2'></custom-select>
+		</div>
+	</div>
+	<script>
+		Vue.component('custom-select', {
+			data: function () {
+				return {
+					selectShow: false,
+					val: '',
+					con: '',
+				}
+			},
+			props: ['btn', 'list'],
+			template:
+				//46 行的@receive = "changeVal" 写在子组件标签名上
+				`<section class="warp">
+					<div class="searchIpt clearFix">
+						<div class="clearFix">
+							<input type="text" class="keyWord" :value="val" @click = "selectShow = !selectShow"
+							
+							/>
+							<input type="button" :value="btn">
+							<span></span>
+						</div>
+						<custom-list 
+						v-show = "selectShow" 
+						:listD = "list"
+						@receive = "changeVal"
+						></custom-list>
+					</div>
+				</section>
+			`,
+			methods: {
+				changeVal(item) {
+					this.val = item;
+
+				}
+			}
+
+		})
+
+		Vue.component('custom-list', {
+			props: ['listD'],
+			template: `
+						<ul class="list" >
+							<li v-for = "item in listD" @click = "selectValueHandle(item)">{{item}}</li>
+						</ul>
+			`,
+			methods: {
+				selectValueHandle(item) {
+					//子组件向父组件传递数据
+
+					// 子传父，
+					// 1.父级定义一个事件函数
+					// 2.把这个函数传给子级
+					// 给子级身上加个自定义事件
+					// @chang="父级的事件函数"
+					// 3.子级调用
+					// 当子级某个事件触发的时候通过
+					//this.$emit('chang', 可以跟参数)
+
+					this.$emit('receive', item);
+				}
+			}
+		})
+		let vm = new Vue({
+			el: '.app',
+			data: {
+				list1: ['语文', '数学', '英语', '文综', '理综'],
+				list2: ['html', 'css', 'js', 'vue', 'react'],
+			}
+
+		})
+	</script>
+
+	<!-- <script>
+		var keyWord = document.querySelector('.keyWord');
+		var list = document.querySelector('.list');
+		var lis = list.querySelectorAll('li');
+
+		keyWord.onfocus = function() {
+			list.style.display = 'block';
+		}
+
+		keyWord.onblur = function() {
+			setTimeout(function() {
+				list.style.display = 'none';
+			}, 80);
+		}
+
+		for (var i=0; i<lis.length; i++) {
+			lis[i].onclick = function() {
+				for (var i=0; i<lis.length; i++) {
+					lis[i].className = '';
+				}
+				this.className = 'active';
+				console.log( this.innerHTML );
+				keyWord.value = this.innerHTML;
+			}
+		}
+	</script> -->
+</body>
+
+</html>
