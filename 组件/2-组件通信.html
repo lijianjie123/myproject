@@ -74,7 +74,8 @@
 						</ul>
 
 						`,
-			// 因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。
+			// 因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，例如 data、computed、watch、methods 以及生命周期钩子等。
+			// 仅有的例外是像 el 这样根实例特有的选项。
 			methods: {
 				selectValueHandle(item) {
 					//子组件往父组件传递数据   需要用到自定义事件，父组件用$on监听自定义事件，  $emit 触发父组件所关心的自定义事件

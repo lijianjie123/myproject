@@ -2,8 +2,8 @@
   <div id="app">
     <mt-header fixed title="固定在顶部"></mt-header>
     <!--把路径对应的组件 替换在这里-->
-    <router-view name = "nav"/>
-    <router-view/>
+    <router-view><router-view/>
+   
   </div>
 </template>
 

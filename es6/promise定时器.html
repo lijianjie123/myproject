@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        console.log("张一");
+        setTimeout(function () {
+            console.log("王三")
+        }, 500);
+        setTimeout(function () {
+            console.log("李四")
+        }, 500);
+        setTimeout(function () {
+            console.log("刘五")
+        }, 500);
+        console.log("李二");
+
+
+
+        console.log(1);
+        setTimeout(function () {
+            console.log(2)
+        }, 0)
+        console.log(3)
+
+        // promise定时器.html:14  张一
+        // promise定时器.html:24 李二
+        // promise定时器.html:28 1
+        // promise定时器.html:32 3
+        // promise定时器.html:30 2
+        // promise定时器.html:16 王三
+        // promise定时器.html:19 李四
+        // promise定时器.html:22 刘五
+
+
+
+        const p = new Promise(function (resolve, reject) {
+            console.log(4)
+            resolve()
+        })
+        p.then(() => {
+            console.log(5)
+        })
+
+        // JS中的异步操作：
+        // 1、定时器都是异步操作
+        // 2、事件绑定都是异步操作
+        // 3、AJAX中一般我们都采取异步操作（也可以同步）
+        // 4、回调函数可以理解为异步（不是严谨的异步操作）
+        // 剩下的都是同步处理
+        // 回调函数
+        // 你到一个商店买东西，刚好你要的东西没有货，于是你在店员那里留下了你的电话，过了几天店里有货了，店员就打了你的电话，然后你接到电话后就到店里去取了货。
+        // 在这个例子里，你的电话号码就叫回调函数，你把电话留给店员就叫登记回调函数，店里后来有货了叫做触发了回调关联的事件，店员给你打电话叫做调用回调函数，
+        // 你到店里去取货叫做响应回调事件。
+
+
+
+        // Promise 是异步变成的一种解决方案， 比传统的方案-- - 回调函数和事件-- - 更合理和强大   ES6 将其写进了语言标准 同意了语法  原生提供了Promise
+        // 三种状态
+        // pending： 进行中
+        // fulfilled: 已经成功
+        // rejected 已经失败
+        // 状态改变
+        // 从pending变为fulfilled(成功)
+        // 从pending变为rejected(失败)
+        // 这两种情况只要发生，状态就凝固了，不会再变了，这时就称为resolved（已定型）
+
+    </script>
+</body>
+
+</html>

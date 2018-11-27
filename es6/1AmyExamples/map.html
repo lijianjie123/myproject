@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function square(arr){
+            return arr.map(function(item){
+                return item*item;});
+        }
+        var arr=[1, 2, 3, 4];
+        console.log(square(arr));
+    </script>
+
+    <script>
+        var arr = [55,8,9,2,48,5,6,33,6,5,330,289,78];
+        var arr1 = arr.map(function(item,index ,Array){
+            console.log(item);
+            console.log(index);
+            console.log(Array);
+            return item*2;
+        })
+        console.log(arr1);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

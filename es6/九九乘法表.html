@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //九九乘法表
+        for (var i = 1; i <= 9; i++) {
+            // console.log('我是' + i)
+            for (var j = 1; j <= 9; j++) {
+                if (i == j) {
+                    //console.log(j + '* ' + i)
+                    document.write(j + '*' + i + '=' + (j * i) + ',');
+                    break;
+                } else {
+                    document.write(j + '*' + i + '=' + (j * i) + ', ');
+                }
+            }
+            document.write('</br>')
+        }
+        // 把数组中的内容一个一个删除
+        // var arr = [1, 2, 3, 4, 5, 6];
+        // var len = arr.length;
+        // for (var i = 0; i <= len; i++) {
+        //     if (arr.length > 0) {
+        //         arr.shift(arr[0])  // shift() 从数组的开头删除   pop() 从末尾删
+        //     }
+        // }
+        // console.log(arr)
+
+        // 求和，实现 1+（1+2）+（1+2+3）+（1+2+3+4）+（1+2+3+4+5）=35
+        // var sum = 0, sumRow = 0;
+        // for (var i = 1; i <= 5; i++) { //外层循环转一次，内层循环转一圈。
+        //     sumRow = 0;
+
+        //     if (i != 1) { document.write('(') }
+        //     else if (i == 5) { document.write(')') }
+        //     else {
+        //         document.write(')+')
+        //     }
+        //     //if (i == 1) { document.write('+') }
+        //     // for (var j = 1; j <= 5; j++) {
+        //     //     if (j == 5) {
+
+        //     //     }
+        //     // }
+        // }
+
+
+
+
+
+
+
+
+        // var sum = 0, sumRow = 0;
+        // for (var i = 1; i <= 5; i++) {
+        //     sumRow = 0;
+
+        //     if (i != 1) document.write("(");
+
+        //     for (var j = 1; j <= i; j++) {
+        //         if (j != i) document.write(j + "+");
+        //         else document.write(j);
+        //         sumRow += j;
+        //     }
+        //     if (i == 1) document.write("+");
+        //     else if (i == 5) document.write(")=");
+        //     else document.write(")+");
+
+        //     sum += sumRow;
+        // }
+        // document.write(sum);
+
+
+
+
+
+        // 矩形
+
+        // for (var i = 1; i <= 3; i++) {
+        //     console.log('我是' + i)
+        //     for (var j = 1; j <= 3; j++) {
+        //         document.write('*')
+        //     }
+        //     document.write('</br>')
+        // }
+
+        // 逢10换行
+        // for (var i = 1; i <= 10; i++) {
+        //     //console.log('我是' + i)
+        //     for (var j = 1; j <= 10; j++) {
+        //         if (i == j) {
+        //             document.write(j + i + ',')
+        //             console.log(j)
+        //             break;
+        //         } else {
+
+        //         }
+        //     }
+        //     // document.write('</br>')
+        // }
+        // document.write('<hr/>')
+
+
+
+
+
+
+
+
+
+
+
+        // foo(); // 在函数声明之后调用 foo，可以正常调用。因为 foo 被提前到最前面定义了。
+
+        // var foo = function () {
+
+        //     console.log(true);
+
+        // }
+
+        // 1.输出100 以内与7相关的数
+        // var str = '';
+        // for (var i = 1; i <= 100; i++) {
+        //     if (i % 7 == 0 || i % 10 == 7 || (i > 70 && i < 80)) {
+        //         str += i + ',';
+        //     }
+        // }
+        // alert(str);
+
+        // 累加求和 100 以内所有数相加　　
+
+        // var sum = 0;
+        // for (var i = 0; i < 100; i++) {
+        //     sum += i;
+        // }
+        // console.log(sum)
+
+
+        var cont = 0;
+        for (var i = 1; i <= 13; i++) {
+            for (var j = 1; j <= 61; j++) {
+                for (var k = 1; k <= 91; k++) {
+                    if ((i * 15 + j * 3 + k * 2) <= 200) {
+                        cont += 1;
+                        console.log(cont);
+                    }
+                }
+            }
+        }
+        console.log(cont);
+
+    </script>
+
+
+</body>
+
+</html>

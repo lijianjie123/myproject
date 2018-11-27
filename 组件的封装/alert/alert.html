@@ -158,7 +158,8 @@
 		</m-alert>
 		<m-alert type=warning title="警告中" :closeable="true"></m-alert>
 		<m-alert type=success title="恭喜你，成功了" :closeable="false"></m-alert>
-		<!--type 和 title 是传入的值, closeable控制的是关闭按钮是否显示 用了绑定:的方式，true为不显示， false 为显示   show-icon 控制的是 是否显示图标，也用了绑定的方式 传值， true显示， false 隐藏-->
+		<!--type 和 title 是传入的值, closeable控制的是关闭按钮是否显示 用了绑定:的方式，true为不显示， false 为显示
+			   show-icon 控制的是 是否显示图标，也用了绑定的方式 传值， true显示， false 隐藏-->
 		<m-alert type=error title="错误了， 需重写" :closeable="false" :show-icon="true" style="background-color:pink" @close-click="closeTodo">
 
 		</m-alert>

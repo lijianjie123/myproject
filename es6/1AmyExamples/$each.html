@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.8.2.min.js"></script>
+</head>
+
+<body>
+    <div>
+        计划类别:
+        <select id="PLANTYPE">
+            <option value="0">-所有-</option>
+            <option value="1">新建</option>
+            <option value="2">续建</option>
+        </select>
+        申报类型:
+        <select id="AUDITTYPE">
+            <option value="0">-所有-</option>
+            <option value="1">申报</option>
+            <option value="2">修改</option>
+        </select>
+    </div>
+    <script>
+        /*$('option').each(function(index, data){
+            //console.log($(this).text());
+            console.info($( data ).text());
+        })*/
+
+        /*$('select').each(function(index, data){
+            $('option', data).each(function(m,n){  //$("option", data)一定要加上 data或者$("option",this)，表示此对象下的option否则就是所有的option。
+                console.log($(this).text())
+            })
+        })*/
+        $.each($('option'), function (index, data) {
+            console.log(index + ':' + data)
+            console.info($(this).text())
+        })
+
+        //遍历数组
+        $.each([1, 2, 3], function (i, n) {
+            console.log(i + ':' + n)
+
+        })
+        $.each({ name: "itmyhome", addr: "Beijing" }, function (i, n) {
+            console.info("key: " + i + ", Value: " + n);
+        });
+
+    </script>
+
+</body>
+
+</html>

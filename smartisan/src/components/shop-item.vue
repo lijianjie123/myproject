@@ -1,64 +1,55 @@
-
 <template>
-    <div class="item" >
+<div class="item" >
         <div>
-            <div class="item-img"><img :alt="itemD.name" :src="itemD.sku_info[itemIndex].ali_image  + '?x-oss-process=image/resize,w_206/quality,Q_80/format,webp'" style="opacity: 1;">
+            <div class="item-img"><img :alt="item.name" :src="item.sku_info[itemIndex].ali_image + '?x-oss-process=image/resize,w_206/quality,Q_80/format,webp'" style="opacity: 1;">
             </div>
-            <h6>{{itemD.name}}</h6>
-            <h3 >{{itemD.name_title}}</h3>
+            <h6>{{item.name}}</h6>
+            <h3 >{{item.name_title}}</h3>
             <div class="params-colors">
                 <ul class="colors-list">
-                    <li v-for = "(sku,index) in itemD.sku_info" :key = "index" 
-                    :title =" sku.spec_json.show_name"
-                    >
-                        <a href="javascript:;" @click="tableIndex(index)" :class = "{'active': index==itemIndex }" >
-                        <img :src="'http://img01.smartisanos.cn/' + sku.spec_json.image +'20X20.jpg'">
-                        </a>
-                    </li>
+                    <li v-for = "(sku,index) in item.sku_info" :key = "index">
+                    <a href="javascript:;"  :title="sku.spec_json.show_name" :class="{'active': itemIndex === index}" @click= "changeClor(index)">
+                    <img :src="'http://img01.smartisanos.cn/'+sku.spec_json.image + '20X20.jpg'">
+                    </a>
+                </li>
                 </ul>
             </div>
             <div class="item-btns clearfix">
-                <span class="item-gray-btn"><a href="javascript:;" target="_blank">查看详情</a> </span>
-                <span class="item-blue-btn" @click = "addCarPanelHandle(itemD.sku_info[itemIndex])">加入购物车 </span>
+                <span class="item-gray-btn">
+                    <router-link :to = "{name:'Item',query:{itemId:item.sku_info[itemIndex].sku_id}}">查看详情</router-link>
+                    </span><span class="item-blue-btn" @click="addCarPanelHandle(item.sku_info[itemIndex])">加入购物车 </span>
             </div>
             <div class="item-price clearfix">
-                <i>¥</i><span>{{itemD.price}}</span>
+                <i>¥</i><span>{{item.price}}</span>
             </div>
             <div class="discount-icon">false</div>
             <div class="item-cover">
-                <a href="javascript:;" target="_blank"></a>
+              <router-link :to = "{name:'Item',query:{itemId:item.sku_info[itemIndex].sku_id}}"></router-link>
+                <!-- <a href="javascript:;" target="_blank"></a> -->
             </div>
         </div>
-    </div>
+</div>
 </template>
-
 <script>
 export default {
   data() {
     return {
+      // 要用到索引传值的时候  先自定义一个初始状态值为0
       itemIndex: 0
     };
   },
-  props: {
-    //子组件接收数据   要把props写在子组件的script中
-    itemD: {
-      type: Object // 这里的type 类型 Object要注意大小写  //这里出错写成了object
-    }
-  },
+  // 自组件接收父组件传递的值  要用props 接收  子组件中prop 中的值 是父组件  绑定的属性名称 :item = "item"即  ：和=  之间的那个值
+  props: ["item"],
   methods: {
-    tableIndex(index) {
-      console.log(index);
+    changeClor(index) {
       this.itemIndex = index;
-      //这里是点击小圆点  切换商品颜色  即是 切换的商品的img图片路径  这里图片路径也是从数据中读取出来的  所以要修改 图片上  对应的索引值
-      //<img :alt="itemD.name" :src="itemD.sku_info[itemIndex].ali_image  + '?style="opacity: 1;">
     },
     addCarPanelHandle(data) {
-      console.log("text");
-      this.$store.commit("addCarPanelData", data);
+      //声明一个变量data为对象{ info：data 就是传来的数据，  count：1   ++的数量}
+      let itemData = { info: data, count: 1 }; //这里给data 做下修改 把data改为对象
+      this.$store.commit("addCarPanelData", itemData);
     }
   }
 };
 </script>
 
-<style>
-</style>

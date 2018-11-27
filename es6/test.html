@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      var prime = function(len) {
+        var i, j;
+        var arr = [];
+        for (i = 1; i < len; i++) {
+          for (j = 2; j < i; j++) {
+            console.log(j);
+            if (i % j === 0) {
+              break;
+            }
+          }
+          if (i <= j && i != 1) {
+            arr.push(i);
+          }
+        }
+        return arr;
+      };
+      console.log(prime(10));
+    </script>
+    <script>
+      // console.log(c);//输出undefind
+      // // alert(d);报错错
+      // var c = 3;
+      // function test() {
+      //     var a = 1;
+      //     b = 2;
+      //     console.log(c)//输出三
+      // }
+      // console.log(c);//输出3
+      // test();
+
+      // function test() {
+      //     var a
+      //     console.log(a);//声明未赋值输出undefine
+      //     a = 1;
+      //     console.log(a);//1
+      // }
+      // // console.log(a);// 提示报错  a is not defined
+
+      // test();
+      //console.log(a);// 提示报错  a is not defined
+
+      // var i = 1;
+      // if (i == 1) {
+      //     var b = 2;
+      // }
+      // alert(b);//输出2
+      // for (var j = 0; j <= 2; j++) {
+      //     var c = 3;
+      //     console.log(c);// 3 3 3
+      // }
+      // console.log(c);//输出3
+
+      a = 10;
+      (function() {
+        console.log(a);
+        var a = 1;
+      })();
+
+      // b = 5;
+      // (function () {
+      //     var a = undefined;
+      //     a = b = 5
+      // })();
+      // console.log(b);// 5
+      //console.log(a); //这句报错  提示a is not defined   这里是找不到闭包函数里边的a的
+    </script>
+    <script>
+      // var a = 5;
+
+      // document.write(isNaN("aaa123")); //true
+
+      // document.write(isNaN(a));  //flase
+
+      // document.write(isNaN("123")); //flase,这isNaN指挥值判断是否为数字，不根据数据类型来判断
+
+      // var k = 4;
+      // window.onload = function () {
+
+      //     var k = 1;
+      //     function t1() {
+      //         var k = 2;
+
+      //         function test() { return k; }
+      //         console.info(test()); // 弹出 2
+
+      //         var test = function () { return k; };
+      //         console.info(test());  // 弹出 2
+
+      //         // var test = new Function("return k;");  // 每次执行的时候，动态的new，顶级作用域，无法获得局部变量
+      //         // console.info(test());  // 弹出 4
+
+      //     }
+      //     t1();
+      // };
+
+      function f() {
+        return 1;
+      }
+      console.log(f()); // 第四个函数把第一个函数覆盖
+      var f = new Function("return 2;");
+      console.log(f()); // 第二个函数把第四个函数覆盖
+      var f = function() {
+        return 3;
+      };
+      console.log(f()); // 第三个函数把第二个函数覆盖
+      function f() {
+        return 4;
+      }
+      console.log(f()); // 第四个函数已经被覆盖
+      var f = new Function("return 5;");
+      console.log(f()); // 第五个函数把第三个函数覆盖
+      var f = function() {
+        return 6;
+      };
+      console.log(f()); // 第六个函数把第五个函数覆盖
+      // 4 2 3 3 5 6
+    </script>
+    <script>
+      // function f() { return 4; }
+      // var f = function () { return 2 };
+      // function f() { return 4; }
+      // console.log(f());
+
+      var f = function() {
+        return 3;
+      };
+      console.log(f());
+      var f = new Function("return 2;");
+      console.log(f()); // 第二个函数把第四个函数覆盖
+
+      // (function (x, y) {
+      //     alert(x + y);
+      //     return x + y;
+      // }(3, 4));
+
+      // (function (x, y) {
+      //     alert(x + y);
+      //     return x + y;
+      // })(3, 4);
+
+      (function() {
+        alert("some script code");
+      })();
+
+      var a = (function(s) {
+        return s;
+      })("abc");
+      alert(a);
+      var b = function(s) {
+        return s;
+      };
+      alert(b("abc"));
+    </script>
+
+    <script>
+      window.onload = function() {
+        var arr = ["m", "", 1, NaN, 20, 3, "20Px", 56, 18];
+        var result = 0; //定义数据累加的值，定义变量的时候需要赋值， 不然 数字累加 会出现NaN （因为进行了非法操作）
+        var temp = [];
+        for (var i = 0; i < arr.length; i++) {
+          if (
+            Object.prototype.toString.call(arr[i]) === "[object Number]" &&
+            isNaN(arr[i]) == false
+          ) {
+            //console.log(arr[i])
+            temp.push(arr[i]);
+            result += arr[i];
+          }
+        }
+
+        console.log(result);
+      };
+    </script>
+  </body>
+</html>

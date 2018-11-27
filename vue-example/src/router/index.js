@@ -48,7 +48,7 @@ let router = new VueRouter({
       component: home
     },
     {
-      path: "/user/:tip?/:userId?", //动态匹配id  ?问号代表有或没有  // /user/tip/1 /user/tip/2 /user/
+      path: "/user/:tip?/:userId?", //动态匹配id  ?问号代表有或没有  // /user/tip/1， /user/tip/2， /user/
       component: user,
       // 设置路由元信息  meta   就是设置下标 索引
       meta: {

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /**已知有字符foo="get-element-by-id"，写一个function将其转换成驼峰表示法"getElementById"
+
+    var o = {
+        trans:function (msg){
+            var i,
+                    tempArr = msg.split('-'),
+                    len = tempArr.length;
+            for(i = 1; i < len; i++){
+                tempArr[i] = tempArr[i].charAt(0).toUpperCase()+tempArr[i].substr(1,tempArr[i].length-1);
+            }
+            msg = tempArr.join('');
+            return msg;
+        }
+    };
+    o.trans('get-element-by-id');
+    */
+
+
+
+    /* allCaps('borderBottom')
+    function allCaps(text){
+         for(var i=0;i<text.length;i++){
+             alert(text.charAt(i))
+             alert(i);
+             var c =text.charAt(i);
+
+             if(c<'A' || c>'Z')
+                 return true;
+         }
+         return false;
+     }*/
+    /*isUpperCase('a');
+    function isUpperCase(ch){
+        var ch = ch;
+      if( ch >= 'A' && ch <= 'Z')  {
+          console.log(true);
+          return true;
+      }else{
+          console.log(false);
+          return false;
+      }
+    }*/
+
+    form('borderBottomBorderBottom');
+
+     function form(str){
+         var str = str;
+        // console.log(str);
+         //var arr = str.split('');
+             var arr1  = [];
+         //console.log(arr);
+         for(var i= 0; i<str.length; i++){
+             if(str[i]>= 'A' && str[i] <= 'Z'){
+                 console.log(str[i]);
+                // str[i] = str[i].toUpperCase();
+                 console.log(i);
+                 arr1.push(str);
+                 //str = str.join('');
+                 //str[i] =
+             }else{
+                 //alert(i)
+                 str[i] = str[i].toUpperCase();
+             }
+         }
+         console.log(str);
+
+     }
+
+    /*form('border-bottom-border-bottom');
+
+    function form(str){
+        console.log(str);
+       var arr = str.split('-');
+        console.log(arr);
+        for(var i= 0; i<arr.length; i++){
+            arr[i] = arr[i].charAt(0).toUpperCase()+ arr[i].substring(1);
+        }
+        console.log(arr.join(''));
+        return arr.join('');
+
+    }*/
+    /*
+     tranformStr1('border-bottom-border-bottom');
+    function tranformStr1(str){
+        var strArr=str.split('-');
+        console.log(strArr);
+        for(var i=0;i<strArr.length;i++){
+
+            strArr[i]=strArr[i].charAt(0).toUpperCase()+strArr[i].substring(1);
+            console.log( strArr[i]);
+        }
+        console.log( strArr.join(''));
+        return strArr.join('');
+       // alert(0);
+
+    }*/
+
+
+</script>
+
+</body>
+</html>

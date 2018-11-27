@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        a{ color: #000; text-decoration: none ;  }
+        .btnBox a{.cursor: pointer; padding: 15px; display: inline-block;}
+        .imgWrap{ width: 514px; position: relative; border: 5px solid #ccc; margin: 0 auto}
+        .btnBox{width: 514px; margin: 0 auto}
+        .imgWrap span{  height: 30px; text-align: center; background: #000; color: #fff; display: block; width: 514px; }
+        .imgWrap p{ background: #000; color: #fff; text-align: center;}
+        .arrow {
+            position: absolute;
+            top: 80px;
+            z-index: 2;
+            display: none;
+            width: 40px;
+            height: 40px;
+            font-size: 36px;
+            font-weight: bold;
+            line-height: 39px;
+            text-align: center;
+            color: #fff;
+            background-color: RGBA(0, 0, 0, .5);
+            cursor: pointer;
+            display: block;
+        }
+
+        .arrow:hover {
+            background-color: RGBA(0, 0, 0, .8);
+        }
+
+        /*#container:hover .arrow {
+            display: block;
+        }*/
+
+        #prev {
+            left: 20px;
+        }
+
+        #next {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id = 'wrap'>
+    <div class="btnBox">
+        <a href="javascript:;" id = "shun">顺序播放</a>
+        <a href="javascript:;" id = "xun">循环播放</a>
+    </div>
+    <div class="imgWrap">
+        <span>1/3</span>
+        <img src="img2/banner1.png" width="514" height="191">
+        <a href="javascript:;" id="prev" class="arrow">&lt;</a>
+        <a href="javascript:;" id="next" class="arrow">&gt;</a>
+        <p>第一张图片</p>
+    </div>
+</div>
+<script>
+window.onload = function(){
+    var wrap = document.getElementById('wrap');
+    var prev = document.getElementById('prev');
+    var next = document.getElementById('next');
+    var shun = document.getElementById('shun');
+    var xun = document.getElementById('xun');
+    var imgS = wrap.getElementsByTagName('img')[0];
+    var p = wrap.getElementsByTagName('p')[0];
+    var span = wrap.getElementsByTagName('span')[0];
+    var arrHtml = ['第一张图片','第二张图片','第三张图片'];
+    var imgSrc = ['img2/banner1.png','img2/banner3.png','img2/banner3.png'];
+
+    alert(imgSrc.pop());
+    alert(imgSrc);
+
+    var num = 0;
+    var onoff = false; //true为顺序播放  false 为循环播放
+    tab();
+    shun.onclick = function(){
+        onoff = true;
+    };
+    xun.onclick = function(){
+        onoff = false;
+    };
+    prev.onclick = function(){
+        num--;
+        if(num<0){
+            if(onoff){
+                num = 0;
+                alert('已经第一张图片了');
+            }else{
+                num = imgSrc.length-1;
+            }
+        }
+        tab();
+    };
+    next.onclick = function(){
+        num++;
+        if(num>imgSrc.length-1){
+            if(onoff){
+                num=imgSrc.length-1;
+                alert('最后一张图片了');
+            }else{
+                num = 0;
+            }
+        }
+        tab();
+    };
+
+
+
+function tab(){
+    imgS.src = imgSrc[num];
+    p.innerHTML = arrHtml[num];
+    span.innerHTML = num+1 + '/'+ imgSrc.length;
+
+}
+
+
+
+
+}
+</script>
+
+</body>
+</html>

@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "axios": "^0.18.0",
     "vuex": "^3.0.1"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "build": "node build/build.js"
   }
 }

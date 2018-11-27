@@ -7,6 +7,7 @@ import router from "./router/";
 import store from "./store/index1";
 
 Vue.config.productionTip = false;
+import "@/assets/css/select.css";
 
 /* eslint-disable no-new */
 new Vue({

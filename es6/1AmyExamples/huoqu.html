@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3种用tagname和id获取元素的方法</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <h1 class="box-tit">分类名称</h1>
+        <ul class="box-list" id="box-list">
+            <li class="box-listI">
+                <input class="box-listI-input">
+                <button>保存</button>
+                <button>取消</button>
+            </li>
+            <li class="box-listI">
+                <input class="box-listI-input">
+                <button>保存</button>
+                <button>取消</button>
+            </li>
+            <li class="box-listI">
+                <input class="box-listI-input">
+                <button>保存</button>
+                <button>取消</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        //[1]整体法，先获取所有的元素，再通过ai+-b的方法来算出需要的元素
+        var oList = document.getElementById('box-list');
+        var aInput = oList.getElementsByTagName('input');
+        var aBtn = oList.getElementsByTagName('button');
+
+        for (var i = 0; i < aBtn.length; i++) {
+            aBtn[i].index = i;
+        }
+        for (var i = 0; i < aInput.length; i++) {
+            //确定按钮
+            aBtn[2 * i].onclick = function () {
+                aInput[this.index / 2].disabled = true;
+            }
+            //取消按钮
+            aBtn[2 * i + 1].onclick = function () {
+                aInput[(this.index - 1) / 2].disabled = false;
+                aInput[(this.index - 1) / 2].value = '';
+                console.log(1);
+            }
+        }
+        //[2]数组法，在全局环境下建立空数组，遇到需要循环的结构时，在循环中获取元素，并放入数组
+        var oList = document.getElementById('box-list');
+        var aIn = oList.getElementsByTagName('li');
+        var aInput = [];
+        var aBtnY = [];
+        var aBtnX = [];
+        for (var i = 0; i < aIn.length; i++) {
+            aInput[i] = aIn[i].getElementsByTagName('input')[0];
+            aBtnY[i] = aIn[i].getElementsByTagName('button')[0];
+            aBtnX[i] = aIn[i].getElementsByTagName('button')[1];
+
+            aBtnY[i].index = aBtnX[i].index = i;
+            //确定按钮
+            aBtnY[i].onclick = function () {
+                aInput[this.index].disabled = true;
+            }
+            //取消按钮
+            aBtnX[i].onclick = function () {
+                aInput[this.index].disabled = false;
+                aInput[this.index].value = '';
+                console.log(2);
+            }
+        }
+
+        //[3]函数法，遇到相同的几组元素时，只操作一组元素，并用函数传参来实现所有的效果
+        var oList = document.getElementById('box-list');
+        var aIn = oList.getElementsByTagName('li');
+
+        function fn(i) {
+            var oInput = aIn[i].getElementsByTagName('input')[0];
+            var oBtnY = aIn[i].getElementsByTagName('button')[0];
+            var oBtnX = aIn[i].getElementsByTagName('button')[1];
+            //确定按钮
+            oBtnY.onclick = function () {
+                oInput.disabled = true;
+            }
+            //取消按钮
+            oBtnX.onclick = function () {
+                oInput.disabled = false;
+                oInput.value = '';
+                console.log(3);
+            }
+        }
+        for (var i = 0; i < aIn.length; i++) {
+            fn(i);
+        }
+    </script>
+</body>
+
+</html>

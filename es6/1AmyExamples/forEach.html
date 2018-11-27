@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var ary = [12,23,24,42,1];
+        var res = ary.forEach(function (item,index,array) {
+
+            // console.log(item);
+            //console.log(index);
+            console.log(array);
+            array[index] = item*10;
+        })
+        console.log(res);//--> undefined;
+        console.log(ary);//--> 通过数组索引改变了原数组；
+    </script>
+</head>
+<body>
+
+</body>
+</html>

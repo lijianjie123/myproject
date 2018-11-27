@@ -10,18 +10,29 @@
 					</ul>
 				</div>
 				<div class="gray-box">
-					<div class="item-box">
-                        <shop-item v-for = "(item,index) in goodsData" :key = "index" :itemD = "item"></shop-item>
+					<!-- <div class="item-box">
+                        <shop-item v-for = "(item,index) in goodsData" :key = "index" :itemD = "item"></shop-item> 
+                        
+						
+						
+					</div>-->
+
+          <div class="item-box">
+            <!--给子组件传递一个值  传递的是item-->
+            <shop-item v-for="(item,index) in goodsData" :key = "index" :item = "item"></shop-item>
 						
 						
 					</div>
+
 				</div>
 			</div>
+      <prompt></prompt>
 		</div>
 </template>
 <script>
 import goodsData from "@/lib/newGoodsData"; // 引入数据（就是需要用到的数据代码）  goodsData 是@/lib/newGoodsData 暴露出去的文件
 import shopItem from "@/components/shop-item";
+import prompt from "@/components/prompt";
 export default {
   data() {
     //组件中的data  是一个函数
@@ -31,8 +42,10 @@ export default {
     };
   },
   components: {
-    shopItem
-  }
+    shopItem,
+    prompt
+  },
+  methods: {}
 };
 </script>
 

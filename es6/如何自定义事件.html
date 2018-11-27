@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        input {
+            border-radius: 5px;
+        }
+
+
+        .count {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #000;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="button" value="按钮一">
+    <input type="button" value="按钮二">
+    <input type="button" value="按钮三">
+
+    <div class="count">按钮一按钮一按钮一按钮一</div>
+    <div class="count">按钮二按钮二按钮二按钮二</div>
+    <div class="count">按钮三按钮三按钮三按钮三</div>
+
+
+
+
+    <script>
+        window.onload = function () {
+            var aInput = document.getElementsByTagName('input');
+            var odiv = document.getElementsByTagName('div')
+            console.log(odiv.length)
+            odiv[0].style.display = 'block'
+            for (var i = 0; i < aInput.length; i++) {
+                aInput[i].index = i;
+                aInput[i].onclick = function () {
+                    console.log(this.index)
+                    for (var i = 0; i < aInput.length; i++) {
+                        odiv[i].style.display = 'none';
+                    }
+                    odiv[this.index].style.display = 'block';
+
+                }
+            }
+        }
+
+
+
+        // var person = {
+        //     name: "Tom"
+        // };
+        // function obj(peo) {
+        //     peo.name = "Jerry";
+        //     return peo;
+        // }
+        // var result = obj(person);
+        // console.log(result.name);// Jerry
+        // console.log(person.name);// Jerry
+
+        // 严格的说，JS中的基本类型按值传递，对象类型按共享传递的(call by sharing，也叫按对象传递、按对象共享传递)
+
+        // var person = {
+        //     name: "Tom"
+        // };
+        // function obj(peo) {
+        //     peo = {
+        //         name: "Jerry"
+        //     };
+        //     return peo;
+        // }
+        // var result = obj(person);
+        // console.log(result.name);// Jerry
+        // console.log(person.name);// Tom
+    </script>
+    <script>
+        //直接量处理js自定义事件
+        var eventTarget = {
+            //保存事件类型，处理函数数组映射
+            handlers: {},
+            //注册给定类型的事件处理程序，
+            //type -> 自定义事件类型， handler -> 自定义事件回调函数
+            addEvent: function (type, handler) {
+                //判断事件处理数组是否有该类型事件
+                if (eventTarget.handlers[type] == undefined) {
+                    eventTarget.handlers[type] = [];
+                }
+                //将处理事件push到事件处理数组里面
+                eventTarget.handlers[type].push(handler);
+            },
+            //触发一个事件
+            //event -> 为一个js对象，属性中至少包含type属性，
+            //因为类型是必须的，其次可以传一些处理函数需要的其他变量参数。（这也是为什么要传js对象的原因）
+            fireEvent: function (event) {
+                //判断是否存在该事件类型
+                if (eventTarget.handlers[event.type] instanceof Array) {
+                    var _handler = eventTarget.handlers[event.type];
+                    //在同一个事件类型下的可能存在多种处理事件，找出本次需要处理的事件
+                    for (var i = 0; i < _handler.length; i++) {
+                        //执行触发
+                        _handler[i](event);
+                    }
+                }
+            },
+            //注销事件
+            //type -> 自定义事件类型， handler -> 自定义事件回调函数
+            removeEvent: function (type, handler) {
+                if (eventTarget.handlers[type] instanceof Array) {
+                    var _handler = eventTarget.handlers[type];
+                    //在同一个事件类型下的可能存在多种处理事件，找出本次需要处理的事件
+                    for (var i = 0; i < _handler.length; i++) {
+                        //找出本次需要处理的事件下标
+                        if (_handler[i] == handler) {
+                            break;
+                        }
+                    }
+                    //删除处理事件
+                    _handler.splice(i, 1);
+                }
+            }
+        };
+
+        eventTarget.addEvent("eat", function () {
+            console.log(123);  //123
+        });
+        eventTarget.fireEvent({ type: "eat" });
+
+        eventTarget.addEvent("druck", function () {
+            console.log(456);  //123
+        });
+        eventTarget.fireEvent({ type: "druck" });
+    </script>
+</body>
+
+</html>

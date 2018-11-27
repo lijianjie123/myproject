@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // function startAt(CAPTURED) {
+
+        //     function incrementBy(i) {
+
+        //         return CAPTURED + i;
+
+        //     }
+
+        //     return incrementBy;
+
+        // }
+        // console.log(startAt())
+
+
+
+
+        // for (var i = 0; i < 10; i++) {
+        //     console.log(i) //打印每一个  0123...9
+        // }
+        // console.log(i) //10
+        // for (var j = 0; j < 10; j++) {
+        //     setTimeout(function () {
+        //         console.log(j); //10 个 10
+        //     }, 0)
+        // }
+        // for (let m = 0; m < 10; m++) {
+        //     setTimeout(function () {
+        //         console.log(m);    // 0 123456789
+        //     }, 0)
+        // }
+
+        // 很有意思的一道题目，涉及到异步的操作，在浏览器的代码解析中，
+        // 但凡遇到定时器就会把定时器放到最下面，最后再执行，而不是去等待。
+        // 即使时间为0；所以第二个就不难理解，当j加到10的时候条件不再成立，
+        // 也没有后续操作，所以就走定时器，所以出来的结果是10，但是es6中的let是有作用域的，只能在该for循环里使用，
+        // 蛮有意思，最后的结果和第一个相同
+
+        // window.onload = function () {
+        //     var box = document.getElementById("box");
+        //     var num = 0;
+        //     for (var i = 0; i < 10; i++) {
+        //         box.onclick = a();
+        //         function a() {
+        //             console.log(i); //1,2,3,4.....
+        //         }
+        //     }
+
+        // }
+
+        window.onload = function () {
+            //alert(c);
+            alert(d);
+            // var div = document.getElementsByTagName("div");
+            // var num = 0;
+            // for (var i = 0; i < div.length; i++) {
+            //     (function (i) {
+            //         div[i].onclick = function () {
+            //             console.log(i);
+            //         }
+            //     })(i)
+            // }
+            var div = document.getElementsByTagName("div");
+            var len = div.length;
+
+            for (var i = 0; i < len; i++) {
+                div[i].index = i;
+                div[i].onclick = function () {
+                    console.log(this.index)
+                }
+            }
+
+        }
+
+    </script>
+    <div style="width: 100px; height: 100px; background: red;;">1</div>
+    <div style="width: 100px; height: 100px; background: red;;">2</div>
+    <div style="width: 100px; height: 100px; background: red;;">3</div>
+</body>
+
+</html>

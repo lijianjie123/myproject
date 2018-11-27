@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -91,68 +92,124 @@
         #next {
             right: 20px;
         }
-
     </style>
 </head>
-<body>
-<div id="container">
-         <div id="list" style="0px;">
-             <img src="img2/banner1.png" alt="0" />
-             <img src="img2/banner2.png" alt="1" />
-             <img src="img2/banner3.png" alt="2" />
 
-         </div>
-         <div id="buttons">
-             <span index="1" class="on"></span>
-             <span index="2"></span>
-             <span index="3"></span>
+<body>
+    <div id="container">
+        <div id="list" style="0px;">
+            <img src="img2/banner1.png" alt="0" />
+            <img src="img2/banner2.png" alt="1" />
+            <img src="img2/banner3.png" alt="2" />
+
+        </div>
+        <div id="buttons">
+            <span index="1" class="on"></span>
+            <span index="2"></span>
+            <span index="3"></span>
 
 
         </div>
-         <a href="javascript:;" id="prev" class="arrow">&lt;</a>
-         <a href="javascript:;" id="next" class="arrow">&gt;</a>
-</div>
-<script>
-    window.onload = function(){
-        var container = document.getElementById('container');
-        var list = document.getElementById('list');
-        var imgs = container.getElementsByTagName('img');
-        var prev = document.getElementById('prev');
-        var next = document.getElementById('next');
-        var buttons = document.getElementById('buttons');
-        var spans = buttons.getElementsByTagName('span');
-        var index = 0;
+        <a href="javascript:;" id="prev" class="arrow">&lt;</a>
+        <a href="javascript:;" id="next" class="arrow">&gt;</a>
+    </div>
+    <script>
+        ; (function () {
+            var container = document.getElementById('container');
+            var list = document.getElementById('list');
+            var imgs = container.getElementsByTagName('img');
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            var buttons = document.getElementById('buttons');
+            var spans = buttons.getElementsByTagName('span');
+            var len = spans.length;
+            var num = 0;
+            var timer = null;
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].index = i;//添加索引
+                spans[i].onclick = function () {
+                    num = this.index
+                    tab();
+                }
+            }
+            list.onmouseover = function () {
+                clearInterval(timer)
+            }
+            list.onmouseout = function () {
+                autoplay();
+            }
+            autoplay();// 自动轮播 跟左右的加加减减 一样
+            function autoplay() {
+                timer = setInterval(function () {
+                    num++;
+                    if (num == spans.length) {
+                        num = 0
+                    }
+                    tab();
 
-        prev.onclick = function(){
-            index --;
-            if(index < 0 ){
-                index = imgs.length-1;
+                }, 1000)
             }
-            tab();
-        };
-        next.onclick = function(){
-            index ++;
-            if(index > imgs.length-1 ){
-                index = 0;
+
+            next.onclick = function () {
+                num++;
+                if (num == spans.length) {
+                    num = 0;
+                    //list.style.left = -0 * 600 + 'px';
+                }
+                tab();
             }
-            tab();
-        };
-       for(var i= 0; i<spans.length; i++){
-            spans[i].index= i;
-           spans[i].onmouseover = function(){
-               index= this.index;
-               tab();
-           }
-       }
-        function tab(){
-            for(var i = 0; i<spans.length; i++){
-                spans[i].className = '';
+            function tab() {
+                for (var i = 0; i < spans.length; i++) {
+                    spans[i].className = '';
+                }
+                spans[num].className = 'on';
+                list.style.left = -num * 600 + 'px';
             }
-            spans[index].className = 'on';
-            list.style.left = -index*600 + 'px';
+        })()
+
+    </script>
+    <!-- <script>
+        window.onload = function () {
+            var container = document.getElementById('container');
+            var list = document.getElementById('list');
+            var imgs = container.getElementsByTagName('img');
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            var buttons = document.getElementById('buttons');
+            var spans = buttons.getElementsByTagName('span');
+            var index = 0;
+
+            prev.onclick = function () {
+                index--;
+                if (index < 0) {
+                    index = imgs.length - 1;
+                }
+                tab();
+            };
+            next.onclick = function () {
+                index++;
+                if (index > imgs.length - 1) {
+                    index = 0;
+                }
+                tab();
+            };
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].index = i;
+                spans[i].onmouseover = function () {
+                    index = this.index;
+                    tab();
+                }
+            }
+            function tab() {
+                for (var i = 0; i < spans.length; i++) {
+                    spans[i].className = '';
+                }
+                spans[index].className = 'on';
+                list.style.left = -index * 600 + 'px';
+            }
         }
-    }
-</script>
+    </script> -->
 
 </body>
+
 </html>

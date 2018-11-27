@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div class="page-top">
+        <div class="page-content">
+            <h2>任务计划列表</h2>
+        </div>
+    </div>
+    <div class="main">
+        <h3 class="big-title">添加任务：</h3>
+        <input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" class="task-input" type="text" v-on:keyup.enter="addTodo" v-model='todo'
+        />
+        <ul class="task-count" v-show="list.length">
+            <li>{{ noCheckedLength}}个任务未完成</li>
+            <li class="action">
+                <a class="active" href="#">所有任务</a>
+                <a href="#">未完成的任务</a>
+                <a href="#">完成的任务</a>
+            </li>
+        </ul>
+        <h3 class="big-title">任务列表：</h3>
+        <div class="tasks">
+
+            <span class="no-task-tip" v-show="!list.length">还没有添加任何任务</span>
+            <ul class="todo-list">
+                <li class="todo" :class="{completed:item.ischecked,editing:item === edtorTodos}" v-for="item in list">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" v-model="item.ischecked" />
+                        <label @dblclick="edtorTodo(item)">{{item.title}}</label>
+                        <button class="destroy" @click="deletTodo(item)"></button>
+                    </div>
+                    <input v-foucs="edtorTodos === item" type="text" class="edit" v-model="item.title" @blur="edtorTodoed(item)" @keyup.13="edtorTodoed(item)"
+                        @keyup.esc="canelTodoed(item)" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <script src="./js/app.js"></script> -->
+    <script>
+        var list = [
+            {
+                title: '吃饭打豆豆1',
+                ischecked: false // false 为没有画横线    任务未完成
+            },
+            {
+                title: '吃饭打豆豆2', ischecked: true// true为选中画了横线  任务完成
+            }
+        ];
+        new Vue({
+            el: '.main',
+            data: {
+                list: list,
+                todo: '',//记录输入的   用在了input上 双向数据绑定
+                edtorTodos: '',//记录正在编辑的数据
+                beforeTitle: '', //记录正在编辑数据的title
+
+            },
+            computed: {
+                noCheckedLength: function () {
+                    return this.list.filter(function (item) {
+                        console.log(this);
+                        return !item.ischecked
+                    }).length
+
+                }
+            },
+            methods: {
+                addTodo() {
+                    //向list中添加一项任务
+                    // @keyup.enter=addTodo(123 ,$event)  //传递参数 如果要使用event对象， 需要手动传$event
+                    //addTodo(data, $event) //接收参数
+                    //console.log()
+                    this.list.push({
+                        title: this.todo,
+                        ischecked: false
+                    })
+                    this.todo = ''
+                    console.log('我触发了')
+                },
+                //删除
+                deletTodo(todo) {//删除任务
+                    var index = this.list.indexOf(todo);
+                    this.list.splice(index, 1);
+                },
+                edtorTodo(todo) {//编辑任务
+                    //编辑任务的时候  记录一下编辑这条任务的title， 方便在取消编辑的时候重新给之前的title
+                    this.edtorTodos = todo;
+                    this.beforeTitle = todo.title;
+                },
+                edtorTodoed(todo) { //编辑完成
+                    this.edtorTodos = todo.title
+                },
+                canelTodoed(todo) {//取消编辑
+                    //
+                    todo.title = this.beforeTitle
+                    //让div 显示， input 隐藏
+                    this.edtorTodos = "";
+                }
+            },
+            // 自定义指令
+            directives: {
+                "foucs": {
+                    update(el, binding) { //update 钩子函数
+                        console.log(el)
+                        console.log(binding)// 内置的属性
+                        if (binding.value) {
+                            el.focus();
+                        }
+
+                    }
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

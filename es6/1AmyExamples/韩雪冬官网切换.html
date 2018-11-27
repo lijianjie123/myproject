@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src = "jquery-1.8.2.min.js"></script>
+    <style>
+        *{ padding: 0px; margin: 0; }
+        .wrap{ height: 420px; -overflow: hidden; border: 1px solid red; position: relative;}
+        .pic{}
+        .pic span{ position: absolute;}
+        .pic .pic1{ left:0px; top:100px; z-index: 3; transform: scale(0.6) }
+        .pic .pic2{ left:280px; top:60px; z-index: 2 ;transform: scale(0.6) }
+        .pic .pic3{ left:500px; top:100px;z-index: 3 ;transform: scale(0.6)  }
+        .pic .pic4{ left:260px; top:115px;z-index: 4 ;transform: scale(0.9)  }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <a href="#" class="prev" id="prev">前一张</a>
+    <a href="#" class="next" id="next">后一张</a>
+    <div class="pic">
+        <span class="pic1" ><img src="img2/banner1.png"> </span>
+        <span class="pic2"><img src="img2/banner2.png"> </span>
+        <span class="pic3"><img src="img2/banner3.png"> </span>
+        <span class="pic4"><img src="img2/banner2.png"> </span>
+
+        <!--<span class="pic5"><img src="img2/banner3.png"> </span>-->
+    </div>
+</div>
+<script>
+
+        var next = document.getElementById('next');
+        var prev = document.getElementsByClassName('.prev');
+        var aspan = document.getElementsByTagName('span');
+        var arr = [];
+        //alert(getStyle(aspan[0],'left'));
+        for(var i=0 ; i<aspan.length; i++){
+           arr.push ([getStyle(aspan[i], 'left'),getStyle(aspan[i], 'top'),getStyle(aspan[i], 'zIndex')])
+        }
+        console.log( arr);
+
+
+        next.onclick = function(){
+           arr.push(arr[0]);
+            arr.shift(arr[0]);
+            console.log(arr);
+            for(var i=0 ; i<aspan.length; i++){
+                aspan[i].style.left = arr[i][0];
+                aspan[i].style.top = arr[i][1];
+                aspan[i].style.zIndex = arr[i][2];
+            }
+           // console.log(arr);
+        };
+
+
+
+        function getStyle(obj, attr){
+            if(obj.currentStyle){
+                return obj.currentStyle[attr];
+            }
+            return getComputedStyle(obj, false)[attr];
+        }
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // https://baijiahao.baidu.com/s?id=1579051727233234190&wfr=spider&for=pc
+
+
+
+
+        // 严格的说，JS中的基本类型按值传递，对象类型按共享传递的(call by sharing，也叫按对象传递、按对象共享传递)
+        // var foo = { name: 'foo' };
+        // function test(o) {
+        //     o = { name: 'bar' };
+        // }
+        // test(foo);
+        // console.log(foo.name);
+
+        var foo = { name: 'foo' };
+        function test(o) {
+            o.name = 'test';
+            o = { name: 'bar' }
+        }
+        test(foo);
+        console.log(foo);
+        //打印结果为:
+        //Object { name: "test" }
+
+        // 它和按引用传递的不同在于：在共享传递中对函数形参的赋值，不会影响实参的值
+    </script>
+</body>
+
+</html>

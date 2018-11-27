@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div>
+    <img src="img2/banner1.png">
+</div>
+<script>
+    window.onload = function(){
+       var img = document.getElementsByTagName('img')[0];
+        var onOff = true; // true显示图二 false 显示图一
+        img.onclick = function(){
+            if(onOff){
+                alert(1);
+                img.src = 'img2/banner2.png';
+                onOff = false;
+            }else{
+                alert(2);
+                img.src = 'img2/banner1.png';
+                onOff = true;
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

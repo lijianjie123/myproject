@@ -32,9 +32,15 @@
         </li>
       </ul>
     </div>
+    <input type="button" value="后退" @click = "backHandle">
+    <input type="button" value="前进" @click = "forwardHandle">
+    <input type="button" value="控制前进后退的步数" @click = "goHandle">
+    <input type="button" value="控制指定的导航push" @click = "pushHandle">
+    <input type="button" value="控制指定的导航replace" @click = "replaceHandle">
     当前导航下标{{$route.meta.index}}
     <!-- <router-view name = "slider"></router-view> -->
     <!-- <router-view class="center"></router-view> -->
+    <!-- mode="out-in" -->
     <transition :name="names" >
       <!-- 把要运动的元素放在transition 标签中 -->
        <router-view class="center"></router-view>
@@ -46,7 +52,34 @@
 <script>
 export default {
   name: "App",
-
+  data() {
+    return {
+      index: "/home",
+      names: "left" //动态绑定
+    };
+  },
+  methods: {
+    backHandle() {
+      this.$router.back();
+    },
+    forwardHandle() {
+      this.$router.forward();
+    },
+    goHandle() {
+      // this.$router.go(-3); // 负数是后退
+      this.$router.go(3); // 正数前进
+      this.$router.go(0); // 刷新当前导航
+    },
+    pushHandle() {
+      //this.router.push("/document");
+      // 或者写成对象形式
+      this.$router.push({ path: "/document", query: {} }); // 向历史记录栈中添加一项
+    },
+    // replace 导航到不同的url 替换history栈中当前记录
+    replaceHandle() {
+      this.$router.replace({ path: "/document", query: {} });
+    }
+  },
   watch: {
     $route(to, from) {
       console.log(to.meta.index); //目标导航下标
@@ -58,12 +91,6 @@ export default {
         this.names = "left";
       }
     }
-  },
-  data() {
-    return {
-      index: "/home",
-      names: "left" //动态绑定
-    };
   }
 };
 </script>

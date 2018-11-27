@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div class="page-top">
+        <div class="page-content">
+            <h2>任务计划列表</h2>
+        </div>
+    </div>
+    <div class="main">
+        <h3 class="big-title">添加任务：</h3>
+        <input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" v-model="todo" @keyup.enter="addTodo" class="task-input" type="text" />
+        <ul class="task-count">
+            <li>{{unfinished}}个任务未完成</li>
+            <li class="action">
+                <a class="active" href="#">所有任务</a>
+                <a href="#">未完成的任务</a>
+                <a href="#">完成的任务</a>
+            </li>
+        </ul>
+        <h3 class="big-title">任务列表：</h3>
+        <div class="tasks">
+
+            <span class="no-task-tip">还没有添加任何任务</span>
+            <ul class="todo-list">
+                <li class="todo" v-for="item in list" :class="{'completed':item.ischecked,'editing':item === editTodos}">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" v-model="item.ischecked" />
+                        <label @dblclick="editTodo(item)">{{item.title}}</label>
+                        <button class="destroy" @click="deltodo(item)"></button>
+                    </div>
+                    <input type="text" class="edit" v-focus="editTodos===item" v-model="item.title" @blur="editTodoed(item)" @keyup.enter="editTodoed(item)"
+                        @keyup.esc="editCanel(item)" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <script src="./js/app.js"></script> -->
+    <script>
+        var list = [
+            {
+                title: '吃饭打豆豆1',
+                ischecked: false // false 为没有画横线    任务未完成
+            },
+            {
+                title: '吃饭打豆豆2', ischecked: true// true为选中画了横线  任务完成
+            }
+        ];
+
+        new Vue({
+            el: ".main",
+            data: {
+                list: list,
+                todo: '', // 
+                editTodos: '', //记录正在编辑的数据
+                beforeTitle: '', //记录正在编辑数据的title
+            },
+            computed: {
+                unfinished: function () {
+                    var unfinishedLen = this.list.filter(function (item) {
+                        return !item.ischecked
+                    })
+                    console.log(unfinishedLen) // 返回的是一个数组
+                    return unfinishedLen.length;
+                }
+            },
+            methods: {
+                addTodo() {
+                    //console.log(0)
+                    this.list.push({
+                        title: this.todo,
+                        ischecked: false,
+                    })
+                    this.todo = '';
+
+                },
+                // 删除
+                deltodo(item) {
+                    // findIndex Ie11 不支持此方法
+
+                    // var index = this.list.findIndex(function (item) {
+                    //     return item.ischecked == true
+                    // })
+                    // indexOf(item)，和findIndex() 都是查找元素第一次出现的位置索引，没有就返回-1
+                    var index = this.list.indexOf(item)
+                    console.log(index)
+                    // 用indexOf 这里好像不会出现-1
+                    // if (index == -1) {
+                    //     return
+                    // }
+                    this.list.splice(index, 1)
+                },
+                //编辑todo
+                editTodo(item) {
+                    console.log(item);
+                    this.editTodos = item;// 让正在编辑的属性 =  传来的整个的对象
+                    this.beforeTitle = item.title;
+
+                },
+                // 编辑完成
+                editTodoed(item) {
+                    console.log(item)
+                    this.editTodos = item.title
+                },
+                editCanel(item) {
+                    item.title = this.beforeTitle;
+                    //div 显示， input 隐藏
+                    this.editTodos = ''
+
+                }
+            },
+            // 自定义指令
+            directives: {
+                "focus": {
+                    update(el, binding) {
+                        if (binding.value) {
+                            el.focus();
+                        }
+
+                    }
+                }
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>

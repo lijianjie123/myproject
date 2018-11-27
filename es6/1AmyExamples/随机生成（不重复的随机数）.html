@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        var array = new Array(); // 用来定义存放生成随机数的数组  比如要取5个随机数
+        for (var i = 0; i < 100; i++) {
+            if (array.length < 5) {
+                generateRandom(10);
+                //生成随机数的方法   
+                function generateRandom(count) {
+                    var rand = parseInt(Math.random() * count); //count 传入的数是多少（比如5）  就是取一个 0-5 的数出来
+                    //循环遍历取随机数的数组
+                    for (var i = 0; i < array.length; i++) {  //要取几个随机数  是根据需要来的  所以这里的array.length 是已知的  （比如要取5个随机数）
+                        console.log(rand);
+                        if (array[i] == rand) {// 如果 rand 得到的随机数与数组中的每一项去比较， 如果相同 则跳出；
+                            //alert(rand)
+                            return false;  // 这里是跳出函数  后边的也不执行
+                        }
+                    }
+                    array.push(rand) // 数组中没有  就会添加进去 
+                }
+            } else {
+                break;
+            }
+        }
+        console.log(array)
+    </script> -->
+    <script>
+        var temparr = [];
+        for (var i = 0; i < 20; i++) {
+            if (temparr.length < 5) {
+                getters(10);
+                function getters(num) {
+                    var rand = parseInt(Math.random() * num);
+                    for (var i = 0; i < temparr.length; i++) {
+                        if (temparr[i] == rand) {
+                            temparr.splice(i, 1)
+                            //return false; 或者跳出（跳出的是这个函数 ） 后边的添加就会不执行
+                        }
+                    }
+                    temparr.push(rand)
+                }
+            }
+        }
+        console.log(temparr)
+    </script>
+    <script>
+        //es5
+        // action(0);//200
+        // action(1); //1
+        // action(-1); //-1
+        // action(); //200
+
+        // function action(num) {
+        //     a = num || 200
+        //     //当传入num时，num为传入的值
+        //     //当没传入参数时，num即有了默认值200
+        //     console.log(a);
+        //     return a
+        // }
+
+        //es6
+        function action(num = 200) { //ES6为参数提供了默认值。在定义函数时便初始化了这个参数，以便在参数没有被传递进去时使用。
+            console.log(num)
+        }
+        action() //200
+        action(300) //300
+
+
+
+    </script>
+    <script>
+        //箭头函数最直观的三个特点
+        // 不需要function关键字来创建函数
+        // 省略return 关键字
+        // 继承当前上下文的this关键字
+
+        // 小细节
+        // 当前你的函数有且仅有一个参数的时候， 是可以省略括号的，当你函数返回有且仅有一个表达式的时候可以省略{}；
+        // 例如
+        // var people = name => 'hello' + name
+        // //参数name就没有括号
+
+        var people = (name, age) => {
+            const fullName = 'h' + name
+            return fullName
+        }
+    //如果缺少()或者{}就会报错
+
+
+
+    </script>
+    <script>
+        //拓展的对象功能
+        // 键值对重名，ES6可以简写如下：
+        function people(name, age) {
+            return {
+                name,  //name:name
+                age,   //age:age
+            };
+        }
+        // ES6通过省略冒号与 function 关键字，将这个语法变得更简洁
+        const people = {
+            name: 'lux',
+            getName() {
+                console.log(this.name)
+            }
+        }
+
+
+    </script>
+    <script>
+        //es6 解构赋值
+        //对象
+        const people1 = {
+            name: 'lux',
+            age: 20
+        }
+        const { name, age } = people1
+        console.log(`${name} --- ${age}`)
+        //数组
+        const color = ['red', 'blue']
+        const [first, second] = color
+        console.log(first) //'red'
+        console.log(second) //'blue'
+
+    </script>
+
+</body>
+
+</html>

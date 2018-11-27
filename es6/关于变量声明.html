@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 命名变量：
+        // 第一个字符必须是字母、下划线（_）或美元符号（$）
+        // 余下的字符可以是下划线、美元符号或任何字母或数字字符
+
+
+        // 全局变量在整个上下文都有效只是在没有赋值之前调用，会输出undefine
+
+
+        // 1.在函数作用域内 加var定义的变量是局部变量，不加var定义的就成了全局变量。 
+        // 2.在全局作用域下，使用var定义的变量不可以delete,没有var 定义的变量可以delete.
+        // 也就说明隐含全局变量严格来说不是真正的变量，而是全局对象的属性，因为属性可以通过delete删除，而变量不可以。
+
+        // 在javascript 中，声明的函数和变量都会被提升到最顶部，因此变量可以先使用再声明。
+        // 如果变量在声明时初始化了，变量的声明会被提升，但初始化不会被提升。
+
+        function fun() {
+            x = 3;
+            alert(x + "|" + y);
+            var x;
+            var y = 4;/*相当于var y;y=4; var y;被提升；y=4;不被提升*/
+        }
+        fun()
+        console.log(x)  // 这里肯定是不能访问的  因为不存在全局变量x，
+        // 但是如果 把函数中的var x 去掉  就能访问到了， 因为x=3变成了全局变量 （不加var 的变量一般被当做全局变量， 具有全局作用域）
+    </script>
+
+
+</html>

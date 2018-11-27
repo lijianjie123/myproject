@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 回调函数
+        // 把一个函数的指针作为另外一个函数的参数，当调用这个函数时， 这个函数就叫做回调函数（通过指针来调用）
+        // alert(math(1, bb));
+        // function math(num1, fun) {
+        //     return fun(num1);
+        // }
+
+        // function bb(num1) {
+        //     return (num1) * 2 - 1;
+        // }
+
+        // 以上调用方式在有多个函数时很麻烦，故采用这种方式。
+        // function math(num1, num2, fun) {
+        //     return fun(num1, num2);
+        // }
+        // alert(math(1, 2, funtion(){return(num1 + num2) * 2 - 1});
+
+        //递归函数
+        // 递归函数指在函数内部直接或者间接的调用自己
+        function aa(num1) {
+            if (num1 > 1) {
+                console.log(num1);
+                aa(--num1);
+            }
+            console.log(num1);
+        }
+        aa(3);//1123
+
+
+        function int(duck, villgae) {
+            if (village == 0) {
+                console.log(duck);
+                // duck = (duck / 2 + 1) * 2
+            } else {
+                village++;
+                if (villgae == 7) { }
+
+            }
+        }
+
+        function inn(a) {
+            var num = 10;
+            if (a > 2) {
+                num--;
+                console.log(num);
+                inn(a);
+            } else {
+                a < 0;
+                return
+            }
+        }
+        inn(9);
+
+
+
+    </script>
+</body>
+
+</html>

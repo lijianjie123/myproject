@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no"/>
+   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />-->
+    <title>Title</title>
+
+    <style>
+        a, input, button{ -webkit-tap-highlight-color: rgba(0,0,0,0);}
+        input, button{-webkit-appearance: none; border-radius:0;}
+        body{margin: 0;-webkit-user-select: none;}
+        body *{ -webkit-user-select: none;
+            font-family: Helvetica;}
+        body{ -webkit-text-size-adjust: 100%;}
+        h1{ margin: 0; font-family: Helvetica;}
+        ul{margin: 0;padding: 0 ;list-style: none;}
+        strong{ font-weight: normal;}
+        a{ text-decoration: none;}
+        img{ vertical-align: top;}
+        body{ /*overflow: hidden; position: relative;*/}
+        .wrap{position: relative;  width: 15rem; height: 8rem;overflow: hidden;   }
+        .wrap .list{ position: absolute;   left: 0px; top:0px; list-style: none; width: 400% }
+        .wrap ul li{ width: 15rem; height: 8rem; float: left; box-sizing:border-box;}
+        .wrap ul li img{  width: 100%; height: 100%}
+
+
+
+        .nav { width: 15rem; position: absolute; left:0px; bottom: 3px; z-index: 1; text-align: center;}
+        .nav a{ width: 15px; height:15px; display: inline-block; background: red; border-radius: 50%; vertical-align: top;}
+        .nav a.active{ background: green}
+    </style>
+    <script>
+       /* var html = document.documentElement;
+        html.style.fontSize = html.clientWidth/15 +"px";
+        document.addEventListener('touchstart',function(ev){
+            ev.preventDefault();
+        });*/
+        (function(){
+            var html = document.documentElement;
+            var hWidth = html.getBoundingClientRect().width;
+            html.style.fontSize = hWidth/15 +"px";
+            //1rem = 750/15 = 50px;
+        })();
+        document.addEventListener('touchstart',function(ev){
+            ev.preventDefault();
+        })
+    </script>
+</head>
+<body>
+<section class="wrap">
+    <ul class="list">
+        <li><img src = "img2/jd0.jpg"/></li>
+        <li><img src = "img2/jd0.jpg"/></li>
+        <li><img src = "img2/jd0.jpg"/></li>
+        <li><img src = "img2/jd0.jpg"/></li>
+    </ul>
+    <div class="nav">
+        <a class="active"></a>
+        <a class=""></a>
+        <a class=""></a>
+    </div>
+</section>
+<script>
+    var wrap = document.querySelector('.wrap'),
+        list = document.querySelector('.list'),
+        a = document.querySelectorAll('a'),
+        disX = 0, //按下的坐标
+        listL = 0,//当前按下list的left值
+        w = wrap.clientWidth,// 一张图图片的宽度
+        len = 0,
+        n = 0;
+   // alert(w);
+   // console.log(list);
+    list.innerHTML +=  list.innerHTML;
+    len = list.children.length;
+    list.style.width = w *len +'px';
+    list.addEventListener('touchstart',start);
+    //alert('1111');
+    list.addEventListener('touchmove',move);
+    list.addEventListener('touchend',end);
+    function start(ev){
+
+        var e = ev.changedTouches[0]; // 手指用到第0个 changedToushes 手指列表
+        disX = e.pageX; //  给赋值为当前手指点击距离屏幕左边的距离             e.pageX鼠标在页面上的位置。x是光标离左边的位置  y是离上边的位置  单位是像素
+        list.style.transition = 'none'; // 取消transition 过渡引起的卡顿冲突
+        /*
+        在按下的时候要知道当前点击的是第几张图片
+        如果是第一张就快速的拉倒第4张的位置上
+         */
+        var num = Math.round(list.offsetLeft/w);
+        if(num == 0){
+            //alert(num);
+            num = a.length;
+            list.style.left =- num*w + 'px';
+        }
+        if(-num == len-1){
+            num =  a.length-1;
+            list.style.left =- num*w + 'px';
+        }
+        listL = this.offsetLeft;
+    }
+    function move(ev){
+        var e = ev.changedTouches[0];
+        list.style.left = (e.pageX - disX) + listL + 'px';
+    }
+    function end(){
+        var num = Math.round(list.offsetLeft/w);
+        list.style.transition = '.5s';
+        list.style.left = num * w + 'px';
+        console.log(num);
+        a[n].className = '';
+        a[-num% a.length].className = 'active';
+        n = -num% a.length;
+    }
+</script>
+</body>
+</html>

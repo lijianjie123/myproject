@@ -63,84 +63,86 @@
   </li>
 </template>
 <script>
-	export default {
-	  data () {
-	    return {
-	      iTimer: null
-	    }
-	  },
-	  watch: {
-	    ["ball.show"] () {
-	      if(this.ball.show){
-	        
-	      }
-	    }
-	  },
-		computed: {
-			carGoodsData () {
-				return this.$store.state.carPanelData
-			},
-		  count () {
-		    return this.$store.getters.totleCount
-		  },
-		  totle () {
-		    return this.$store.getters.totlePrice
-		  },
-		  maxCount () {
-		    return this.$store.state.maxOff
-		  },
-		  carShow () {
-		    return this.$store.state.carShow
-		  },
-		  ball () {
-		    return this.$store.state.ball
-		  }
-		},
-		methods: {
-		  delCarPanelHandle (id) {
-        this.$store.commit('delCarPanelData',id)
-		  },
-		  showCarHandle () {
-		    clearTimeout(this.iTimer)
-		    this.$store.commit('showCar')
-		  },
-      hideCarHandle () {
-        this.iTimer = setTimeout(()=>{
-          this.$store.commit('hideCar')
-        },500)
-      },
-      beforeEnter (el) {
-        let rect = this.ball.el.getBoundingClientRect()
-        let rectEl = document.getElementsByClassName('ball-rect')[0].getBoundingClientRect()
-        let ball = document.getElementsByClassName('mask-item')[0]
-        let x = (rectEl.left + 16) - (rect.left + rect.width/2)
-        let y = rect.top + rect.height/2 - rectEl.top + 5 - 16
-        console.log(rect.top + rect.height/2)
-        el.style.transform = 'translate3d(0,'+y+'px,0)'
-        
-        ball.style.transform = 'translate3d(-'+x+'px,0,0)'
-        ball.src = this.ball.img
-        console.log(this.ball.img)
-      },
-      enter (el) {
-        let rf = el.offsetHeight
-        this.$nextTick(() => {
-          el.style.transform = 'translate3d(0,0,0)'
-          document.getElementsByClassName('mask-item')[0].style.transform = 'translate3d(0,0,0)'
-        })
-      },
-      afterEnter (el) {
-        this.ball.show = false
+export default {
+  data() {
+    return {
+      iTimer: null
+    };
+  },
+  watch: {
+    ["ball.show"]() {
+      if (this.ball.show) {
       }
-		}
-	}
+    }
+  },
+  computed: {
+    carGoodsData() {
+      return this.$store.state.carPanelData;
+    },
+    count() {
+      return this.$store.getters.totleCount;
+    },
+    totle() {
+      return this.$store.getters.totlePrice;
+    },
+    maxCount() {
+      return this.$store.state.maxOff;
+    },
+    carShow() {
+      return this.$store.state.carShow;
+    },
+    ball() {
+      return this.$store.state.ball;
+    }
+  },
+  methods: {
+    delCarPanelHandle(id) {
+      this.$store.commit("delCarPanelData", id);
+    },
+    showCarHandle() {
+      clearTimeout(this.iTimer);
+      this.$store.commit("showCar");
+    },
+    hideCarHandle() {
+      this.iTimer = setTimeout(() => {
+        this.$store.commit("hideCar");
+      }, 500);
+    },
+    beforeEnter(el) {
+      let rect = this.ball.el.getBoundingClientRect();
+      let rectEl = document
+        .getElementsByClassName("ball-rect")[0]
+        .getBoundingClientRect();
+      let ball = document.getElementsByClassName("mask-item")[0];
+      let x = rectEl.left + 16 - (rect.left + rect.width / 2);
+      let y = rect.top + rect.height / 2 - rectEl.top + 5 - 16;
+      console.log(rect.top + rect.height / 2);
+      el.style.transform = "translate3d(0," + y + "px,0)";
+
+      ball.style.transform = "translate3d(-" + x + "px,0,0)";
+      ball.src = this.ball.img;
+      console.log(this.ball.img);
+    },
+    enter(el) {
+      let rf = el.offsetHeight;
+      this.$nextTick(() => {
+        el.style.transform = "translate3d(0,0,0)";
+        document.getElementsByClassName("mask-item")[0].style.transform =
+          "translate3d(0,0,0)";
+      });
+    },
+    afterEnter(el) {
+      this.ball.show = false;
+    }
+  }
+};
 </script>
 
 <style type="text/css">
-	.ball-enter-active{
-    transition: .5s cubic-bezier(.15,.69,.6,1.29);
-  }
-  .ball-enter-active .mask-item{
-    transition: .5s cubic-bezier(0,0,1,1);
-  }
+.ball-enter-active {
+  transition: 0.3s cubic-bezier(0.19, 1.35, 0.47, 1.58);
+}
+.ball-enter-active .mask-item {
+  transition: 0.5s cubic-bezier(0.36, 1.63, 0.6, 1.58);
+}
 </style>

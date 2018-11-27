@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Untitled Document</title>
+    <script type="text/javascript" src = "jquery-1.8.2.min.js"></script>
+    <style>
+        *{ padding: 0;margin: 0;}
+        li{list-style: none;
+            height:30px; line-height: 30px; display: block; cursor: pointer}
+       ul { width:150px; height: 300px; color: #000; margin: 0 auto; border: 1px solid #000; background: #f1f1f1;  }
+
+
+    </style>
+
+<script>
+    window.onload = function(){
+        var input = document.getElementsByTagName('input')[0];
+        var ul = document.getElementsByTagName('ul')[0];
+
+        var num = 0;
+        input.onclick = function(){
+            num++;
+            var ali = document.createElement('li');
+            ali.innerHTML = num;
+            ul.insertBefore(ali,ul.children[0]);
+        }
+
+    }
+</script>
+</head>
+
+<body>
+
+<input type="button" value="点击添加">
+
+<ul id="ul">
+
+</ul>
+
+</body>
+</html>

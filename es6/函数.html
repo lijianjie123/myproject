@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //函数参数不定   找出参数中最大的值
+        x = findMax(1, 123, 500, 115, 44, 88);
+        function findMax() {
+            var i, temp = arguments[0];
+            if (arguments.length < 2) return max;  //考虑 如果参数只有一个的时候吧
+            for (i = 0; i < arguments.length; i++) {
+                if (arguments[i] > temp) {
+                    temp = arguments[i];
+                }
+            }
+            return temp; // 这里要把值return 出去;  
+        }
+        console.log(x)
+
+        // 找出数组中的最大值
+        // var arr = [1, 2, 3, 4, 5]
+        // var temp;
+        // for (var i = 0; i < arr.length; i++) {
+        //     temp = arr[0];
+        //     if (arr[i] > temp) {
+        //         temp = arr[i]
+        //     }
+        //     console.log(temp);
+        // }
+        // console.log(temp);
+        // var counter = 0;
+
+        // function add() {
+        //     return counter += 1;
+        // }
+
+        // console.log(add());
+        // console.log(add());
+        // console.log(add());
+
+        // function add() {
+        //     var counter = 0;
+        //     return counter += 1;
+        // }
+        // console.log(add());
+        // console.log(add());
+        // console.log(add());
+
+        // var add = (function () {
+        //     var counter = 0;
+        //     return function () { return counter += 1; }
+        // })();
+
+        // console.log(add());
+        // console.log(add());
+        // console.log(add());
+
+
+
+        function handleNum(num) {
+            num++;
+            console.log('FNnum:' + num); // 11
+        }
+        var num = 10;
+        handleNum(num);
+        console.log('num:' + num); // 10
+
+
+        //函数参数、函数属性、函数方法
+        function easyCopy(args) {
+            args.from;
+            args.to;
+            aegs.length;
+
+        }
+        var a = [1, 2, 3, 4, 5]
+        easyCopy({ from: a, to: b, length: 4 })
+
+    </script>
+</body>
+
+</html>

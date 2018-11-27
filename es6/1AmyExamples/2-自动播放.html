@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+
+<style>
+div { width:514px; height:190px; overflow:hidden; position:relative; }
+ol { padding:0; margin:0; position:absolute; bottom:3px; right:4px; }
+li { list-style:none; width:20px; height:20px; background:#fff; float:left; margin-right:4px; text-align:center; line-height:20px; font-size:18px; }
+.active { background:yellow; }
+</style>
+<script type="text/javascript" src = "jquery-1.8.2.min.js"></script>
+
+	<script>
+		window.onload = function (){
+			var img = getId('div1').getElementsByTagName('img')[0];
+			var li = getId('div1').getElementsByTagName('li');
+			var num = 0;
+			var arr = ['img/banner1.png','img/banner2.png','img/banner3.png'];
+
+			var timer = null;
+
+			autoPlay();
+
+			function autoPlay(){
+
+				timer = setInterval(function (){
+					num++;
+					if(num == arr.length){
+						num = 0;
+					}
+					tab();
+				}, 1000);
+
+			}
+
+			getId('div1').onmouseover = function(){
+				clearInterval(timer);
+			};
+			getId('div1').onmouseout = function(){
+				autoPlay();
+			};
+
+			for(var i=0; i<li.length; i++){
+				li[i].index = i;
+				li[i].onmouseover = function (){
+					num = this.index;
+					tab();
+				};
+			}
+			function tab(){
+				for(var i=0; i<li.length; i++){
+					li[i].className = '';
+				}
+				li[num].className = 'active';
+				img.src = arr[num];
+			}
+
+
+		};
+	</script>
+</head>
+
+<body>
+
+<div id="div1">
+	<img src="img2/banner1.png"/>
+    <ol>
+    	<li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+    </ol>
+</div>
+
+</body>
+</html>

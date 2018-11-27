@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //去除数组中为5的值
+        let arr = [5, 1, 3, 5, 4, 4,]
+        let arr1 = arr.filter((item, index, self) => {// item 每一项 index 索引 self 数组本身
+            // console.log(item);
+            // console.log(index);
+            // console.log(self);
+            return item != 5
+        })
+        console.log(arr1);//
+        //数组去重
+        //let array1 = [5, 1, 3, 5, 4, 4,]
+        let arr2 = arr.filter((item, index, self) => { // item 每一项 index 索引 self 数组本身
+            console.log(self.indexOf(item));
+            return self.indexOf(item) == index  //indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置。 indexOf() 方法对大小写敏感！
+        })
+        console.log(arr2);
+
+        // 写出判断js变量类型的方式  typeof instanceof
+
+        // typeof  只能判断出 string number boolean undfined
+        // a = function () { } 判断出是function
+        // a= null a={} a=[] 判断出的都为 object  
+
+        function t(obj) {
+            if (typeof obj === 'object') {
+                alert(1)
+                console.log('obj是一个object类型数据')
+            }
+        }
+        t({ a: 1 })
+
+        // 判断数组类型的方法  instanceof 是用于判断一个变量是否为一个对象的实例 是一个三木运算式   --是和typeof 最实质的区别
+        //a instanceof b ? alert('true') : alert('false')
+        var a = [];
+        var b = {}
+        //var c =
+        console.log(a instanceof Array) // true 为是数组
+        console.log(b instanceof Array) //false 为不是一个数组
+        // constructor 属性返回对创建此对象的数组函数的引用
+        //  (a.constructor == Array)
+        console.log([].constructor == Array);
+        console.log({}.constructor == Object);
+        console.log("string".constructor == String);
+        console.log((123).constructor == Number);
+        console.log(true.constructor == Boolean);
+
+
+
+        //深拷贝和浅拷贝
+        // 根本区别在于是否真正获取了一个对象的复制实体。 而不是引用
+
+        //浅复制  ---只是拷贝了基本类型的数据， 而引用类型数据， 复制后也会发生引用
+        // 换句话说 浅复制是指向被复制的内存地址，如果原址中对象被改变了， 那么复制出来的对象也会相应改变
+
+        // 深复制  在计算机中开辟了一块新的内存地址 用于存放复制的对象
+        //  不仅将原对象的各个属性进行复制， 而且将原对象所包含的对象也依次采用神之指的方法复制到新对象上
+
+        for (i = 1; i <= 6; i++) {
+            console.log("<h" + i + ">这是标题 " + i);
+            document.write("</h" + i + ">");
+        }
+
+
+        for (let i = 0; i <= 100; i++) {
+            if (i % 3 == 0) {
+                console.log(i + '---3de倍数')
+            } else if (i % 5 == 0) {
+                console.log(i + '---5的倍数')
+            } else if (i % 3 == 0 && i % 5 == 0) {
+                console.log(i + '这有坑');
+            }
+        }
+
+
+
+        // loop循环
+        // 1. For循环语法：
+
+        // for (变量 = 开始值; 变量 <= 结束值; 变量 = 变量 + 步进值) {
+        //     需执行的代码
+        // }
+        // 注释：步进值可以为负。如果步进值为负，需要调整 for 声明中的比较运算符。
+
+        for (i = 1; i <= 6; i++) {
+            document.write("<h" + i + ">这是标题 " + i);
+            document.write("</h" + i + " > ");
+        }
+        // 2. While循环语法：     
+        // while (变量 <= 结束值) {
+        //     需执行的代码
+        // }
+
+        //do...while...循环至少被执行一次，语法：
+
+        // do {
+        //     需执行的代码
+        // }
+        // while (变量 <= 结束值)
+        //     3. break和continue
+        // break ：可以终止循环，继续执行循环之后的代码（如果循环之后有代码的话）。
+        // continue： 终止当前的循环，然后从下一个值继续运行。 
+        // continue语句只能用在while语句、do/while语句、for语句、或者for/in语句的循环体内，在其它地方使用都会引起错误！
+
+        // 举例：
+        // for(var i=1;i<=10;i++) 
+        // {
+        // if(i==6) continue;
+        // document.write(i); 
+        // } //输出结果：1234578910
+        // 当i=6的时候，直接跳出本次for循环。下次继续执行。
+        // return语句：
+        // 　　return语句就是用于指定函数返回的值。
+        // 　　return语句应用范围只能出现在函数体内，出现在代码中的其他任何地方都会造成语法错误！
+        // 首先在js中，我们常用return false来阻止提交表单或者继续执行下面的代码，通俗的来说就是阻止执行默认的行为
+        // 总之：return false 只在当前函数有效，不会影响其他外部函数的执行。
+
+
+        //     4. For...in...声明语法：
+        //     for (变量 in 对象){
+        //         在此执行代码
+        //     }
+
+        //    注意：for...In 声明用于对数组或者对象的属性进行循环操作。for ... in 循环中的代码每执行一次，就会对数组的元素或者对象的属性进行一次操作
+        var x
+        var mycars = [1, 2, 3, 4, 5, 6, 7, 8]
+
+        for (x in mycars) {
+            console.log(x + '是索引值');
+            console.log(mycars[x] * 2)
+        }
+        var y
+        var obj = { a: 1, b: 2 }
+        for (y in obj) {
+            console.log(y + '----属性')
+            console.log(obj.a + '是属性值');
+            console.log(obj.b + '是属性值')
+        }
+
+
+
+
+
+        var a = 1;
+        var b = 2;
+        function change(a, b) {
+            var c = a;
+            a = b;   //用新引用覆盖
+            b = c;
+            console.log(a);  //"2"     
+            console.log(b);  //"1"
+        }
+        change(a, b);
+        alert(a);  //"1"     
+        alert(b);  //"2"
+    </script>
+
+</body>
+
+</html>

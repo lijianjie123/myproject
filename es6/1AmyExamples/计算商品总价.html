@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<ul id = 'list'>
+    <li>
+        <input type = "button" value = "-"/>
+        <span>0</span>
+        <input type = "button" value = "+"/>
+        单价：<em>15</em>元;
+        小计：<strong>0</strong>元;
+    </li>
+    <li>
+        <input type = "button" value = "-"/>
+        <span>0</span>
+        <input type = "button" value = "+"/>
+        单价：<em>10</em>元;
+        小计：<strong>0</strong>元;
+    </li>
+    <li>
+        <input type = "button" value = "-"/>
+        <span>0</span>
+        <input type = "button" value = "+"/>
+        单价：<em>5</em>元;
+        小计：<strong>0</strong>元;
+    </li>
+    <li>
+        <input type = "button" value = "-"/>
+        <span>0</span>
+        <input type = "button" value = "+"/>
+        单价：<em>3</em>元;
+        小计：<strong>0</strong>元;
+    </li>
+    <li>
+        <input type = "button" value = "-"/>
+        <span>0</span>
+        <input type = "button" value = "+"/>
+        单价：<em>1</em>元;
+        小计：<strong>0</strong>元;
+    </li>
+
+</ul>
+<p>商品一共<span id = 'num'>0</span>件；<br/>
+    共花费<span id = 'price'>0</span>元;<br/>
+    其中最贵的商品单价是<span id="max">0</span>元
+</p>
+<script>
+    var ullList = document.getElementById('list');
+    var num = document.getElementById('num');
+    var price = document.getElementById('price');
+    var max = document.getElementById('max');
+    var list = ullList.getElementsByTagName('li');
+    var spans = ullList.getElementsByTagName('span');
+    var strongs = ullList.getElementsByTagName('strong');
+    var ems = ullList.getElementsByTagName('em');
+    for( var i=0; i<list.length; i++){
+        tab(i);
+    }
+    function count(){
+        var b=0;
+        var c= 0;
+        var d = 0;
+        for(var i=0; i< spans.length; i++){
+            b +=parseFloat(spans[i].innerHTML) ;
+            c +=parseFloat(strongs[i].innerHTML);
+            //当span的值不为0的时候才去比较em 的值
+            if(parseFloat(spans[i].innerHTML) != 0){
+                if(parseFloat(ems[i].innerHTML)>d){
+                    d=parseFloat( ems[i].innerHTML);
+                }
+            }
+        }
+        max.innerHTML = d;
+         num.innerHTML = b ;
+         price.innerHTML =c;
+    }
+    function tab(b){
+        var li_inps = list[b].getElementsByTagName('input');
+        var li_span = list[b].getElementsByTagName('span')[0];
+        var li_em = list[b].getElementsByTagName('em')[0];
+        var li_strong = list[b].getElementsByTagName('strong')[0];
+        var a = 0;
+        li_inps[0].onclick = function(){
+            a--;
+            if(a<0){
+                a=0;
+            }
+            li_span.innerHTML = a;
+            li_strong.innerHTML = a*li_em.innerHTML;
+            count();
+
+
+        };
+        li_inps[1].onclick = function(){
+            a++;
+            li_span.innerHTML = a;
+            li_strong.innerHTML = a*li_em.innerHTML;
+            count();
+
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

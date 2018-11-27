@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{ padding: 0; margin: 0;}
+        li{list-style: none;}
+        .wrap{width: 400px; margin: 60px auto 0px; }
+        #liuyan{ width: 400px;
+            height:auto; min-height: 200px; border: 1px solid red;}
+    </style>
+
+</head>
+<body>
+<div class="wrap">
+    <input type="text" > <input type="button" value="点击留言">
+    <div id="liuyan">
+
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        var div =  document.getElementsByTagName('div');
+        var inputs = document.getElementsByTagName('input');
+        var ul = document.createElement('ul');
+
+        inputs[1].onclick = function(){
+            div[1].appendChild(ul);
+            var ali = document.createElement('li');
+            if(ul.children[0]){
+                ul.insertBefore(ali,ul.children[0]);
+            }else{
+                ul.appendChild(ali);
+            }
+
+            //ul.insertBefore(ali,ul.children[0]);
+            ali.innerHTML = inputs[0].value;
+            inputs[0].value ='';
+            //console.log(inputs[0].value) ;
+           // console.log(div[0].appendChild(ul));
+
+        }
+    }
+</script>
+</body>
+</html>

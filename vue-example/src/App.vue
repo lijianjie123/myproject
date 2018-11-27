@@ -4,7 +4,7 @@
     <div class="nav">
       <ul>
           <!-- <a href="/home" >home</a> -->
-          <!-- 默认是点击事件， 如果想事件是 移入mouseover  ，添加event = "mouseover"     exact不包括的意思 -->
+          <!-- 默认是点击事件， 如果想事件是 移入mouseover  ，添加event = "mouseover"     exact不包括的意思 --> 
           <router-link  :to="index"  exact tag = "li" event = "mouseover">
             <i></i>
             <span>home</span>

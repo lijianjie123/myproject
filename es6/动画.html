@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            /* animation: name(动画名称) duration（完成动画需要的时间） timing-function（动画速度曲线） delay（规定动画开始前的延迟时间） iteration-count（贵定动画播放的次数） direction（是否轮流播放）; */
+            animation: myfirst 5s linear 2s infinite alternate;
+            /* Firefox: */
+            -moz-animation: myfirst 5s linear 2s infinite alternate;
+            /* Safari and Chrome: */
+            -webkit-animation: myfirst 5s linear 2s infinite alternate;
+            /* Opera: */
+            -o-animation: myfirst 5s linear 2s infinite alternate;
+        }
+
+        @keyframes myfirst {
+            0% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+            25% {
+                background: yellow;
+                left: 200px;
+                top: 0px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 0px;
+                top: 200px;
+            }
+            100% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+        }
+
+        @-moz-keyframes myfirst
+        /* Firefox */
+
+            {
+            0% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+            25% {
+                background: yellow;
+                left: 200px;
+                top: 0px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 0px;
+                top: 200px;
+            }
+            100% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+        }
+
+        @-webkit-keyframes myfirst
+        /* Safari and Chrome */
+
+            {
+            0% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+            25% {
+                background: yellow;
+                left: 200px;
+                top: 0px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 0px;
+                top: 200px;
+            }
+            100% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+        }
+
+        @-o-keyframes myfirst
+        /* Opera */
+
+            {
+            0% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+            25% {
+                background: yellow;
+                left: 200px;
+                top: 0px;
+            }
+            50% {
+                background: blue;
+                left: 200px;
+                top: 200px;
+            }
+            75% {
+                background: green;
+                left: 0px;
+                top: 200px;
+            }
+            100% {
+                background: red;
+                left: 0px;
+                top: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>
+        <b>注释：</b>本例在 Internet Explorer 中无效。</p>
+
+    <div></div>
+
+</body>
+<script>
+    for (var i = 0; i < 5; i++) {
+        setTimeout(function () {
+            console.log(i) // 55555
+        }, i * 1000)
+    }
+    for (let i = 0; i < 5; i++) {
+        setTimeout(function () {
+            console.log(i) // 01234
+        }, i * 1000)
+    }
+
+
+// setTimeout是异步执行的，1000毫秒后向任务队列里添加一个任务，只有主线上的全部执行完才会执行任务队列里的任务，
+// 所以当主线程for循环执行完之后 i 的值为5，这个时候再去任务队列中执行任务，i全部为5；
+
+// 每次for循环的时候setTimeout都会执行，但是里面的function则不会执行被放入任务队列，因此放了5次；for循环的5次执行完之后不到1000毫秒；
+
+// 1000毫秒后全部执行任务队列中的函数，所以就是输出五个5啦
+
+
+
+// 假如把var换成let，那么输出结果为0,1,2,3,4；
+
+// 因为let  i  的是区块变量，每个i只能存活到大括号结束，并不会把后面的for循环的  i  值赋给前面的setTimeout中的i；
+// 而var i  则是局部变量，这个 i 的生命周期不受for循环的大括号限制；
+
+</script>
+
+</html>

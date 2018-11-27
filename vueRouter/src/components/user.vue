@@ -16,7 +16,7 @@
             <!-- 查询字符串 -->
             <!-- <router-link exact to="?info=follow">她的关注</router-link>
              <router-link exact to="?info=share">她的分享</router-link> -->
-
+<!-- 查询字符串 写法方式二 -->
              <router-link exact :to="{path:'',query:{info:'follow', a:1}}">她的关注</router-link>
              <router-link exact :to="{path:'',query:{info:'share', b:1}}">她的分享</router-link>
              <div>

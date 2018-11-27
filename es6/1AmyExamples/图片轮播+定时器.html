@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+
+        body {
+            position: relative;
+        }
+
+        #container {
+            position: absolute;
+            left: 0px; top:0px;
+            width: 400px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        #list {
+            position: absolute;
+            z-index: 1;
+            width: 4200px;
+            height: 400px;
+        }
+
+        #list img {
+            float: left;
+            width: 600px;
+            height: 200px;
+           /* width: 100%;
+            height: 100%;*/
+        }
+        #list li {
+            display: block;
+            float: left;
+            /*width: 400px;
+            height: 200px;
+            background-size: cover;*/
+        }
+
+        #buttons {
+            position: absolute;
+            left: 250px;
+            bottom: 20px;
+            z-index: 2;
+            height: 10px;
+            width: 100px;
+        }
+
+        #buttons span {
+            float: left;
+            margin-right: 5px;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+        }
+
+        #buttons .on {
+            background: orangered;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 80px;
+            z-index: 2;
+            display: none;
+            width: 40px;
+            height: 40px;
+            font-size: 36px;
+            font-weight: bold;
+            line-height: 39px;
+            text-align: center;
+            color: #fff;
+            background-color: RGBA(0, 0, 0, .5);
+            cursor: pointer;
+            display: block;
+        }
+
+        .arrow:hover {
+            background-color: RGBA(0, 0, 0, .8);
+        }
+
+        /*#container:hover .arrow {
+            display: block;
+        }*/
+
+        #prev {
+            left: 20px;
+        }
+
+        #next {
+            right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="container">
+         <div id="list" >
+             <!--<img src="img2/banner1.jpg" alt="0" />
+             <img src="img2/banner2.jpg" alt="1" />
+             <img src="img2/banner3.jpg" alt="2" />-->
+             <ul>
+                 <li><img src="img2/banner2.jpg" alt="1" /></li>
+                 <li  ><img src="img2/banner1.jpg" alt="0" /></li>
+                 <li ><img src="img2/banner3.jpg" alt="1" /></li>
+             </ul>
+         </div>
+         <div id="buttons">
+             <span index="1" class="on"></span>
+             <span index="2"></span>
+             <span index="3"></span>
+
+
+        </div>
+         <a href="javascript:;" id="prev" class="arrow">&lt;</a>
+         <a href="javascript:;" id="next" class="arrow">&gt;</a>
+</div>
+<script>
+    window.onload = function(){
+        var container = document.getElementById('container');
+        var list = document.getElementById('list');
+        var  imgs = container.getElementsByTagName('li');
+        var prev = document.getElementById('prev');
+        var next = document.getElementById('next');
+        var buttons = document.getElementById('buttons');
+        var spans = buttons.getElementsByTagName('span');
+        var clientW = document.documentElement.clientWidth;
+        var clientH = document.documentElement.clientHeight;
+        alert(clientW);
+       alert(clientH);
+
+        container.style.width = clientW;
+        alert(container.style.width);
+        container.style.height = clientH;
+        console.log(container.style.width);
+        for(var i=0; i<imgs.length; i++){
+            imgs[i].style.width = clientW;
+            imgs[i].style.height = clientH;
+        }
+        imgs[0].style.width = clientW;
+        imgs[0].style.height = clientH;
+        /*alert(getStyle(container,'width'));
+        function getStyle(obj,attr){
+            return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+        }*/
+
+        var index = 0;
+        ///////////////
+        var timer = null;
+        autoplay();
+        function autoplay(){
+            timer = setInterval(function(){
+                index++;
+                index%= imgs.length;
+                tab();
+            },2000);
+        }
+        list.onmouseover = function(){
+            clearInterval(timer);
+        };
+        list.onmouseout = function(){
+            autoplay();
+        };
+        ///////////////
+        prev.onclick = function(){
+            index --;
+            if(index < 0 ){
+                index = imgs.length-1;
+            }
+            tab();
+        }
+        next.onclick = function(){
+            index ++;
+            if(index > imgs.length-1 ){
+                index = 0;
+            }
+            tab();
+        }
+       for(var i= 0; i<spans.length; i++){
+            spans[i].index= i;
+           spans[i].onmouseover = function(){
+               index= this.index;
+               tab();
+           }
+       }
+        function tab(){
+            for(var i = 0; i<spans.length; i++){
+                spans[i].className = '';
+            }
+                spans[index].className = 'on';
+                list.style.left = -index*clientW + 'px';
+        }
+    }
+
+</script>
+
+</body>
+</html>

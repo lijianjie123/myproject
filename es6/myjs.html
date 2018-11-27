@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 节点封装
+        // 获取第一个子节点的封装：
+        function getFirst(parent) {
+            if (!parent.firstChild) return null;
+            return parent.firstChild.nodeType == 1 ? parent.firstChild : getNext(parent.firstChild);
+        }
+        // 获取最后一个子节点的封装：
+        function getlast(parent) {
+            if (!parent.lastChild) return null;
+            return parent.lastChild.nodeType == 1 ? parent.lastChild : getPrev(parent.lastChild);
+        }
+        // 获取上一个子节点的封装：
+        function getPrev(obj) {
+            if (!obj.previousSibling) return null;
+            return obj.previousSibling.nodeType == 1 ? obj.previousSibling : getPrev(obj.previousSibling);
+        }
+        // 获取下一个子节点的封装：
+        function getNext(obj) {
+            if (!obj.nextSibling) return null;
+            return obj.nextSibling.nodeType == 1 ? obj.nextSibling : getNext(obj.nextSibling);
+        }
+        // 例：var oUl = document.getElementById('ul1');
+        // getFirst(oUl).style.background = 'red';
+        // getlast(oUl).style.background = 'blue';
+        // getPrev(getlast(oUl)).style.background = 'orange';
+        // getNext(getFirst(oUl)).style.background = 'green';
+
+
+        // 获取绝对位置的封装
+        function getPos(obj) {
+            var aPos = { l: 0, t: 0 };
+            var xBorder = 0;
+            var yBorder = 0;
+            while (obj) {
+                aPos.l += obj.offsetLeft;
+                aPos.t += obj.offsetTop;
+
+                obj = obj.offsetParent;
+
+                if (obj) {
+                    xBorder += (obj.offsetWidth - obj.clientWidth) / 2;
+                    yBorder += (obj.offsetHeight - obj.clientHeight) / 2;
+                }
+            }
+            aPos.l += xBorder;
+            aPos.t += yBorder;
+            return aPos;
+        }
+        // 使用：//alert(getPos(this).l);
+        // alert(getPos(this).t);
+
+
+        // 获取样式
+        //获取样式的函数  使用的时候  第二个参数（属性名）要用字符串的格式
+        function getStyle(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            }
+            return getComputedStyle(obj, false)[attr];
+        }
+        //alert( getStyle(this, 'backgroundColor') );
+        //alert( getStyle(this, 'marginLeft') );
+        // 1、不要去获取复合样式（颜色值不要拿来做判断）
+        // 2、不要去获取没有设置过的值
+        // 3、都是字符串：'100px' parseInt 转换为数字格式的
+        // 4、只能读、不能写
+
+
+        // 事件绑定
+        function bind(obj, evname, fn) {
+            if (obj.addEventListener) {
+                obj.addEventListener(evname, fn, false);
+            } else {
+                obj.attachEvent('on' + evname, function () {
+                    fn.call(obj);
+                });
+            }
+        }
+        // 使用：
+        // bind(document, 'click', fn1);
+        // bind(document, 'click', fn2);
+
+        // 拖拽封装（不限制范围）
+        function dragEle(obj) {  // 参数为要拖拽的元素
+            obj.onmousedown = function (ev) {
+                var ev = ev || event;
+                var disX = ev.clientX - this.offsetLeft;
+                var disY = ev.clientY - this.offsetTop;
+                if (this.setCapture) {//设置全局捕获
+                    this.setCapture();
+                }
+                document.onmousemove = function (ev) {
+                    var ev = ev || event;
+                    obj.style.left = ev.clientX - disX + 'px';
+                    obj.style.top = ev.clientY - disY + 'px';
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    // releaseCapture释放全局捕获
+                    if (obj.releaseCapture) {
+                        obj.releaseCapture();
+                    }
+                }
+                return false; //取消默认行为  文字（bug）
+            }
+        }
+        // 拖拽的使用
+        // var oDiv = document.getElementById('div1');
+        // dragEle(oDiv)
+
+        // 限制范围本质上其实就是限制拖拽对象left,top取值
+        // 拖拽限制范围的封装
+        function drag(obj) {//拖拽限制范围
+            obj.onmousedown = function (ev) {
+                var ev = ev || event;
+                var disX = ev.clientX - this.offsetLeft;
+                var disY = ev.clientY - this.offsetTop;
+                if (this.setCapture) {
+                    this.setCapture();
+                }
+                document.onmousemove = function (ev) {
+                    var ev = ev || event;
+                    var L = ev.clientX - disX;
+                    var T = ev.clientY - disY;
+
+                    if (L < 0) {
+                        L = 0;
+                    } else if (L > document.documentElement.clientWidth - obj.offsetWidth) {
+                        L = document.documentElement.clientWidth - obj.offsetWidth;
+                    }
+                    if (T < 0) {
+                        T = 0;
+                    } else if (T > document.documentElement.clientHeight - obj.offsetHeight) {
+                        T = document.documentElement.clientHeight - obj.offsetHeight;
+                    }
+                    obj.style.left = L + 'px';
+                    obj.style.top = T + 'px';
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    //releaseCapture :　释放全局捕获
+                    if (obj.releaseCapture) {
+                        obj.releaseCapture();
+                    }
+                }
+                return false;
+
+            }
+        }
+
+
+
+        // 运动函数封装
+        //把一个函数当作另外一个函数的参数进行传入,那么这个被当作参数的函数我们叫他为回调函数
+        function startMove(obj, json, fn) {
+            clearInterval(obj.iTimer);
+            var iSpeed = 0;
+            var iCur = 0;
+
+            obj.iTimer = setInterval(function () {
+
+                var iBtn = true;
+
+                for (var attr in json) {
+
+                    if (attr == 'opacity') {
+                        iCur = Math.round(css(obj, attr) * 100);
+                    } else {
+                        iCur = parseInt(css(obj, attr));
+                    }
+                    iSpeed = (json[attr] - iCur) / 8;
+
+                    iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+                    if (iCur != json[attr]) {
+                        iBtn = false;
+                        if (attr == 'opacity') {
+                            obj.style.opacity = (iCur + iSpeed) / 100;
+                            obj.style.filter = 'alpha(opacity=' + (iCur + iSpeed) + ')'
+                        } else {
+                            obj.style[attr] = iCur + iSpeed + 'px';
+                        }
+                    }
+
+                }
+
+                if (iBtn) {
+                    clearInterval(obj.iTimer);
+                    fn && fn.call(obj);
+                }
+
+            }, 30);
+        }
+        // 获取样式  运动的封装函数中用到了     
+        function css(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            } else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+
+    </script>
+</body>
+
+</html>

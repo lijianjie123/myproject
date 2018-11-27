@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul></ul>
+    <script>
+        //JSON 值可以是：
+        // 数字（整数或浮点数）
+        // 字符串（在双引号中）
+        // 逻辑值（true 或 false）
+        // 数组（在方括号中）
+        // 对象（在花括号中）
+        // null
+        window.onload = function () {
+            //json
+            var json = {
+                "employees": [
+                    { "firstName": "John", "lastName": "Doe" },
+                    { "firstName": "Anna", "lastName": "Smith" },
+                    { "firstName": "Peter", "lastName": "Jones" }
+                ]
+            }
+            var oul = document.getElementsByTagName('ul')[0];
+            //alert(odiv.length);
+            //var oul = document.createElement('ul');
+            //odiv.appendChild(oul);
+
+
+
+            for (var i = 0; i < json.employees.length; i++) {
+                var name = json.employees[i].firstName + json.employees[i].lastName;
+                console.log(name)
+                oli = document.createElement('li');
+                oli.innerHTML = name;
+                oul.appendChild(oli);
+                console.log('我的全名是：' + json.employees[i].firstName + json.employees[i].lastName)
+            }
+        }
+    </script>
+</body>
+
+</html>

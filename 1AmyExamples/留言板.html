@@ -1,47 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        *{ padding: 0; margin: 0;}
-        li{list-style: none;}
-        .wrap{width: 400px; margin: 60px auto 0px; }
-        #liuyan{ width: 400px;
-            height:auto; min-height: 200px; border: 1px solid red;}
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 400px;
+            margin: 60px auto 0px;
+        }
+
+        #liuyan {
+            width: 400px;
+            height: auto;
+            min-height: 200px;
+            border: 1px solid red;
+        }
     </style>
 
 </head>
+
 <body>
-<div class="wrap">
-    <input type="text" > <input type="button" value="点击留言">
-    <div id="liuyan">
+    <div class="wrap">
+        <input type="text">
+        <input type="button" value="点击留言">
+        <div id="liuyan">
 
+        </div>
     </div>
-</div>
-<script>
-    window.onload = function(){
-        var div =  document.getElementsByTagName('div');
-        var inputs = document.getElementsByTagName('input');
-        var ul = document.createElement('ul');
+    <script>
+        window.onload = function () {
 
-        inputs[1].onclick = function(){
-            div[1].appendChild(ul);
-            var ali = document.createElement('li');
-            if(ul.children[0]){
-                ul.insertBefore(ali,ul.children[0]);
-            }else{
-                ul.appendChild(ali);
-            }
+            (function () {
+                var div = document.getElementsByTagName('div');
+                var inputs = document.getElementsByTagName('input');
+                var ul = document.createElement('ul');
 
-            //ul.insertBefore(ali,ul.children[0]);
-            ali.innerHTML = inputs[0].value;
-            inputs[0].value ='';
-            //console.log(inputs[0].value) ;
-           // console.log(div[0].appendChild(ul));
+                inputs[1].onclick = function () {
+                    add();
 
+                }
+                document.onkeydown = function (ev) {
+                    //var keycode = document.all ? event.keyCode : e.which;
+                    var ev = ev || event;  //或（||）书写顺序有讲究，不能随意换
+                    if (ev.keyCode == 13) {  //ev.keyCode == 13 && ev.ctrlKey && ev.altKey   同时按下enter ctrl alt
+                        add();
+                        inputs[0].value = ''
+                    }
+                }
+                function add() {
+                    div[1].appendChild(ul);
+                    var li = document.createElement('li');
+                    if (inputs[0].value == '') {
+                        alert('请输入留言内容')
+                    } else {
+                        if (ul.children[0]) {
+                            ul.insertBefore(li, ul.children[0])
+                            //ul.appendChild(li)
+                            li.innerHTML = inputs[0].value
+                        } else {
+                            ul.appendChild(li)
+                            li.innerHTML = inputs[0].value
+                        }
+                        li.innerHTML = inputs[0].value
+                    }
+                    inputs[0].value = ''
+                }
+            }()) //匿名函数自执行
+            // console.log(div.length) 这里报错  找不到匿名函数中的变量div
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // inputs[1].onclick = function () {
+            //     div[1].appendChild(ul);
+            //     var ali = document.createElement('li');
+            //     if (ul.children[0]) {
+            //         ul.insertBefore(ali, ul.children[0]);
+            //     } else {
+            //         ul.appendChild(ali);
+            //     }
+
+            //     //ul.insertBefore(ali,ul.children[0]);
+            //     ali.innerHTML = inputs[0].value;
+            //     inputs[0].value = '';
+            //     //console.log(inputs[0].value) ;
+            //     // console.log(div[0].appendChild(ul));
+
+            // }
         }
-    }
-</script>
+    </script>
 </body>
+
 </html>
