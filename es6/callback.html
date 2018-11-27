@@ -1,200 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-        // 1.回调函数：函数当参数，传递另外一个函数
-        // 定义：在JavaScript中，回调函数具体的定义为：函数A作为参数(函数引用)传递到另一个函数B中，
-        // 并且这个函数B执行函数A。我们就说函数A叫做回调函数。如果没有名称(函数表达式) ，就叫做匿名回调函数。
-        //另外，最好保证回调存在且必须是函数引用或者函数表达式：
-        // (callback && typeof(callback) === "function") && callback();         
+      // 1.回调函数：函数当参数，传递另外一个函数
+      // 定义：在JavaScript中，回调函数具体的定义为：函数A作为参数(函数引用)传递到另一个函数B中，
+      // 并且这个函数B执行函数A。我们就说函数A叫做回调函数。如果没有名称(函数表达式) ，就叫做匿名回调函数。
+      //另外，最好保证回调存在且必须是函数引用或者函数表达式：
+      // (callback && typeof(callback) === "function") && callback();
 
-        // function fn1(fn2) {//fn2 就是回调函数
-        //     setTimeout(function () {
-        //         console.log(1);
-        //         fn2 && typeof fn2 === 'function' && fn2(); //就是判断fn2 函数存在 并且 是个函数 就执行 函数 吧
-        //     }, 2000)
-        // }
-        // fn1(function () {
-        //     console.log(3)
-        // })
-        // 结果： 1 3 
+      // function fn1(fn2) {//fn2 就是回调函数
+      //     setTimeout(function () {
+      //         console.log(1);
+      //         fn2 && typeof fn2 === 'function' && fn2(); //就是判断fn2 函数存在 并且 是个函数 就执行 函数 吧
+      //     }, 2000)
+      // }
+      // fn1(function () {
+      //     console.log(3)
+      // })
+      // 结果： 1 3
 
+      // function fn1(fn2) {
+      //     setTimeout(function () {
+      //         console.log(1);
+      //         fn2 && typeof fn2 === 'function' && fn2();
+      //     }, 1000);
+      // }
 
-        // function fn1(fn2) {
-        //     setTimeout(function () {
-        //         console.log(1);
-        //         fn2 && typeof fn2 === 'function' && fn2();
-        //     }, 1000);
-        // }
+      // function fn2() {
+      //     console.log(2);
+      // }
 
-        // function fn2() {
-        //     console.log(2);
-        // }
+      // fn1();
+      // //fn2()
+      // // 结果： 2 1
 
-        // fn1();
-        // //fn2()
-        // // 结果： 2 1
+      // function fn1(fn2, str) {
+      //     setTimeout(function () {
+      //         var arr = str.split('');
+      //         str = arr.sort().join('');
+      //         console.log(str);
+      //         fn2 && typeof fn2 === 'function' && fn2(str);
+      //     }, 1000);
+      // }
 
+      // fn1(function (str) {
+      //     var arr1 = str.split('');
+      //     var newarr = [];
+      //     for (var i = 0; i < arr1.length; i++) {
+      //         if (newarr.indexOf(arr1[i]) == -1) {
+      //             newarr.push(arr1[i
+      //             ]);
+      //         }
+      //     }
+      //     console.log(newarr.join(''));
+      //     fn1(function (str) {
+      //         var arr1 = str.split('');
+      //         var newarr = [];
+      //         for (var i = 0; i < arr1.length; i++) {
+      //             if (newarr.indexOf(arr1[i]) == -1) {
+      //                 newarr.push(arr1[i]);
+      //             }
+      //         }
+      //         console.log(newarr.join(''));
+      //         fn1(function (str) {
+      //             var arr1 = str.split('');
+      //             var newarr = [];
+      //             for (var i = 0; i < arr1.length; i++) {
+      //                 if (newarr.indexOf(arr1[i]) == -1) {
+      //                     newarr.push(arr1[i]);
+      //                 }
+      //             }
+      //             console.log(newarr.join(''));
+      //             fn1(function (str) {
+      //                 var arr1 = str.split('');
+      //                 var newarr = [];
+      //                 for (var i = 0; i < arr1.length; i++) {
+      //                     if (newarr.indexOf(arr1[i]) == -1) {
+      //                         newarr.push(arr1[i]);
+      //                     }
+      //                 }
+      //                 console.log(newarr.join(''));
+      //                 fn1(function (str) {
+      //                     var arr1 = str.split('');
+      //                     var newarr = [];
+      //                     for (var i = 0; i < arr1.length; i++) {
+      //                         if (newarr.indexOf(arr1[i]) == -1) {
+      //                             newarr.push(arr1[i]);
+      //                         }
+      //                     }
+      //                     console.log(newarr.join(''));
+      //                     fn1(function (str) {
+      //                         var arr1 = str.split('');
+      //                         var newarr = [];
+      //                         for (var i = 0; i < arr1.length; i++) {
+      //                             if (newarr.indexOf(arr1[i]) == -1) {
+      //                                 newarr.push(arr1[i]);
+      //                             }
+      //                         }
+      //                         console.log(newarr.join(''));
+      //                         fn1(function (str) {
+      //                             var arr1 = str.split('');
+      //                             var newarr = [];
+      //                             for (var i = 0; i < arr1.length; i++) {
+      //                                 if (newarr.indexOf(arr1[i]) == -1) {
+      //                                     newarr.push(arr1[i]);
+      //                                 }
+      //                             }
+      //                             console.log(newarr.join(''));
+      //                             fn1(function (str) {
+      //                                 var arr1 = str.split('');
+      //                                 var newarr = [];
+      //                                 for (var i = 0; i < arr1.length; i++) {
+      //                                     if (newarr.indexOf(arr1[i]) == -1) {
+      //                                         newarr.push(arr1[i]);
+      //                                     }
+      //                                 }
+      //                                 console.log(newarr.join(''));
+      //                                 fn1(function (str) {
+      //                                     var arr1 = str.split('');
+      //                                     var newarr = [];
+      //                                     for (var i = 0; i < arr1.length; i++) {
+      //                                         if (newarr.indexOf(arr1[i]) == -1) {
+      //                                             newarr.push(arr1[i]);
+      //                                         }
+      //                                     }
+      //                                     console.log(newarr.join(''));
+      //                                     fn1(function (str) {
+      //                                         var arr1 = str.split('');
+      //                                         var newarr = [];
+      //                                         for (var i = 0; i < arr1.length; i++) {
+      //                                             if (newarr.indexOf(arr1[i]) == -1) {
+      //                                                 newarr.push(arr1[i]);
+      //                                             }
+      //                                         }
+      //                                         console.log(newarr.join(''));
+      //                                     }, 'j')
+      //                                 }, 'i')
+      //                             }, 'h')
+      //                         }, 'g')
+      //                     }, 'f')
+      //                 }, 'e')
+      //             }, 'd')
+      //         }, 'c')
+      //     }, 'b')
+      // }, 'a');
 
+      var promise = new Promise(function(resolve, reject) {
+        let cImg = new Image();
+        cImg.src =
+          "http://h.hiphotos.baidu.com/image/h%3D300/sign=7be12c140ce9390149028b3e4bec54f9/a9d3fd1f4134970a3776841b98cad1c8a7865df8.jpg";
+        cImg.onload = function() {
+          resolve(this);
+        };
+        cImg.onerror = function() {
+          reject("路径错误");
+        };
+      });
 
-
-
-        // function fn1(fn2, str) {
-        //     setTimeout(function () {
-        //         var arr = str.split('');
-        //         str = arr.sort().join('');
-        //         console.log(str);
-        //         fn2 && typeof fn2 === 'function' && fn2(str);
-        //     }, 1000);
-        // }
-
-        // fn1(function (str) {
-        //     var arr1 = str.split('');
-        //     var newarr = [];
-        //     for (var i = 0; i < arr1.length; i++) {
-        //         if (newarr.indexOf(arr1[i]) == -1) {
-        //             newarr.push(arr1[i
-        //             ]);
-        //         }
-        //     }
-        //     console.log(newarr.join(''));
-        //     fn1(function (str) {
-        //         var arr1 = str.split('');
-        //         var newarr = [];
-        //         for (var i = 0; i < arr1.length; i++) {
-        //             if (newarr.indexOf(arr1[i]) == -1) {
-        //                 newarr.push(arr1[i]);
-        //             }
-        //         }
-        //         console.log(newarr.join(''));
-        //         fn1(function (str) {
-        //             var arr1 = str.split('');
-        //             var newarr = [];
-        //             for (var i = 0; i < arr1.length; i++) {
-        //                 if (newarr.indexOf(arr1[i]) == -1) {
-        //                     newarr.push(arr1[i]);
-        //                 }
-        //             }
-        //             console.log(newarr.join(''));
-        //             fn1(function (str) {
-        //                 var arr1 = str.split('');
-        //                 var newarr = [];
-        //                 for (var i = 0; i < arr1.length; i++) {
-        //                     if (newarr.indexOf(arr1[i]) == -1) {
-        //                         newarr.push(arr1[i]);
-        //                     }
-        //                 }
-        //                 console.log(newarr.join(''));
-        //                 fn1(function (str) {
-        //                     var arr1 = str.split('');
-        //                     var newarr = [];
-        //                     for (var i = 0; i < arr1.length; i++) {
-        //                         if (newarr.indexOf(arr1[i]) == -1) {
-        //                             newarr.push(arr1[i]);
-        //                         }
-        //                     }
-        //                     console.log(newarr.join(''));
-        //                     fn1(function (str) {
-        //                         var arr1 = str.split('');
-        //                         var newarr = [];
-        //                         for (var i = 0; i < arr1.length; i++) {
-        //                             if (newarr.indexOf(arr1[i]) == -1) {
-        //                                 newarr.push(arr1[i]);
-        //                             }
-        //                         }
-        //                         console.log(newarr.join(''));
-        //                         fn1(function (str) {
-        //                             var arr1 = str.split('');
-        //                             var newarr = [];
-        //                             for (var i = 0; i < arr1.length; i++) {
-        //                                 if (newarr.indexOf(arr1[i]) == -1) {
-        //                                     newarr.push(arr1[i]);
-        //                                 }
-        //                             }
-        //                             console.log(newarr.join(''));
-        //                             fn1(function (str) {
-        //                                 var arr1 = str.split('');
-        //                                 var newarr = [];
-        //                                 for (var i = 0; i < arr1.length; i++) {
-        //                                     if (newarr.indexOf(arr1[i]) == -1) {
-        //                                         newarr.push(arr1[i]);
-        //                                     }
-        //                                 }
-        //                                 console.log(newarr.join(''));
-        //                                 fn1(function (str) {
-        //                                     var arr1 = str.split('');
-        //                                     var newarr = [];
-        //                                     for (var i = 0; i < arr1.length; i++) {
-        //                                         if (newarr.indexOf(arr1[i]) == -1) {
-        //                                             newarr.push(arr1[i]);
-        //                                         }
-        //                                     }
-        //                                     console.log(newarr.join(''));
-        //                                     fn1(function (str) {
-        //                                         var arr1 = str.split('');
-        //                                         var newarr = [];
-        //                                         for (var i = 0; i < arr1.length; i++) {
-        //                                             if (newarr.indexOf(arr1[i]) == -1) {
-        //                                                 newarr.push(arr1[i]);
-        //                                             }
-        //                                         }
-        //                                         console.log(newarr.join(''));
-        //                                     }, 'j')
-        //                                 }, 'i')
-        //                             }, 'h')
-        //                         }, 'g')
-        //                     }, 'f')
-        //                 }, 'e')
-        //             }, 'd')
-        //         }, 'c')
-        //     }, 'b')
-        // }, 'a');
-
-
-        var promise = new Promise(function (resolve, reject) {
-            let cImg = new Image();
-            cImg.src = 'http://h.hiphotos.baidu.com/image/h%3D300/sign=7be12c140ce9390149028b3e4bec54f9/a9d3fd1f4134970a3776841b98cad1c8a7865df8.jpg';
-            cImg.onload = function () {
-                resolve(this);
-            };
-            cImg.onerror = function () {
-                reject('路径错误');
-            };
+      promise
+        .then(function(obj) {
+          document.body.appendChild(obj);
+        })
+        .catch(function(d) {
+          alert(d);
         });
 
-        promise.then(function (obj) {
-            document.body.appendChild(obj);
-        }).catch(function (d) {
-            alert(d);
-        });
+      // Math.ceil(12.2) //13  向上取整
+      // Math.floor(12.9) //12 向下取整
+      // Math.round(12.5) // 13 正常四舍五入
+      // Math.random()  //是一个 0-1 之间的小数   0.7665714389636737
 
+      var num = Math.ceil(Math.random() * (10 - 20));
 
-        // Math.ceil(12.2) //13  向上取整
-        // Math.floor(12.9) //12 向下取整
-        // Math.round(12.5) // 13 正常四舍五入
-        // Math.random()  //是一个 0-1 之间的小数   0.7665714389636737
+      // function fn(arg1, arg2, callback) {
+      //     var num = Math.ceil(Math.random() * (arg1 - arg2) + arg2);
+      //     callback(num);　　//传递结果
+      // }
 
-        var num = Math.ceil(Math.random() * (10 - 20));
-
-        // function fn(arg1, arg2, callback) {
-        //     var num = Math.ceil(Math.random() * (arg1 - arg2) + arg2);
-        //     callback(num);　　//传递结果
-        // }
-
-        // fn(10, 20, function (num) {
-        //     console.log("Callback called! Num: " + num);
-        // });
-
-
+      // fn(10, 20, function (num) {
+      //     console.log("Callback called! Num: " + num);
+      // });
     </script>
-</body>
-
+  </body>
 </html>
