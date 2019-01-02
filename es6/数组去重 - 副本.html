@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 有一个大的数组 var a = ['1'.....]  a的长度是100， 内容填充随机整数的字符串，先构造函数  然后去重
+
+        // 构造函数
+        getNum(100)
+        function getNum(count) {
+            var tempNum = [];
+            for (var i = 0; i < 100; i++) {
+                var random = parseInt(Math.random() * count).toString();
+                tempNum.push(random)
+            }
+            console.log(tempNum);
+            //排序
+            console.log('升序' + tempNum.sort(function (a, b) {
+                return a - b;  // 升序
+            }))
+            console.log('降序' + tempNum.sort(function (a, b) {
+                return b - a;  //降序
+            }))
+        }
+
+
+
+
+
+        var a = [];
+        for (var i = 0; i < 100; i++) {
+            var b = parseInt(Math.random() * 100).toString();
+            a.push(b);
+        }
+        console.log(a)
+
+        //去重 es6
+        var arr = a.filter(function (item, index, self) {
+            return self.indexOf(item) == index;
+        })
+        console.log(arr)
+
+        // //es5去重
+        var arr = [];
+        //var a = ['a', 'b', 'a', 'c', 'a', 'a'];
+        for (var i = 0; i < a.length; i++) {
+            if (arr.indexOf(a[i]) === -1) {//indexof 查找某一项‘如：1’  在新数组arr中的下标，  如果没找到就会返回-1；
+                arr.push(a[i])
+            }
+        }
+        console.log(arr)
+
+        var arr1 = [];
+        for (var i = 0; i < a.length; i++) {
+            if (a.indexOf(a[i]) == i) {
+                arr1.push(a[i])
+            }
+        }
+        console.log(arr1)
+
+
+
+
+    </script>
+</body>
+
+</html>
