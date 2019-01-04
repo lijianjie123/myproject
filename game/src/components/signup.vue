@@ -1,31 +1,40 @@
 <template>
-<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front" tabindex="-1" role="dialog" aria-describedby="dialog_form" aria-labelledby="ui-id-1" style="height: auto; width: 450px; top: 179px; left: 723px; display: block;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title">Sign Up</span><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="dialog_form" showout="showOut" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 502px;"><div class="register_box clearfix" id="sign_up_dialog">
+<div v-show = "show" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front" tabindex="-1" role="dialog" aria-describedby="dialog_form" aria-labelledby="ui-id-1" style="height: auto; width: 450px; top: 179px; left: 723px; display: block;">
+    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+        <span id="ui-id-1" class="ui-dialog-title">Sign Up</span>
+        <button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close">
+            <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+            <span class="ui-button-text">close</span>
+        </button>
+    </div>
+        <div id="dialog_form" showout="showOut" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 502px;">
+            <div class="register_box clearfix" id="sign_up_dialog">
     
         <div class="main sign_dialog">
             <form class="register" target="xajax" name="form" id="form" method="post">
                 <fieldset>
                     <div class="fullin_bg clearfix">
-                    <div class="user">
+                        <div class="user">
                             <input v-model="username" type="text" class="text uname" placeholder="username" name="username" data-state="0">
                             <p class="info_con" :class="{'red': nameErr ? true : false }" v-show = "nameErr">{{ errorinfo.nameErr}}</p>
                             <span class="showIco"></span>
                         </div>
-                    <!-- <div class="email">
-                            <input v-model="email" type="text" class="text email" id="email" name="email" value="" placeholder="Email" data-state="0">
+                        <!-- <div class="email">
+                                <input v-model="email" type="text" class="text email" id="email" name="email" value="" placeholder="Email" data-state="0">
+                                <p class="info_con"></p>
+                                <span class="showIco"></span>
+                        </div> -->
+                        <div class="password">
+                            <input v-model="password" type="password" class="text upwd" id="upwd" name="password" value="" placeholder="Password" data-state="0">
+                            <p class="info_con" :class="{'red': passwordErr ? true : false }" v-show = "passwordErr">{{ errorinfo.passwordErr}}</p>
+                            <span class="showIco"></span>
+                        </div>
+                        <!-- <div class="cpassword">
+                            <input  v-model="cpassword" type="password" class="text passwordConfirm" id="passwordConfirm" name="repassword" placeholder="Confirm Password" value="" data-state="0">
                             <p class="info_con"></p>
                             <span class="showIco"></span>
-                   </div> -->
-                    <div class="password">
-                        <input v-model="password" type="password" class="text upwd" id="upwd" name="password" value="" placeholder="Password" data-state="0">
-                        <p class="info_con" :class="{'red': passwordErr ? true : false }" v-show = "passwordErr">{{ errorinfo.passwordErr}}</p>
-                        <span class="showIco"></span>
-                    </div>
-                    <!-- <div class="cpassword">
-                        <input  v-model="cpassword" type="password" class="text passwordConfirm" id="passwordConfirm" name="repassword" placeholder="Confirm Password" value="" data-state="0">
-                        <p class="info_con"></p>
-                        <span class="showIco"></span>
-                    </div> -->
-                    </div>
+                        </div> -->
+                        </div>
     
                     <!-- <div class="cbox">
                         <label for="c1">
@@ -50,11 +59,14 @@
                     </ul>
                 </div>
             </div> -->
+            </div>
         </div>
-    </div></div></div>
+    </div>
+</div>
 </template>
 
 <script>
+import bus from "@/lib/bus";
 export default {
     data() {
         return {
@@ -71,6 +83,8 @@ export default {
             nameErr:false,
             passwordErr:false,
 
+            show:false
+
         }
     },
      
@@ -78,8 +92,18 @@ export default {
 
 
     // created:function(){}
+    mounted(){
+			//绑定全局事件globalEvent
+			var that = this;
+            bus.$on('globalEvent',function(val){
+                console.log(val)
+				that.show = val
 
+			})
+		},
     methods:{
+
+        
         signup(val){
          var that = this;
         // this.$axios.post("http://test.sc.gamesprite.me/static_resource/sign_up")
@@ -96,7 +120,8 @@ export default {
                 "content-type": "application/x-www-form-urlencoded" // 添加了 就能对应转换为支持的格式
             },
         })
-        .then(res=>{       
+        .then(res=>{      
+            console.log(res) 
             if(res.status == 200){
 
             
@@ -115,7 +140,8 @@ export default {
             }
             // pregUsername.test(that.username)   =>即 a.test(str)函数是判断 str字符串中，是否含有与a匹配的文本，有则返回 true，否则返回 false。
             if(that.username.length > 6 || that.username.length < 20 && pregUsername.test(that.username)){
-               //    
+               that.show = false ;
+               alert( that.username + '注册成功！') 
             }else{
                 that.nameErr = true;
                 return false
@@ -125,7 +151,7 @@ export default {
             //     that.passwordErr = true; 
             // }
 
-            //that.$emit('change', val) 
+            
             }
         });
 

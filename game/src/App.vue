@@ -17,7 +17,7 @@
          </div>
       </div>
 
-      <signup v-show="show" @change = "changeval"></signup>
+      <signup></signup>
 
     </div>
 
@@ -64,7 +64,7 @@ export default {
     return {
       data:data,
       userInfo:[],
-      show:true
+     
     }
   },
   components:{
@@ -73,12 +73,12 @@ export default {
     headerNav, //注册组件
     signup
   },
-  methods: {
-    changeval(val){ 
-      console.log(val)
-      this.show = val
-    }
-  },
+  // methods: {
+  //   changeval(val){ 
+  //     console.log(val)
+  //     this.show = val
+  //   }
+  // },
 
 }
 

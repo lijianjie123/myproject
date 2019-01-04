@@ -48,6 +48,7 @@
                          @click="show(true)"
                         >Sign Up</a>
                     </div>
+                    
                     <ul class="toplogos">
                         <li><a href="javascript:void(0);"  class="open_auth ad_facebook_btn"></a></li>
                         <li><a href="javascript:void(0);" class="open_auth ad_google_btn"></a></li>
@@ -63,15 +64,24 @@
 
 
 <script>
+// 使用中央事件总线的方式。新建一个Vue事件bus对象，然后通过bus.$emit触发事件，bus.$on监听触发的事件。
+	// 传递数据的兄弟组件 触发bus.$emit('globalEvent', val)事件，   
+	// 接收数据的兄弟组件 监听 bus.$on('globalEvent',val)事件
+
+
+import bus from "@/lib/bus";
+// import data from "@/lib/xiangqing";
 export default {
     data() {
         return {
+             
             
         }
     },
     methods: {
         show(val){
-            
+            bus.$emit('globalEvent',val)
+
 
         }
     },
