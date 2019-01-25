@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<!-- <link rel="stylesheet" type="text/css" href="./style.css"> -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body class="">
+    
+名词解释
+$attrs--继承所有的父组件属性（除了prop传递的属性、class 和 style ）
+
+inheritAttrs：默认值true,继承所有的父组件属性（除props的特定绑定）作为普通的HTML特性应用在子组件的根元素上，
+如果你不希望组件的根元素继承特性设置inheritAttrs: false,但是class属性会继承
+
+$listeners--属性，它是一个对象，里面包含了作用在这个组件上的所有监听器，
+你就可以配合 v-on="$listeners" 将所有的事件监听器指向这个组件的某个特定的子元素。
+
+
+
+A组件 父组件 （App.vue）
+<template>
+    <div id="app" >
+		<child1 
+		:p-child1="child1" 
+		:p-child2="child2" 
+		v-on:test1="onTest1" //此处监听了两个事件，可以在B组件或者C组件中直接触发 
+		v-on:test2="onTest2">
+        </child1>
+    </div>
+</template>
+<script>
+import Child1 from './Child1.vue';
+export default {
+    data() {
+        return {
+			child1: ['北京','北京','北京','北京','北京'],
+		    child2: ['vue','vue','vue','vue','vue','vue']
+		};
+    },
+    components: { Child1 },
+    methods: {
+        onTest1() {
+            console.log('test1 running...');
+        },
+        onTest2() {
+            console.log('test2 running');
+        }
+    }
+};
+</script>
+
+
+
+ 
+B组件（Child1.vue）
+<template>
+    <div class="child-1">
+        <p>in child1:</p>
+        <p>props: {{pChild1}}</p> //这就是获取到的数据 child1: ['北京','北京','北京','北京','北京'],
+        <p>$attrs: {{$attrs}}</p>
+        <ul>
+            <li v-for = "(item,index) in pChild1" :key = "index">{{item}}</li>
+        </ul>
+        <hr>
+        <!-- C组件中能直接触发test的原因在于 B组件调用C组件时 使用 v-on 绑定了$listeners 属性 -->
+		<!-- 通过v-bind 绑定$attrs属性，C组件可以直接获取到A组件中传递下来的props（除了B组件中props声明的） -->
+		 <!-- 这里是关键  孙子组件上 绑定了v-bind="$attrs"   还绑定了监听事件器 v-on="$listeners" -->
+        <child2 v-bind="$attrs" v-on="$listeners"></child2>
+    </div>
+</template>
+<script>
+import Child2 from '@/components/Child2.vue';
+export default {
+    props: ['pChild1'],
+    data() {
+        return {};
+    },
+    inheritAttrs: true,
+    components: { Child2 },
+    mounted() {
+        this.$emit('test1');
+    }
+};
+</script>
+ 
+C 组件 (Child2.vue)
+<template>
+    <div class="child-2">
+        <p>in child2:</p>
+        <p>props: {{pChild2}}</p>//这就是获取到的数据  child2: ['vue','vue','vue','vue','vue','vue']
+        <ul>
+
+            <li v-for = "(item,index) in pChild2" :key = "index">{{item}}</li>
+        </ul>
+        <p>$attrs: {{$attrs}}</p>
+        <hr>
+    </div>
+</template>
+<script>
+export default {
+    props: ['pChild2'],
+    data() {
+        return {};
+    },
+    inheritAttrs: true,
+    mounted() {
+        this.$emit('test2');
+    }
+};
+</script>
+
+
+
+</html>

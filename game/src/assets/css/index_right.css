@@ -302,7 +302,7 @@ a.Select_number:hover{color:#fff;}
     border-radius: 10px;}
 .Select_list ul li a{ display:block; float:left;width:222px; height:55px; background:url(../img/Serverbg.png) 0px 0px no-repeat;  font-size: 18px;
     color: #ffd493; line-height:55px; text-align:center;}
-.Select_list ul li a.active{ display:block; float:left;background:url(../img/Serverbg.png) no-repeat; color:#ffd493; text-align:center;}
+.Select_list ul li a.active{ display:block; float:left;background:red; color:#ffd493; text-align:center;}
 .Select_list ul li a:hover{}
 .Select_allbox{  padding:10px 0px;}
 .Select_button{  width:796px; height:47px; position:relative;border-bottom: 2px solid #79ccc7;}

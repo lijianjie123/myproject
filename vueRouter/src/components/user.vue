@@ -2,7 +2,10 @@
     <div>
         user
         <div class="userlist">
-            <router-link style="padding-left:30px" :to = "{path:'/user/'+item.tip +'/'+ item.id,query:{info:'follow'}}" v-for = "(item,index) in userList" :key = "index">{{item.username}}</router-link>
+            <router-link style="padding-left:30px" 
+            :to = "{path:'/user/'+item.tip +'/'+ item.id,query:{info:'follow'}}" 
+            v-for = "(item,index) in userList" 
+            :key = "index">{{item.username}}</router-link>
         </div>
         <div class="user-info" v-if = "userInfo.username">
             <p>姓名:{{userInfo.username}}</p> 

@@ -869,7 +869,7 @@ span.server_type_2 {
 .fenye ul li.active{ background:#927247 ; padding:2px 4px; }
 .fenye ul li.pre{ width:40px; color:#6a3906; background:none;}
 .fenye ul li.next{width:40px; color:#6a3906; background:none;}
-.wrap_form .user_logout {
+.wrap_form .user_log {
     /* width: 182px; */
     color: #fff;
     display: block;
@@ -881,6 +881,28 @@ span.server_type_2 {
     right:224px;
     text-align: center;
     top: 22px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: -webkit-gradient(linear,0% 0%, 30% 100%, from(#1F7683), to(#0F3E43));
+    font-family: "myFirstFont";
+}
+.wrap_form .user_log:hover{
+    background: -webkit-gradient(linear,0% 0%, 30% 100%, from(#0F3E43), to(#1F7683));
+}
+
+
+.wrap_form .user_logout {
+    /* width: 182px; */
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    height: 86px;
+    line-height: 86px;
+    border: 1px solid #009888;
+    position: absolute;
+    right: 45px;
+    text-align: center;
+    top: 46px;
     padding-left: 15px;
     padding-right: 15px;
     background: -webkit-gradient(linear,0% 0%, 30% 100%, from(#1F7683), to(#0F3E43));

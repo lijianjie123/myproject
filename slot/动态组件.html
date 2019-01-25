@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 测试实例 - 动态组件</title>
+
+<script src="./vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<button @click='toShow'>点击显示子组件</button>
+	<component v-bind:is="which_to_show"></component>
+</div>
+ 
+<script>
+ 
+// 创建根实例
+new Vue({
+  el: '#app',
+  data:{
+	  which_to_show:'first'
+  },
+	methods:{
+		toShow:function(){
+			var arr = ["first","second","third"];
+			var index = arr.indexOf(this.which_to_show);
+			if(index<2){
+				this.which_to_show = arr[index+1];
+			}else{
+				this.which_to_show = arr[0];
+			}
+		}
+	},
+	components:{
+		first:{
+			template:'<div>这是子组件1<div>'
+		},
+		second:{
+			template:'<div>这是子组件2<div>'
+		},
+		third:{
+			template:'<div>这是子组件3<div>'
+		},
+	}
+})
+
+
+
+
+
+
+
+
+// <template>
+//   <div>
+//     <!-- // 每一个 tab 绑定了一个点击事件，传入的参数对应着 tab 下的组件名 -->
+//     <div class="tabs">
+//       <div class="tab" :class="{'active': currentTab==='prince'}" @click="toggleTab('prince')"><a>小王子</a></div>
+//       <div class="tab" :class="{'active': currentTab==='rose'}" @click="toggleTab('rose')"><a>小玫瑰</a></div>
+//       <div class="tab" :class="{'active': currentTab==='fox'}" @click="toggleTab('fox')"><a>小狐狸</a></div>
+//     </div>
+//     <!-- // 子组件，显示不同的 tab
+//     // is 特性动态绑定子组件
+//     // keep-alive 将切换出去的组件保留在内存中 -->
+//     <keep-alive>
+//       <component :is="currentTab"></component>
+//     </keep-alive>
+//   </div>
+// </template>
+
+// <script>
+// import prince from 'components/dq/prince'
+// import rose from 'components/dq/rose'
+// import fox from 'components/dq/fox'
+
+// export default {
+//   data () {
+//     return {
+//       currentTab: 'prince'
+//     }
+//   },
+//   components: {
+//     prince,
+//     rose,
+//     fox
+//   },
+//   created () {
+//   },
+//   methods: {
+//     toggleTab (tab) {
+//       this.currentTab = tab
+//       // tab 为当前触发标签页的组件名
+//     }
+//   }
+// }
+// </script>
+
+// <style lang="less">
+// h2,p{
+//   text-align: center;
+// }
+// h2{
+//   font-weight: bold;
+//   font-size: 40px;
+//   margin: 20px;
+// }
+// .tabs{
+//   display: flex;
+// }
+// .tab{
+//   flex: 1;
+//   text-align: center;
+//   font-size: 28px; 
+//   height: 80px;
+//   line-height: 80px; 
+// }
+// .tab.active{
+//   color: #ff4611;
+//   border-bottom: 2px solid #ff4611;
+// }
+// </style>
+
+// 作者：ddai_Q
+// 链接：https://www.jianshu.com/p/6d28fd1b7441
+// 來源：简书
+// 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+</script>
+</body>
+</html>

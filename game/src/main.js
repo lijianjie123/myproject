@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from "./store"
 
+axios.defaults.headers.post["content-type"] = "application/x-www-form-urlencoded"
 import axios from 'axios'
 Vue.prototype.$axios = axios
 
@@ -14,10 +16,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  data:{
-    vm:new Vue(),
-    
-  },
+  store,
   router,
   components: { App },
   template: '<App/>'

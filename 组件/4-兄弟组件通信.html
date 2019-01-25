@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="./vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		
+	</div>
+	<script>
+
+	// 使用中央事件总线的方式。新建一个Vue事件bus对象，然后通过bus.$emit触发事件，bus.$on监听触发的事件。
+	// 传递数据的兄弟组件 触发bus.$emit('globalEvent', val)事件，   
+	// 接收数据的兄弟组件 监听 bus.$on('globalEvent',val)事件
+	Vue.component('brother1',{
+        data(){
+            return {
+                mymessage:['msg-b1','msg-b2','msg-b3','msg-b4','msg-b5']
+            }
+        },
+        template:`
+            <div class = "b1">
+                <p>this is brother1 compoent!</p>
+				<!--input type="text" v-model="mymessage" @input="passData(mymessage)" --> 
+				<ul v-for = "item in mymessage" :key = "index">
+					<li @click = "passData(item)">{{item}}</li>
+					
+				</ul>
+
+            </div>
+        `,
+        methods:{
+            passData(val){
+                //触发全局事件globalEvent
+                bus.$emit('globalEvent',val)
+
+            }
+        }
+    }),
+	Vue.component('brother2',{
+		data(){
+            return {
+                mymessage:'hello brother2',
+
+                brothermessage:''
+            }
+        },
+        template:`
+            <div class = "b2">
+                <p>this is brother2 compoent!</p>
+                <input v-model = "brothermessage">(brother1传递过来的数据)：{{brothermessage}}</input>
+            </div>
+        `,
+        
+        mounted(){
+			//绑定全局事件globalEvent
+			var that = this;
+            bus.$on('globalEvent',function(val){
+				that.brothermessage = val
+
+			})
+		},
+		// mounted(){
+        //     //绑定全局事件globalEvent
+        //     bus.$on('globalEvent',(val)=>{
+        //         this.brothermessage = val;
+        //     })
+        // }		
+    })
+
+
+	//中央事件总线
+    var bus = new Vue();
+
+    var app = new Vue({
+        el:'#app',
+        template:`
+            <div>
+                <brother1></brother1>
+                <brother2></brother2>
+            </div>
+        `
+    })
+
+	</script>
+</body>
+
+</html>

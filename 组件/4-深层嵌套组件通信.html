@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="./vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		
+	</div>
+	<script>
+	Vue.component('parent',{
+        template:`
+            <div>
+                <p>this is parent compoent!</p>
+                <child prop = "data"></child>
+            </div>
+        `,
+        provide:{
+            for:'test'
+        },
+        data(){
+            return {
+                message:'hello'
+            }
+        }
+	}),
+
+
+	Vue.component('child',{
+        inject:['for'],//得到父组件传递过来的数据
+        data(){
+            return {
+                mymessage:this.for
+            }
+        },
+        template:`
+            <div>
+				<!--input type="text" v-model="mymessage"--> 
+				{{for}}
+			</div>
+			`
+    })
+    
+	
+    var app=new Vue({
+        el:'#app',
+        template:`
+            <div>
+                <parent></parent>
+            </div>
+        `
+    })
+
+	</script>
+</body>
+
+</html>

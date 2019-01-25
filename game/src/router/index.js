@@ -16,23 +16,22 @@ import news from "@/components/news";
 import guide from "@/components/guide";
 import giftcode from "@/components/giftcode";
 
+import fuwuqi from "@/components/fuwuqi";
+import xiangqing from "@/components/xiangqing";
 
+import rightbar from "@/components/center-right-box";
+//import leftbar from "@/components/leftbar";
+import screenshot from "@/components/screenshot";
+import logbox from "@/components/logbox";
+import peopleshow from "@/components/people-show";
+//  二级路由
 import hot from "@/components/news/hot";
 import events from "@/components/news/events";
 import all from "@/components/news/all";
-import xiangqing from "@/components/xiangqing";
 
+import serverList from "@/components/serverList"
 
-
- import rightbar from "@/components/center-right-box";
- //import leftbar from "@/components/leftbar";
- import screenshot from "@/components/screenshot";
- import logbox from "@/components/logbox";
- import peopleshow from "@/components/people-show";
- 
-
-
-export default new Router({
+ let router = new Router({ //这的router 要注入到根组件中main.js 里
   mode:"history",
   linkActiveClass:'active',
   //滚动行为
@@ -149,8 +148,68 @@ export default new Router({
         rightbar: rightbar ,
         bottom:screenshot
       },
+      // beforeEnter: (to, from, next) => {
+      //   alert('非登录状态，请先登录！！')
+      // }
     },
+    {
+      path: "/fuwuqi",
+      //name: "fuwuqi",
+      components: {
+        default: fuwuqi, 
+        logbox:logbox,
+       // peopleshow:peopleshow,
+        rightbar: rightbar ,
+        bottom:screenshot
+      },
+      children:[
+        {
+          path:'*',
+          redirect:serverList
+
+        },
+        {
+          path:'',
+          name: "fuwuqi",
+          component:serverList
+
+        },
+        // {
+        //   path:'serverList',
+        //   name:'serverList',
+        //   component:serverList
+
+        // }
+      ],
+      meta:{
+        index:0,
+        login :true,
+      }
+
+    },
+
+    //重定向
+    // {
+    //   path: "*",
+    //   component: home,//直接写重定向到哪个路由
+    //   redirect: { path: "/home" },
+    // }
     
 
   ]
 })
+
+// 这两个是全局钩子函数
+//进入导航之前的导航钩子函数
+// router.beforeEach((to, from , next)=>{
+//   alert('请先登录！')
+//   // if(to.path == "/news"){
+//   //    next()
+//   // }else{
+//   //   alert('请先登录！')
+//   // }
+ 
+// })
+
+
+export default router

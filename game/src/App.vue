@@ -73,6 +73,12 @@ export default {
     headerNav, //注册组件
     signup
   },
+  created() {
+    if(localStorage.getItem('isLogin') === null){  //取  
+      localStorage.setItem('isLogin', '')  //如果为空就设置空
+    }
+    this.$store.state.isLogin = localStorage.getItem('isLogin')
+  },
   // methods: {
   //   changeval(val){ 
   //     console.log(val)

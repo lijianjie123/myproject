@@ -22,7 +22,7 @@ let router = new Router({
     //点击浏览器的前进后退的时候， 或者切换导航的时候
     //console.log(to); //要进入的目标路由对象 要去向哪里
     //console.log(from); //离开的路由对象 从哪来
-    //console.log(savePosition); //记录滚动条的坐标  在点击前进后退的时候 记录值
+    //console.log(savePosition); //记录滚动条的坐标  只有在点击前进后退的时候 记录值
 
     // if (savePosition) {
     //   return savePosition;
@@ -33,7 +33,7 @@ let router = new Router({
     // 利用哈希  定位到某个位置
     if (to.hash) {
       return {
-        selector: to.hash
+        selector: to.hash  //selector 选择器
       };
     }
   },

@@ -20,13 +20,13 @@
 			<!--div slot="one">替换第一个提醒</div>
 			<div-- slot="three">替换第三个提醒</div-->
 			<template slot="two">
-				<div>替换第二个提醒</div>
-				<span>替换第二个提醒</span>
-				<span>替换第二个提醒</span>
-				<span>替换第二个提醒</span>
+				<div>111111111111替换第二个提醒</div>
+				<span>111111111111替换第二个提醒</span>
+				<span>111111111111替换第二个提醒</span>
+				<span>1111111111111替换第二个提醒</span>
 			</template>
 			<!-- <div>替换 无名的slot</div> -->
-			{{message}}
+			
 		</custom>
 	</div>
 	<script>
@@ -41,12 +41,12 @@
 			},
 			template: `
 					<div>
-						<!--slot name = "one"><p>这是第一个提醒</p></slot>
+						<slot name = "one"><p>这是第一个提醒</p></slot>
 						<slot name = "two""><p>这是第二个提醒</p></slot>
 						<slot name = "three"><p>这是第三个提醒</p></slot>
-						<slot>无名的slot</slot>-->
+						<slot>无名的slot</slot>
 						{{message}}
-						<slot></slot>
+						<slot>11212121</slot>
 					</div>
 					
 				`

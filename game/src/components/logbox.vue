@@ -1,15 +1,19 @@
 <template>
     <div>
             <div class="startBox">
-                <a href="javascript:void(0)"></a>
+                <!-- 使用<router-link  to是必选参数>   -->
+                <!-- <router-link :to = "{name :'fuwuqi'}"></router-link>  -->
+                
+                <a  @click = "routerTo"></a>
             </div>
             <!--登录前-->
-            <div class="logWrap" style="display: block">
+            <div class="logWrap" v-if = "userInfo == false">
                 <div class="login_username clearfix">
                     <div class="wrap_form">
-                        <input type="text" v-model="username" @input="passName(username)"  placeholder="User Name/Email" class="username">
-                        <input type="password" value="" placeholder="Password" class="password">
-                        <a href="javascript:void(0);" title="Login" class="user_logout">LOG IN</a>
+                        <input type="text"  v-model="username"  placeholder="User Name/Email" class="username">
+                        <input type="password" v-model="password" value="" placeholder="Password" class="password">
+                        <a @click="signIn" title="Login" class="user_log">LOG IN</a>
+
                         <a href="javascript:void(0);" title="Login" class="signin sub_signup_btn">Sign Up</a>
                         <a href="javascript:void(0);" title="Login" class="signin sub_gift_btn">Novice Gift</a>
 
@@ -30,19 +34,19 @@
                 </div>
             </div>
             <!--登录后-->
-            <div class="logWrap" style="display:none">
+            <div class="logWrap" v-else>
                 <div class="login_username clearfix" >
-                    <div class="welcome">welcome! xiaobai</div>
+                    <div class="welcome">welcome! {{userInfo.email}}</div>
                     <p class="clearfix">
-                        <span>Last login ip: 61.135.152.194</span>
-                        <span>Last login time: 2014-06-24 04:36</span>
+                        <span>Last login ip: {{userInfo.last_login_ip}}</span>
+                        <span>Last login time: {{userInfo.last_login_time}}</span>
                         <span>Last login history:</span>
-                        <a class='last_login_history'>S999 - TEST SERVER</a>
+                        <a class='last_login_history'>{{userInfo.last_login_server_name}}</a>
                     </p>
                 </div>
                 <div class="wrap_form">
                     <a href="javascript:void(0);" title="Login" class="user_logout">Log Out</a>
-                    <a href="javascript:void(0);" title="Login" class="signin sub_gift_btn">Novice Gift</a>
+                    <!-- <a href="javascript:void(0);" title="Login" class="signin sub_gift_btn">Novice Gift</a> -->
 
                 </div>
                
@@ -56,12 +60,14 @@
 <script>
 //import Swiper from '../../static/swiper';
 import Swiper from "@/components/swiper";
+import bus from "@/lib/bus";
 export default {
     data() {
         return {
             username:'',
             password:'',
             userInfo:'',
+            
         }
     },
     components:{
@@ -70,7 +76,7 @@ export default {
       // 生命周期函数created  vue实例的数据对象data有了，$el 还没有。
 //   created:function(){
 
-//     this.$axios.post("http://test.sc.gamesprite.me/static_resource/login").then(res=>{
+//     this.$axios.post("http://test.tlc.vivagames.me/static_resource/login").then(res=>{
 //       console.log(res);
 //       console.log(res.data)
 //       this.userInfo = res.data
@@ -80,19 +86,41 @@ export default {
 //   },
 
     methods: {
-        passName(val){
-            //console.log(val)
-            this.$axios.post("http://test.sc.gamesprite.me/static_resource/login").then(res=>{
-            // console.log(res);
-            console.log(res.data)
+        routerTo(){
+            // 使用name:'', params:{} =>即{ name: 'fuwuqi', params: { userId: 123 }} 的方式 传递参数  
+            // 然后在目标组件中接收参数（这里就是在服务器组件中接收参数） 如果刷新服务器页面  参数会丢失
+            //  特别注意：命名路由这种方式传递的参数，如果在目标页面刷新是会出错的
 
-           // if(){}
+            // 注意：和name配对的是params，和path配对的是query
 
-            this.userInfo = res.data
-        });
+            //this.$router.push({ name: 'fuwuqi', params: { userId: 123 }});
 
+
+           // this.$router.push({ path: '/fuwuqi', query: { userId: 123 }});
+
+           this.$router.push('/fuwuqi')
+
+            
+        },
+        signIn(){
+            
+            console.log(this.username)
+            console.log(this.password)
+        },
+
+        receive(){
+            bus.$on('passuserinfo', data=>{
+                this.userInfo = data;
+                console.log(this.userInfo)
+            })
         }
     },
+    // mounted() {
+    //     //   执行该方法
+    //   this.receive();
+
+      
+    // },
     
     // mounted(){
     //    // 初始化swiper插件
