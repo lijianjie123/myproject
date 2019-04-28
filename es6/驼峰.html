@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+
+  <body>
+    <div>
+       
+        1. 可根据传入的评分和总数，返回评星结果（用 ★ 和 ☆ 描述） 
+        2. 评分必选项，四舍五入，总数可选，大于0的整数，默认为5 
+        3. 对于评分为空或小于0、评分大于总数、总数小于0或总数非整数的情况，返回'error' 
+        示例： getRate(4, 8); // ★★★★☆☆☆☆ getRate(3.4); // ★★★☆☆ getRate(5, 2); // 'error' getRate(-2); // 'error' getRate(3, 5.5); // 'error'
+
+
+
+
+
+        现有一个 Animal 类，请用你知道的所有方式编写 Cat 类并继承于 Animal，并说明每个方法的优缺点
+       
+        function Cat(){ 
+       
+        }
+        
+        Cat.prototype = new Animal();
+        
+        var cat = new Cat();
+        
+        console.log(cat.name);
+       
+        cat.eat('fish');
+        
+        cat.sleep();
+        
+        console.log(cat instanceof Animal); //true 
+       
+        console.log(cat instanceof Cat); //true
+        
+        ​
+        
+        特点：
+        
+        非常纯粹的继承关系，实例是子类的实例，也是父类的实例
+       
+        父类新增原型方法/原型属性，子类都能访问到
+       
+        简单，易于实现
+       
+        ​
+       
+        缺点： 无法实现多继承
+       
+        创建子类实例时，无法向父类构造函数传参
+       
+        ​
+        
+        ​
+        在开发中，我们经常会碰到将abc-xyz这类格式的字符串转为AbcXyz形式的驼峰字符串进行处理，例如：hello-world我们希望能够变成驼峰风格的HelloWorld，请编写代码实现这个camelize(str)方法
+        
+      
+        React基于单项数据流，对于组件间的通信支持不够好。业界解决组件间的通信的方案正为此而生。现需要模拟一个全局的EventStore，使得可以满足以下条件，以支持组件间的通信。要求，事件绑定（同一个key可以绑定多个事件）
+        
+        
+    </div>
+
+
+    <script>
+      function camelize(str) {
+        var arr = str.split("-");
+        var string = "";
+        for (var i = 0; i < arr.length; i++) {
+          for (var j = 0; j < arr[i].length; j++) {
+            if (j == 0) {
+              string += arr[i][j].toUpperCase();
+            } else {
+              string += arr[i][j];
+            }
+          }
+          console.log(string);
+        }
+      }
+      camelize("abc-xsw");
+    </script>
+    <script>
+      var str = getRate(3, 6);
+      document.write(str);
+      function getRate(score, total = 5) {
+        var score = Math.round(score);
+        var num = total - score;
+        if (
+          score == "" ||
+          score < 0 ||
+          score > total ||
+          total <= 0 ||
+          total != parseInt(total)
+        ) {
+          return "error";
+        }
+        //document.write( +'★');
+        var str = "";
+        for (var i = 0; i < score; i++) {
+          str += "★";
+        }
+        for (var i = 0; i < num; i++) {
+          str += "☆";
+        }
+        return str;
+      }
+    </script>
+    <script>
+    // 1. 可根据传入的评分和总数，返回评星结果（用 ★ 和 ☆ 描述） 
+    // 2. 评分必选项，四舍五入，总数可选，大于0的整数，默认为5 
+    // 3. 对于评分为空或小于0、评分大于总数、总数小于0或总数非整数的情况，返回'error' 
+    // 示例： getRate(4, 8); // ★★★★☆☆☆☆ getRate(3.4); // ★★★☆☆ getRate(5, 2); // 'error' getRate(-2); // 'error' getRate(3, 5.5); // 'error'
+    
+    function getRate(num, totle=5){
+        var str = '';
+        var num = Math.round(num);
+        if(num == null || num < 0 || num > totle || totle <= 0 || totle != parseInt(totle)){
+            return 'error'
+        }
+        for( var i=0; i<totle; i++){
+            if(i<=num){
+                str +=  '★' ;
+            }else{
+                str +=  '☆' ;
+            }  
+        }
+        document.write(str);   
+    }
+    getRate(2,5)
+  </script>
+
+  
+    <script>
+      function Animal(name) {
+        this.name = name || "abcd";
+        this.sleep = function() {
+          console.log(this.name + "睡觉");
+          return "sleep";
+        };
+      }
+
+      Animal.prototype.eat = function(food) {
+        console.log(this.name + "正在吃：" + food);
+        return "end";
+      };
+
+      function Cat() {
+        this.abc = "111";
+      }
+      Cat.prototype = new Animal("abc");
+      //Cat.prototype.name = "cat";
+
+      //　Test Code
+      var cat = new Cat("123123123");
+      console.log(cat.name);
+      console.log(cat.eat("fish"));
+      console.log(cat.sleep());
+      console.log(cat instanceof Animal); //true
+      console.log(cat instanceof Cat); //true
+      console.log(cat.abc);
+
+      var cat2 = new Cat();
+      console.log(cat2.name);
+    </script>
+
+
+
+
+
+<script>
+  // 有一个大的数组 var a = ['1'.....]  a的长度是100， 内容填充随机整数的字符串，先构造函数  然后去重
+
+  var arr = [];
+  var newarr = [];
+  num(100);
+  // for(var i=0; i<arr.length; i++){
+  //   if(arr.indexOf(arr[i]) == i){
+  //       newarr.push(arr[i]);
+  //   } 
+  // }
+  // console.log(newarr)
+  
+ 
+  function num(num){
+   
+    for(var i=0; i<100; i++){
+      var temp = parseInt(Math.random()*num).toString();
+     
+      if(arr.indexOf(temp) == -1){
+        arr.push(temp)
+        arr.sort(function(a,b){
+          return a-b
+        })
+      } 
+    }
+    console.log(arr)
+
+    
+  }
+  
+
+</script>
+  </body>
+</html>

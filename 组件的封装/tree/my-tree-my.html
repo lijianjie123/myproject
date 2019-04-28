@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .tree-menu {
+            width: 360px;
+            height: 100%;
+            padding: 0px 12px;
+            border-right: 1px solid #e6e9f0;
+        }
+
+        .tree-menu-comm span {
+            display: block;
+            font-size: 12px;
+            position: relative;
+        }
+
+        .tree-contro .ico {
+            background-position: 3px -92px;
+        }
+
+        .tree-title .ico {
+            position: absolute;
+            left: -13px;
+            top: 0;
+            width: 15px;
+            height: 26px;
+            background: url(./folder-tree.png) no-repeat 4px -43px;
+            opacity: 0.8;
+        }
+
+        .tree-menu-comm span strong {
+            display: block;
+            width: 82%;
+            position: relative;
+            line-height: 22px;
+            padding: 2px 0;
+            padding-left: 5px;
+            color: #161719;
+            font-weight: normal;
+        }
+
+        .tree-nav {
+            background: #e7f2fe;
+            border: 1px solid #bfdaf4;
+            padding-left: 14px;
+            margin-left: 0px;
+        }
+
+        .tree-title {
+            border: 1px solid #fff;
+            margin-top: 1px;
+        }
+
+        /*无箭头*/
+
+        .tree-contro-none .ico {
+            background-position: -999px -99px;
+        }
+
+        /*箭头朝下*/
+
+        .tree-contro .ico {
+            background-position: 3px -92px;
+        }
+        .show{
+            display: block
+        }
+        .hide{
+            display: none
+        }
+    </style>
+    <script src="vue.js"></script>
+    <script>
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div class="tree-menu-comm tree-menu">
+            <ul>
+                <li>
+                    <div class="tree-title" style="padding-left: 16px;"><span><strong>目录</strong> <i class="ico"></i></span></div>
+                    <ul>
+                        <li>
+                            <div class="tree-title" style="padding-left: 32px;"><span><strong>我的音乐</strong> <i class="ico"></i></span></div>
+                            <ul>
+                                <li>
+                                    <div class="tree-title" style="padding-left: 48px;"><span><strong>周杰伦</strong> <i class="ico"></i></span></div>
+                                    <ul>
+                                        <li>
+                                            <div class="tree-title tree-contro-none" style="padding-left: 64px;"><span><strong>发如雪</strong> <i class="ico"></i></span></div>
+                                            
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="tree-title" style="padding-left: 48px;"><span><strong>王杰</strong> <i class="ico"></i></span></div>
+                                    <ul>
+                                        <li>
+                                            <div class="tree-title tree-contro-none" style="padding-left: 64px;"><span><strong>一场游戏一场梦</strong> <i class="ico"></i></span></div>
+                                            
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="tree-title tree-contro-none" style="padding-left: 32px;"><span><strong>我的照片</strong> <i class="ico"></i></span></div>
+                            
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div> -->
+        <m-tree :data = "treeList" ></m-tree>
+        
+
+    </div>
+    <script>
+        Vue.component('m-tree-list',{
+            props:{
+                data:{
+                    type:Array,
+                    default:[],
+                },
+                incrementCount:{
+                    type:Number,
+                    default:0,
+                }
+            },
+            
+            computed: {
+                count(){
+                    var c = this.incrementCount;
+                    return ++c;
+                },
+                stylepadding(){
+                    return {
+                        "padding-left":this.incrementCount*16 + 'px',
+                    }
+                }
+            },
+            template:`
+                <ul >
+                    <li v-for = "item in data" >
+                        <div class="tree-title" :style="stylepadding">
+                            <span>
+                                <strong @click = "show">{{item.title}}</strong>
+                                <i class="ico"></i>
+                            </span>
+                        </div>
+
+                        <!--如果存在子元素  则生成下一级-->
+                        <m-tree-list  
+                            :increment-count = "count"
+                            v-if = "item.children" 
+                            :data = "item.children"
+                            
+                        ></m-tree-list>   
+                    </li>
+
+                </ul>
+            `,
+            methods: {
+                show(){
+                    console.log(this.incrementCount)
+                    this.$emit('showlist',this.count)
+                }
+            },
+        }),
+
+    
+        
+        Vue.component('m-tree',{
+            props:{
+                data:{
+                    type:Array,
+                    default:[],
+                }
+            },
+            data(){
+                return {
+                    show:0
+                }
+            },
+            
+            template:`
+                <div class="tree-menu-comm tree-menu">
+                    <m-tree-list :data = "data" @showlist = "showhandle"></m-tree-list>
+            
+                </div>
+            `,
+            methods:{
+                showhandle(num){
+                    console.log(num)
+                   this.show = num
+                   console.log(this.show)
+                }
+            }
+
+        })
+
+
+        
+
+        var data = [{
+            title: "目录",
+            children: [
+                {
+                title: "我的音乐",
+                children: [{
+                    title: "周杰伦",
+                    children: [{
+                        title: "发如雪"
+                    }]
+                }, {
+                    title: "王杰",
+                    children: [{
+                        title: "一场游戏一场梦"
+                    }]
+                }]
+                }, 
+
+                {
+                title: "我的照片",
+                children: [{
+                    title: "我的",
+
+                }]
+                },
+                {
+                title: "我的联系人",
+                children: [{
+                    title: "我的",
+
+                }]
+                },
+                
+            ]
+        }];
+
+        new Vue({
+            el: "#app",
+            data: {
+                treeList: data,
+
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>

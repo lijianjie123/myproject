@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>自定义过滤器</h1>
+<div id="app">
+    //本质起始就是方法（有输入和输出）
+    //过滤器通过管道符号|进行调用，支持多重过滤
+
+    <p>{{msg}}</p>
+    <p>{{price|my('$')}}</p>
+</div>
+<script src="vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: "世界你好",
+            price:'1000'
+        },
+        filters:{
+            my:function (value,arg1) {
+				console.log(value,arg1)
+				// return arg1+value;
+				if(value == 100){
+					return arg1
+				}else{
+					return value 
+				}
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

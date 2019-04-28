@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+	<head>
+		<meta charset="UTF-8">
+		<title>仿select</title>
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
+		<script src="vue.js"></script>
+	
+	</head>	
+
+  <body>
+    <div id="app">
+      <section id="section">
+        <nav id="choose">
+          <span>你的选择:</span>
+          <div>
+            
+              <mark v-for = "choose,key of chooseObj" @click = "removeKey(key)">{{choose}}
+              	<a href="javascript:;" >x</a>
+              </mark>
+              
+          </div>
+        </nav>
+        <ul id="type">
+						<li v-for = "(itemF,key) in data" >
+								<span>{{itemF.title}}</span>
+								<a href="javascript:;" 
+								
+							
+								v-for = "item,i in itemF.data" 
+								v-bind:class = "{'red': itemF.index === i}"
+								@click = 'chooseVal(key,item,i)'>{{item}}</a>
+						</li>
+
+          
+        </ul>
+				</section>
+
+		</div>
+		
+		<script>
+			var data = [
+        {
+          title: "品牌",
+          data: [
+            "苹果", "小米","锤子", "魅族",  "华为", "三星",  "OPPO",  "vivo",  "乐视"
+          ]
+        },
+        {
+          title: "尺寸",
+          data: ["4.0-4.5英寸", "4.6-4.9英寸", "5.0-5.5英寸", "6.0英寸以上"]
+        },
+        {
+          title: "系统",
+          data: ["android", "ios", "window phone", "无", "其他"]
+        },
+        {
+          title: "网络",
+          data: ["联通3G", "双卡单4G", "双卡双4G", "联通4G"]
+        }
+			];
+			data.forEach(item =>item.index = -1)
+			console.log(data)
+			new Vue({
+						el: '#app',
+					
+						data:{
+							//message:'1111',
+							data:data,
+							chooseObj:{},
+						},
+						 methods: {
+							chooseVal(key,val,i){
+								console.log(val, key)
+								 
+								 this.$set(this.chooseObj, key, val)
+								 console.log(this.chooseObj)
+								 //找到操作的一行，把这行的数据中的index，设置为点击的a标签下标
+								this.data[key].index = i
+
+							},
+							removeKey(key){
+								console.log(this.chooseObj)
+								console.log(key)
+								this.$delete(this.chooseObj,key)
+								this.data[key].index =-1
+							},
+							 
+						},
+							
+						
+
+			})
+
+
+			
+			
+
+
+
+
+
+			
+			
+
+		
+
+			
+		
+			
+			
+
+		
+		</script>
+
+    <!-- <script>
+      var crumbData = [
+        {
+          title: "品牌",
+          data: [
+            "苹果", "小米","锤子", "魅族",  "华为", "三星",  "OPPO",  "vivo",  "乐视"
+          ]
+        },
+        {
+          title: "尺寸",
+          data: ["4.0-4.5英寸", "4.6-4.9英寸", "5.0-5.5英寸", "6.0英寸以上"]
+        },
+        {
+          title: "系统",
+          data: ["android", "ios", "window phone", "无", "其他"]
+        },
+        {
+          title: "网络",
+          data: ["联通3G", "双卡单4G", "双卡双4G", "联通4G"]
+        }
+      ];
+      var html = "";
+      $.each(crumbData, function(index, item) {
+        //i 索引， item 数组每一项的值
+        var a = "";
+        $.each(item.data, function(i, val) {
+          a += "<a>" + val + "</a>";
+        });
+        html += "<li><span>" + item.title + "</span>" + a + "</li>";
+      });
+      $("#type").append(html);
+
+      var chooseObj = {};
+
+      $("#type a").click(function() {
+        $(this).css("color", "red").siblings("a").css("color", "#000");
+        var textA = $(this).text();
+        //console.log(textA);
+        chooseObj[$(this).parent().index()] = textA;
+        mark();
+      });
+
+      function mark() {
+        var mark = "";
+        $("#type li").each(function(i, val) {
+          if (chooseObj[i]) {
+            mark += `<mark>${
+              chooseObj[i]
+            }<a data-index = ${i} href="javascript:;">x</a></mark>`; //es6 写法
+          }
+        });
+		$("#choose div").html(mark);
+		
+		$('#choose div a').click(function () {
+			$(this).parent().remove();
+			var num = $(this).attr('data-index');
+			$('#type li').each(function(i, n){
+				if(i==num){
+					$(this).children().css('color','#000')
+				}
+			})
+			//chooseObj[num] ='';
+			delete chooseObj[num]  //原生方法  删数据  只能删对象， 不能删数组
+		})
+      }
+    </script> -->
+
+    <!--
+      <script>
+      	var crumbData = [
+      		{
+      			"title": "品牌",
+      			"data": ["苹果", "小米", "锤子", "魅族", "华为", "三星", "OPPO", "vivo", "乐视"]
+      		},
+      		{
+      			"title": "尺寸",
+      			"data": ["4.0-4.5英寸", "4.6-4.9英寸", "5.0-5.5英寸", "6.0英寸以上"]
+      		},
+      		{
+      			"title": "系统",
+      			"data": ["android", "ios", "window phone", "无", "其他"]
+      		},
+      		{
+      			"title": "网络",
+      			"data": ["联通3G", "双卡单4G", "双卡双4G", "联通4G"]
+      		}
+      	]
+      	//渲染数据
+      	var html = '';
+      	$.each(crumbData, function (i, item) {
+      		var aCode = '';
+      		$.each(item.data, function (index, val) {
+      			aCode += '<a>' + val + '</a >';
+      		});
+      		html +=
+      			'<li checkBtn = "false" >' + '<span>' + item.title + '</span>' + aCode + '</li>';
+      	})
+      	$('#type').html(html);
+
+      	var chooseObj = {}; // 定义一个对象  利用li 的索引来存储 当前点击的key对应的值   例如：{0：小米， 1： 4.0英寸}
+      	$('#type a').click(function () {
+      		$(this).css('color', 'red').siblings('a').css('color', '#000');
+      		//console.log($(this).parent().index())
+      		var textA = $(this).text();
+      		chooseObj[$(this).parent().index()] = textA; // 向对象中添加{key：val } 例如：{0：小米， 1： 4.0英寸}
+      		Html();
+      	});
+      	function Html() {
+      		var html = '';
+      		$('#type li').each(function (i, n) {
+      			if (chooseObj[i]) {
+      				html += `<mark>${chooseObj[i]}<a data-index = ${i} href="javascript:;">x</a></mark>`; //es6 写法
+      			}
+      		})
+      		$('#choose div').html(html);
+
+      		$('#choose div a').click(function () {
+      			$(this).parent().remove();
+      			var num = $(this).attr('data-index');
+      			$('#type li').each(function (i, n) {
+      				if (i == num) {
+      					$(this).children().css('color', '#000');
+      				}
+      			})
+      			chooseObj[num] = '';
+      			//delete chooseObj[num];  原生方法  删数据 只能删对象， 不能删数组
+      		})
+
+      	};
+      </script>
+    -->
+    <!--
+      <script>
+      	var crumbData = [
+      		{
+      			"title": "品牌",
+      			"data": ["苹果", "小米", "锤子", "魅族", "华为", "三星", "OPPO", "vivo", "乐视"]
+      		},
+      		{
+      			"title": "尺寸",
+      			"data": ["4.0-4.5英寸", "4.6-4.9英寸", "5.0-5.5英寸", "6.0英寸以上"]
+      		},
+      		{
+      			"title": "系统",
+      			"data": ["android", "ios", "window phone", "无", "其他"]
+      		},
+      		{
+      			"title": "网络",
+      			"data": ["联通3G", "双卡单4G", "双卡双4G", "联通4G"]
+      		}
+      	]
+      	var typeUl = document.querySelector('#type');
+      	var len = crumbData.length;
+      	var newLi = null;
+      	var newSpan = null;
+      	var newA = null;
+      	for (var i = 0; i < len; i++) {
+      		newLi = document.createElement('li');
+      		newSpan = document.createElement('span');
+      		//newSpan.innerHTML = crumbData[i].title;
+      		newSpan.innerText = crumbData[i].title;
+      		newLi.appendChild(newSpan);
+
+      		//console.log(crumbData[i].data.length);
+
+      		for (var j = 0; j < crumbData[i].data.length; j++) {
+      			newA = document.createElement('a');
+      			newA.href = 'javascript:;';
+      			newA.innerHTML = crumbData[i].data[j];
+      			newLi.appendChild(newA);
+      		}
+      		typeUl.appendChild(newLi);
+      	}
+
+      	//获取元素
+      	var lis = typeUl.children;
+      	var a = null;
+      	var chooseObj = {};
+      	// var prev = null; //记录是否点击
+      	var choose = document.querySelector('#choose div');
+
+      	for (var i = 0; i < lis.length; i++) {
+      		a = lis[i].children; //获取A
+      		lis[i].prevNode = null; //做标记  和 index 类似
+      		lis[i].index = i;
+
+      		for (var j = 1; j < a.length; j++) {
+      			a[j].onclick = function () {
+      				var parent = this.parentNode; //点击的a标签的父级
+
+      				chooseObj[parent.index] = this.innerHTML;
+      				console.log(chooseObj);
+      				Html();
+      				if (parent.prevNode) {
+      					parent.prevNode.style.color = '';
+      				}
+      				this.style.color = 'red';
+      				parent.prevNode = this; //点击后记录为点击的元素
+      			}
+
+      		}
+      	}
+
+      	// var html = ''; //放错位置了  这个变量
+      	function Html() {
+      		var html = '';
+      		for (var i = 0; i < lis.length; i++) {
+      			//chooseObj对象没有长度  //0 1 2 3
+      			if (chooseObj[i]) {
+      				//html += '<mark>'+chooseObj[i]+'<a href="javascript:;">x</a></mark>';
+      				html += `<mark>${chooseObj[i]}<a data-index = ${i} href="javascript:;">x</a></mark>`; //es6 写法
+      			}
+      		}
+      		choose.innerHTML = html;
+      		//获取到所有元素
+
+      		var delA = choose.querySelectorAll('a');
+      		// console.log(delA.length);
+      		for (var i = 0; i < delA.length; i++) {
+      			delA[i].onclick = function () {
+      				//移出当前点击的a标签的父级
+      				this.parentNode.parentNode.removeChild(this.parentNode);
+      				// this.parentNode.remove(); //也能删除
+      				//shan 数据
+      				delete chooseObj[this.dataset.index]//  dataset 行间属性以data 标记的 有特殊意义
+      				console.log(chooseObj);
+      				lis[this.dataset.index].prevNode.style.color = '';
+      			}
+
+      		}
+
+
+      	}
+
+      </script>
+    -->
+  </body>
+</html>

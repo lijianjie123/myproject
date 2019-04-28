@@ -28,7 +28,7 @@
 
 <script>
 import list from "@/components/list";
-import selectInput from "@/components/selectInput";
+import selectInput from "@/components/selectInput"; 
 
 // let listData = [
 //   { title: "js" },

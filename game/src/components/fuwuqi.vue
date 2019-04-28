@@ -30,7 +30,7 @@
                                 <div class="Select_button clearfix" id="Select_button">
                                     <!-- <a href="javascript:void(0);" class="SeverTab-01" typeu="us">US.Server</a>
                                     <a href="javascript:void(0);" class="SeverTab-02 active" typeu="ue">EU.Server</a> -->
-                                    <router-link    exact :to = "{path:'', query:{serverId:'us'}}">US.Server</router-link>
+                                    <router-link  exact :to = "{path:'', query:{serverId:'us'}}">US.Server</router-link>
                                     <router-link  exact :to = "{path:'', query:{serverId:'eu'}}" >EU.Server</router-link>
                                 </div>
                                 <router-view></router-view>

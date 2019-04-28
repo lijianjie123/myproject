@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="vue.js"></script>
+	<style>
+		*{ margin: 0 ; padding: 0px;}
+		ul{ list-style: none;}
+		body{ background: #b05e73; font-size: 14px; font-family: '微软雅黑'; line-height: 20px; }
+		.wrap{ width: 350px; min-height: 300px; position: relative; border-radius: 5px; background:#fff;
+			position: absolute; left: 50%; top: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.dragMusic{ position:absolute; z-index: 9; left:0px; top:0px; width: 100px; border-radius: 1px; background: #ce5a63; color: #fff; height: 20px; line-height: 20px; padding: 0 15px;display: none;  }
+		.musicUl { padding: 25px 0}
+		.musicUl li{ display:block; height: 30px; line-height: 30px; width: 300px;  padding: 0 25px;  }
+		.musicUl li.current, .musicUl li.active{ background: #eec9ce;}
+		.musicUl li input, .nav .checkAll input{ display: inline-block; float: left; vertical-align: middle; width: 16px;
+			height:16px; margin-top: 8px;  ;}
+		.musicUl li span{ display: inline-block; float: left; margin-left: 15px;}
+		.musicUl li b{ display: inline-block; float: left; float: right;}
+
+
+		.musicUl li:nth-child(2n){ background: #fff;}
+		.musicUl li:nth-child(2n-1){ background: palevioletred;}
+
+
+		.nav{ position: absolute; width: 310px; padding: 0 20px; left:0px; bottom:0px; height: 40px; background:#ce5a63; ; }
+		.nav .checkAll{ color: #fff; float: left;height: 40px; line-height: 40px; }
+		.navBox{ float: left;}
+		.nav .checkAll input{ margin-top: 13px; margin-right: 2px;}
+		.navBox li{ display: inline-block; float: left; width: 75px; margin-left:10px; height: 40px; line-height: 40px; text-align: center; color: #fff; }
+		.navBox li.shou{ background: url("imgs/list-5.png") 5px 12px no-repeat;}
+		.navBox li.add{ background: url("imgs/list-5.png") 5px 12px no-repeat;}
+		.navBox li.delet{ background: url("imgs/list-10.png") 5px 12px no-repeat;}
+	</style>
+	
+</head>
+<body>
+	
+	<div class="wrap" id="box">
+		<span class="dragMusic">选中2首歌曲</span>
+		<ul class="musicUl">
+			<li v-for = "item of data">
+				<input type="checkbox" v-model = "item.checked">
+				<span class="music">{{item.music}}</span>
+				<b class="name">{{item.name}}</b>
+			</li>
+		</ul>
+		{{checkAll}}
+		<div class="nav">
+			<span class="checkAll">
+				<input type="checkbox" v-model = "checkAll">全选
+			</span>
+			<ul class="navBox">
+				<li class="shou">
+					收藏
+				</li>
+				<li class="add">
+					添加
+				</li>
+				<li class="delet">
+					删除
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+</body>
+
+
+<script>
+	var data = [
+	{
+		"id": "0",
+		"name": "邓紫棋",
+		"music": "泡沫",
+		"desc": "实力歌手",
+		checked:false
+	},
+	{
+		"id": "1",
+		"name": "蔡依林",
+		"music": "说爱你",
+		"desc": "实力歌手",
+		checked:false
+	},
+	{
+		"id": "2",
+		"name": "周杰伦",
+		"music": "稻香",
+		"desc": "实力歌手",
+		checked:false
+	},
+	
+
+
+]
+	new Vue({
+		el:'#box',
+		data:{
+			data:data,
+		},
+		computed: {
+			checkAll(){
+				//every  数组中的每一项都满足条件，全部为true，就返回true，  只要有一个不为true  就返回false
+				let bl = this.data.every(item=>{
+					return item.checked
+				})
+				console.log(bl)
+				// if(bl == false){
+
+				// }
+				return bl;
+				
+				
+			}
+		},
+		
+	})
+
+</script>
+
+
+
+</html>
+
+<!-- <script>
+	var box = document.getElementById('box');
+	var musicUl = document.querySelector('.musicUl');
+
+	var html = '';
+	for(var i = 0; i<list.length; i++){
+		if( list[i] ){
+			html += `
+			<li>
+				<input type="checkbox" data-id = "${list[i].id}">
+				<span class="music">${list[i].music}</span>
+				<b class="name">${list[i].name}</b>
+			</li>
+		`
+		}
+	}
+	//console.log(html);
+	musicUl.innerHTML = html;
+
+
+
+
+	//点击全选按钮 如果全选按钮选中  那么单选的也全选中
+	var checkAll = document.querySelector('.checkAll input'); //这里获取又错了  落下input了
+	// 获取所有单个input
+	var checkSign = musicUl.querySelectorAll('input');
+	//console.log(checkSign.length)
+
+	checkAll.onclick = function(){
+		//console.log(this);
+		for( var i=0; i<checkSign.length; i++){
+			//console.log(i);
+			checkSign[i].checked = this.checked;
+			//console.log(checkSign[i].parentNode);
+		}
+	}
+
+	//点击单个input
+	var onOff = false; //代表单选按钮没选中了
+	for( var i=0; i<checkSign.length; i++){
+		checkSign[i].onclick = function(){
+			//点击的那个没选中  那么全选就不选中
+			if(!this.checked){
+				checkAll.checked = false;
+				//this.parentNode.removeAttribute("class", "actived");
+			}else{
+				//选中
+				var num = 0;
+				if(this.checked){
+					for(var j= 0; j<checkSign.length; j++){
+						if(checkSign[j].checked){
+							num++;
+						}
+						//console.log(num);
+					}
+					if(num == checkSign.length ){
+						checkAll.checked = true;
+					}
+
+					//this.parentNode.style.background = '#89a3b5';
+					//this.onOff = true;
+					//this.parentNode.setAttribute("class", "actived");
+
+
+				}
+			}
+		}
+
+		checkSign[i].onmouseout = function(ev){
+			//点击input 阻止冒泡
+			ev.stopPropagation();
+			if(!onOff){
+				this.parentNode.style.background = oldCol;
+			}
+
+		}
+
+
+		checkSign[i].onmousemove = function(ev){
+			//点击input 阻止冒泡
+			ev.stopPropagation();
+		}
+		checkSign[i].onmousedown = function(ev){
+			//点击input 阻止冒泡
+			ev.stopPropagation();
+		}
+	}
+
+
+
+	//在列表li上down的时候  提示框显示
+	var musicLi = document.querySelectorAll('.musicUl li');
+	var dragMusic = document.querySelector('.dragMusic');
+
+	for(var i= 0; i<musicLi.length; i++){
+		musicLi[i].onmousedown = function(ev){
+			// 鼠标down 的时候检测一下  这个li下的input 是否被选中  如果选中往下执行  没有选中就跳出
+			// 先获取 li 下的input
+			//var input = document.querySelector('.musicUl input');
+			var input = this.querySelector('input'); //当前li里的那1个input
+			console.log(input.checked);
+			if(!input.checked){
+				return;
+			}
+			var who = whoSelected();
+			console.log(who.length);
+			dragMusic.style.display = 'block';
+			dragMusic.style.left = ev.clientX + 'px';
+			dragMusic.style.top = ev.clientY + 'px';
+			dragMusic.innerText = `选中${who.length}首歌曲`;
+			//who.splice(0, who.length);
+			//console.log(who);
+			var isPeng = false; // 定义一个变量看是否碰上了  false 为没碰上
+			document.onmousemove = function(ev){
+				dragMusic.style.left = ev.clientX +1 + 'px';
+				dragMusic.style.top = ev.clientY + 1+ 'px';
+				// 拖动的时候文字被选中了  所以取消一下浏览器的默认行为
+				ev.preventDefault();
+
+				//拖拽的时候检测是否碰撞上了   碰上了为true  没碰上为false
+				//collision(obj1,obj2)//obj1 要拖动的元素   obj2 是准备被碰撞上的元素（即碰撞的范围）
+
+				var delet = document.querySelector('.delet');
+				if(collision(dragMusic,delet)){
+					console.log('碰上了'); //就删除结构和数据
+					isPeng = true;
+					//deletHtml();
+				}
+
+			}
+			document.onmouseup = function(){
+				dragMusic.style.display = 'none';
+				if(isPeng == true){
+					deletHtml();
+				}
+			}
+		}
+	}
+	// 获取所有的列表li 然后隔行添加一个颜色
+	//showCol();
+	//var musicLi = document.querySelectorAll('.musicUl li');
+	var arrCol = ['#ccc','#000'];
+	console.log(musicLi.length);
+	var oldCol = ''; //
+	for(var i= 0; i<musicLi.length; i++){
+		//console.log(i%2); // 0 1 0 1 0 1
+
+		/*if(i%2 == 1){ //1 为true #ccc
+			musicLi[i].style.background = '#f0c8ce';
+		}else{
+			musicLi[i].style.background = '#fff';
+		}*/
+
+		musicLi[i].onmouseover = function(){
+			//console.log(1);
+			oldCol = this.style.background;
+			this.style.background = '#ce5a63';
+		}
+		musicLi[i].onmouseout = function(){
+			if(onOff) {
+				//console.log(0);
+				this.style.background = '#ce5a63';
+				this.onOff = false;
+			}
+			this.style.background =oldCol;
+		}
+
+	}
+	// 封装要删除 被选中的input的结构
+	function whoSelected(){
+		var  arr = [];
+		for(var i = 0; i<checkSign.length; i++ ){
+			if(checkSign[i].checked){
+				arr.push(checkSign[i]);
+			}
+		}
+		return arr;
+	}
+
+	// 删除选中的input 和他的父级
+	var delet = document.querySelector('.delet');
+	delet.onclick = function(){
+		//showCol();
+
+		deletHtml();
+		console.log(musicLi.length);
+		//alert();
+	}
+	//console.log(musicLi.length);
+	function deletHtml(){
+		var who = whoSelected();
+		console.log(who)// who 是删除的input的数组
+		console.log(who.length);
+		for(var j=0; j<who.length; j++){
+			who[j].parentNode.remove();// who 是删除的input的数组   根据他找到他的父级  然后删除
+			//alert(who[j].dataset.id)
+			// 删除对应的数据
+			for(var i=0; i<list.length; i++){
+				if(list[i].id == who[j].dataset.id ){
+					list.splice(j,1);
+				}
+			}
+			//console.log(list);
+		}
+	}
+
+</script> -->

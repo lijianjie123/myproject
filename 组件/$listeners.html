@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>vue测试</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+  <style>
+
+  </style>
+ </head>
+ <body>
+     <div id="app">
+        <base-input
+            v-model="username" 
+            label="基础输入组件"
+            @click.native="handleBaseInputClick"
+            v-on:focus="handleBaseInputFocus"
+            placeholder="请输入您的名字"
+			class="username-input"/>
+		 </base-input>
+		 <input v-model="msg" >
+    </div>
+    <script>
+        // 注册组件
+		// 因为base-input的外层是一个label元素，所以默认情况下使用v-on:focus是无效的，
+		// 所以需要配合$listeners使用，该属性可以把事件的监听指向组件中某个特定的元素
+		// 注意：如果父级的事件添加了.native修饰符，在$listeners中不会体现出来的
+		
+		
+        Vue.component('base-input',{
+            inheritAttrs: false,
+            props: ['label','value'],
+            template: `
+                <label id="base-label">
+                    {{label}}
+                    <input v-bind:value="value" v-bind="$attrs" v-on="inputListeners"/>
+				</label>
+				
+            `,
+            data: function() {
+                return {
+                    obj:{}
+                }
+            },
+            computed: {
+                inputListeners () {
+                    var vm = this
+                    return Object.assign({},
+                        this.$listeners,
+                        {
+                            input: function () {
+                                vm.$emit('input', event.target.value)
+                            },
+                            focus: function (event) {
+                                vm.$emit('focus', '哈哈哈，onfocus了')
+                            }
+                        }
+                    )
+                }
+            },
+            mounted: function(){
+                console.log(`$attrs:`)
+                console.log(this.$attrs)
+                console.log(`$listeners:`)
+				console.log(this.$listeners) // 父级添加的所有属性都在这里
+				this.$set(this.obj,'age',10) //给对象添加值
+		console.log(this.obj)
+            },
+            methods: {
+                
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+				username: '',
+				msg:'aaaaaaaaaa'
+            },
+            created: function(){
+            
+            },
+            beforeUpdate: function(){
+            
+            },
+            computed: {
+                
+            },
+            beforeUpdate: function () {
+                console.log(this.username)
+            },
+            methods: {
+                handleBaseInputFocus: function(ev){
+                    console.log(ev)
+                },
+                handleBaseInputClick: function(ev){
+                    console.log(ev.type)
+                }
+            }
+        })
+    </script>
+ </body>
+</html>

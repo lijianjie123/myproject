@@ -145,8 +145,8 @@
 
 <body>
 	<div id="app">
-		<!-- 不写type，title 就会显示 显示 props中  type和title下  默认的default 的值 -->
-		<m-alert>
+		<!-- 不写type和title 也会显示， 显示 props中  type和title下  默认的default 的值 -->
+		<m-alert :show-icon="true" >
 			<!-- 自我定制 内容和 图标  -->
 			<template slot="titleTmp">
 				<p>我是定制的内容</p>
@@ -156,12 +156,19 @@
 			</template>
 			<div class="m-icon m-icon-menu" slot="iconTmp"></div>
 		</m-alert>
-		<m-alert type=warning title="警告中" :closeable="true"></m-alert>
-		<m-alert type=success title="恭喜你，成功了" :closeable="false"></m-alert>
+
+		<m-alert type=warning title="警告中" :closeable="true" :show-icon="true" ></m-alert>
+
+		<m-alert type=success title="恭喜你，成功了" :closeable="true" :show-icon="true" ></m-alert>
+
 		<!--type 和 title 是传入的值, closeable控制的是关闭按钮是否显示 用了绑定:的方式，true为不显示， false 为显示
 			   show-icon 控制的是 是否显示图标，也用了绑定的方式 传值， true显示， false 隐藏-->
-		<m-alert type=error title="错误了， 需重写" :closeable="false" :show-icon="true" style="background-color:pink" @close-click="closeTodo">
-
+		<m-alert 
+			type=error 
+			title="错误了， 需重写" 
+			:closeable="false" :show-icon="true" 
+			style="background-color:pink" 
+			@close-click="closeTodo">
 		</m-alert>
 	</div>
 	<script>
@@ -212,7 +219,7 @@
 					type: Boolean,
 					default: false
 				},
-				style: String,  //不需要其他验证  可以这样写
+				style: String,  //不需要其他验证  可以这样写  直接写类型
 
 
 			},
@@ -227,7 +234,8 @@
 			},
 			template: `
 						<div class="m-alert" :class = "[classes]" style = "style">
-			<!--下边的v-if = "showIcon" 中的showIcon 是 props里的  props中怎么写  这就怎么用, 这里是驼峰式写法 来源于自定义的组件中绑定的show-icon是烤串式命名   需要注意-->
+			<!--下边的v-if = "showIcon" 中的showIcon 是 props里的  props中怎么写  这就怎么用, 
+				这里是驼峰式写法 来源于自定义的组件中绑定的show-icon是烤串式命名   需要注意-->
 								<slot name = "iconTmp">
 										<i class="m-icon" v-if = "showIcon" :class = "[iconClass]"></i>
 								</slot>

@@ -73,7 +73,7 @@
             background-position: 3px -92px;
         }
     </style>
-    <script src="../vue.js"></script>
+    <script src="vue.js"></script>
     <script>
     </script>
 </head>
@@ -255,7 +255,8 @@
 
         var data = [{
             title: "目录",
-            chindren: [{
+            chindren: [
+                {
                 title: "我的音乐",
                 chindren: [{
                     title: "周杰伦",
@@ -268,13 +269,24 @@
                         title: "一场游戏一场梦"
                     }]
                 }]
-            }, {
+                }, 
+
+                {
                 title: "我的照片",
                 chindren: [{
                     title: "我的",
 
                 }]
-            }]
+                },
+                {
+                title: "我的联系人",
+                chindren: [{
+                    title: "我的",
+
+                }]
+                },
+                
+            ]
         }];
 
         new Vue({

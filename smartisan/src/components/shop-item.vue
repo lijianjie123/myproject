@@ -38,7 +38,7 @@ export default {
       itemIndex: 0
     };
   },
-  // 自组件接收父组件传递的值  要用props 接收  子组件中prop 中的值 是父组件  绑定的属性名称 :item = "item"即  ：和=  之间的那个值
+  // 子组件接收父组件传递的值  要用props 接收  子组件中prop 中的值 是父组件  绑定的属性名称 :item = "item"即  ：和=  之间的那个值
   props: ["item"],
   methods: {
     changeClor(index) {

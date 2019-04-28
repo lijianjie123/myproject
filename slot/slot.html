@@ -17,15 +17,15 @@
 			<!-- 有这个div标签 会替换掉下边的三个p标签   不写下边div  就显示默认的三个p标签
 			<div>我是html结构</div> -->
 
-			<!--div slot="one">替换第一个提醒</div>
-			<div-- slot="three">替换第三个提醒</div-->
+			<div slot="one">替换第一个提醒</div>
+			<div slot="three">替换第三个提醒</div>
 			<template slot="two">
 				<div>111111111111替换第二个提醒</div>
 				<span>111111111111替换第二个提醒</span>
 				<span>111111111111替换第二个提醒</span>
 				<span>1111111111111替换第二个提醒</span>
 			</template>
-			<!-- <div>替换 无名的slot</div> -->
+			 <div>替换 无名的slot</div> 
 			
 		</custom>
 	</div>
@@ -36,7 +36,7 @@
 		Vue.component("custom", {
 			data() {
 				return {
-					message: '我是子组件的数据'
+					message: '我是子组件的数据111111111'
 				}
 			},
 			template: `

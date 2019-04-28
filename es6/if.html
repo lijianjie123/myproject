@@ -32,6 +32,29 @@
                 alert()
             }
         </script>
+
+
+        <script>
+            function camelize(str) {
+                var arr = str.split('-');
+                console.log(arr);
+                var string = '';
+                for(var i=0; i<arr.length; i++){
+                   //console.log(arr[i].chartAt(0))
+                   for(var j=0; j<arr[i].length; j++){
+                       if(j==0){
+                        console.log(arr[i][j].toUpperCase())  
+                        string += arr[i][j].toUpperCase()
+                       }else{
+                        string += arr[i][j] 
+                       }
+                   }
+    console.log(string)
+                }
+            }
+      
+            camelize('zaq-xsw-cde');
+        </script>
 </body>
 
 </html>

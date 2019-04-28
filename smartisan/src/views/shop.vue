@@ -18,7 +18,7 @@
 					</div>-->
 
           <div class="item-box">
-            <!--给子组件传递一个值  传递的是item-->
+            <!--给子组件传递一个值  传递的是item(冒号后绑定的 自定义属性名)-->
             <shop-item v-for="(item,index) in goodsData" :key = "index" :item = "item"></shop-item>
 						
 						

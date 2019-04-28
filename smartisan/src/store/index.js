@@ -143,7 +143,7 @@ let store = new Vuex.Store({
           }
         });
       }
-      if (bOff) {
+      if (bOff) { //bOff = true; // 默认为没有此商品
         //  如果没有  就给设置一个count 属性   初始值为1   然后添加到购物车数组中
         let goodsData = data.info;
         Vue.set(goodsData, "count", data.count);

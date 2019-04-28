@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+	<head>
+		<meta charset="UTF-8">
+		<title>仿select</title>
+		<script src="vue.js"></script>
+		<style>
+		body {
+			font-size: 14px;
+			font-family: "Lantinghei SC Extralight", Arial;
+		}
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		a {
+			text-decoration: none;
+		}
+		img {
+			vertical-align: top;
+		}
+		#wrap {
+			width: 200px;
+			
+			
+			background: url(../img/bg0.jpg) repeat-y 0 0;
+		}
+		#section {
+			width: 200px;
+			height: 260px;
+			margin: 0px auto;
+			-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+			box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+		}
+		h3{ height: 30px; text-align: center}
+		h3.active{background:chocolate}
+		ul{display: none}
+		.show{ display: block}
+</style>
+	
+	</head>	
+
+  <body>
+    <div id="app">
+      <section id="section">
+      <div v-for = "item,i in data">
+				<h3 :class = "{active:i === index}" @click = "showList(i)">{{item.title}}</h3>
+				<ul :class="{show:i === index}">
+					<li v-for = "qq,key in item.data" >{{qq}}</li>
+				</ul>
+			</div> 
+			</section>
+
+		</div>
+		
+		<script>
+			var data = [
+        {
+          title: "品牌",
+          data: [
+            "苹果", "小米","锤子", "魅族",  "华为", "三星",  "OPPO",  "vivo",  "乐视"
+          ]
+        },
+        {
+          title: "尺寸",
+          data: ["4.0-4.5英寸", "4.6-4.9英寸", "5.0-5.5英寸", "6.0英寸以上"]
+        },
+        {
+          title: "系统",
+          data: ["android", "ios", "window phone", "无", "其他"]
+        },
+        {
+          title: "网络",
+          data: ["联通3G", "双卡单4G", "双卡双4G", "联通4G"]
+        }
+			];
+			
+			new Vue({
+				el: '#app',
+				data:{
+					data:data,
+					index:'',
+				},
+				methods: {
+					showList(index){
+						// 简写
+						this.index = this.index === index ?  '' : index
+						// console.log(index)
+						// if(this.index === index){
+						// 	this.index = ''
+						// }else{
+						// 	this.index = index
+						// }
+
+
+					}
+					
+				},
+						 
+						
+							
+						
+
+			})
+
+
+			
+			
+
+
+
+
+
+			
+			
+
+		
+
+			
+		
+			
+			
+
+		
+		</script>
+
+    
+  </body>
+</html>
