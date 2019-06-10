@@ -48,12 +48,13 @@
 				<b class="name">{{item.name}}</b>
 			</li>
 		</ul>
+		{{newdata}}
 		{{checkAll}}
 		<div class="nav">
 			<span class="checkAll">
-				<input type="checkbox" v-model = "checkAll">全选
+				<input type="checkbox" v-model = "checkAll" @click = 'noChoose(!checkAll)'>全选
 			</span>
-			<ul class="navBox">
+			<!-- <ul class="navBox">
 				<li class="shou">
 					收藏
 				</li>
@@ -63,7 +64,7 @@
 				<li class="delet">
 					删除
 				</li>
-			</ul>
+			</ul> -->
 
 		</div>
 
@@ -78,21 +79,21 @@
 		"name": "邓紫棋",
 		"music": "泡沫",
 		"desc": "实力歌手",
-		checked:false
+		checked:true
 	},
 	{
 		"id": "1",
 		"name": "蔡依林",
 		"music": "说爱你",
 		"desc": "实力歌手",
-		checked:false
+		checked:true
 	},
 	{
 		"id": "2",
 		"name": "周杰伦",
 		"music": "稻香",
 		"desc": "实力歌手",
-		checked:false
+		checked:true
 	},
 	
 
@@ -104,18 +105,34 @@
 			data:data,
 		},
 		computed: {
+			// newdata(){
+			// 	this.data.forEach(item =>{
+			// 		item.checked = true
+			// 	})
+			// 	return this.data
+			// },
 			checkAll(){
-				//every  数组中的每一项都满足条件，全部为true，就返回true，  只要有一个不为true  就返回false
-				let bl = this.data.every(item=>{
-					return item.checked
+				let bool = this.data.every((item,index,self)=>{
+					return item.checked 
 				})
-				console.log(bl)
-				// if(bl == false){
+				console.log(bool)
+				return bool;
 
-				// }
-				return bl;
-				
-				
+			}
+			
+		},
+		methods: {
+			noChoose(bool){
+				if(bool === false){
+					this.data.forEach((item)=>{
+						item.checked = false
+					})
+				}else{
+					this.data.forEach((item)=>{
+						item.checked = true
+					})
+				}
+
 			}
 		},
 		

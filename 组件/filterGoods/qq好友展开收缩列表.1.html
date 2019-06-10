@@ -45,10 +45,10 @@
   <body>
     <div id="app">
       <section id="section">
-      <div v-for = "item,i in data">
-				<h3 :class = "{active:i === index}" @click = "showList(i)">{{item.title}}</h3>
-				<ul :class="{show:i === index}">
-					<li v-for = "qq in item.data" >{{qq}}</li>
+      <div v-for = "(item,i) in data">
+				<h3 :class = "{'active': i === index}" @click = "changeshow(i)">{{item.title}}</h3>
+				<ul :class = "{'show':i === index}">
+					<li v-for = "list in item.data">{{list}}</li>
 				</ul>
 			</div> 
 			</section>
@@ -81,27 +81,23 @@
 				el: '#app',
 				data:{
 					data:data,
-					index:'',
+					index : '',
 				},
 				methods: {
-					showList(index){
-						// 简写
-						this.index = this.index === index ?  '' : index
-						// console.log(index)
+					changeshow(index){
+						console.log(index)
+						// 简写 用三目
+						this.index = this.index === index ?  '' : index;
+						// 不简写
 						// if(this.index === index){
-						// 	this.index = ''
+						// 	this.index = '';
+							
 						// }else{
-						// 	this.index = index
+						// 	this.index = index;
 						// }
 
-
 					}
-					
 				},
-						 
-						
-							
-						
 
 			})
 
