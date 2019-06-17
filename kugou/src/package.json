@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "mint-ui": "^2.2.13",
-    "vue-axios": "^2.1.3"
-  },
-  "devDependencies": {
-    "axios": "^0.18.0"
-  }
-}
