@@ -1,0 +1,114 @@
+/* .mgtop40{
+    margin-top: 40px;
+}
+.bgcol{
+    background-color: #26a2ff
+} */
+body{
+    margin: 0px;
+    /* height: 100vh; */
+    background-color: #f5f5f5;
+}
+
+.fixed{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 5;
+}
+
+.ih40{
+    height: 40px;
+    line-height: 40px;
+}
+.ih50{
+    height: 50px;
+    line-height: 50px;
+}
+
+.bgcol{
+    background-color:#26a2ff;
+}
+.bgfff{
+    background-color: #fff;
+}
+.bgf5{
+    background-color:#F5F5F5;
+}
+
+.fs0-8{
+    font-size: 0.8rem;
+}
+.fs1-2{
+    font-size: 1.2rem;
+}
+
+.col9f{
+    color: #9F9F9F;
+}
+.col{
+    color: #26a2ff;
+}
+.box{
+    box-sizing: border-box;
+}
+
+.padlr10{
+    padding:0px 10px 0px 10px;
+}
+.padtop10{
+    padding-top:10px; 
+}
+.padtop40{
+    padding-top:0px;
+}
+.mgtop40{
+    margin-top: 40px;
+}
+.mgtop10{
+    margin-top: 10px;
+}
+.mgbot10{
+    margin-bottom: 10px;
+}
+
+.ovhid{
+    overflow: hidden;
+}
+.right{
+    float: right;
+}
+
+.clear{
+    clear: both;
+}
+/*一像素分割线*/
+.after{
+     position: relative;
+}
+.after::after{
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #e4e4e4;
+    -webkit-transform-origin: left bottom;
+    transform-origin: left bottom;
+}
+/* 2倍屏 */
+@media only screen and (-webkit-min-device-pixel-ratio: 2.0) {
+    .after::after {
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+}
+
+/* 3倍屏 */
+@media only screen and (-webkit-min-device-pixel-ratio: 3.0) {
+    .after::after {
+        -webkit-transform: scaleY(0.33);
+        transform: scaleY(0.33);
+    }
+}

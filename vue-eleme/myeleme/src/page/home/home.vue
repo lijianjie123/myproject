@@ -1,174 +1,126 @@
 <template>
   	<div>
-        <head-top signin-up = 'home'>
-            <template v-slot:logo>
-                <span class="head_logo">ele.me</span>
-            </template>
-            
-        </head-top>
-        <nav class="city_nav">
-            <div class="city_tip">
-                <span>当前定位城市：</span>
-                <span>定位不准时，请在城市列表中选择</span>
+        <!-- <mt-progress :value = "20" :bar-height = "5"></mt-progress> -->
+        <mt-header fixed class = "bgblu">
+            <span slot = "left">ele.me</span>
+            <mt-button slot = "right" @click.native="login">登录|注册</mt-button>
+            <!-- <mt-button slot = "right"></mt-button> -->
+        </mt-header>
+        
+        <div class="padtop400 bgf5">
+            <div class="ih50 padlr10 box bgfff">
+            <span  class="">当前选择城市</span>
+            <span  class="right fs0-8 col9f">定位不准时，请在城市列表选择</span>
             </div>
-            <router-link :to="{path: '/'}" class="guess_city">
-                <span>{{}}</span>
-                <svg class="arrow_right">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
-                </svg>
-            </router-link>  
-        </nav>
-        
-        
-        
-    </div>
+            <mt-cell  :title="guesscities.name" class="col after" :to="{path:'/city/' + guesscities.id, query:{keyword:guesscities.name}}" is-link  value=""></mt-cell>
+
+            <div class="mgtop10 bgfff" >
+            <mt-cell class="after" title="热门城市"></mt-cell>
+            <div class="itembox ovhid col">
+                <div v-for = "(hotcity,key, index) of hotcities" :key = "index" @click="changecity(hotcity)">{{hotcity.name}}</div>
+            </div>        
+            </div>         
+
+            <div class="mgtop10 bgfff" v-for = "(citys,key, index) of getlist" :key = "index" >
+            <mt-cell class="after" :title="key"></mt-cell>
+            <div class="itembox ovhid" >
+              <!-- :to="{path:'/city/' + guesscities.id, query:{keyword:guesscities.name}}"  -->
+                <div 
+                  class="nowarp" v-for = "(city,index ) of citys"  :key = "index" 
+                  @click="changecity(city)"
+                  
+                  >
+                    {{city.name}}
+                </div>
+            </div>        
+            </div>    
+
+        </div>
+    
+  </div>
 </template>
 
 <script>
- import headTop from '../../components/header/head'
-//import {cityGuess, hotcity, groupcity} from '../../service/getData'
 
 export default {
-    data(){
-        // return{
-        //     guessCity: '',   //当前城市
-        //     guessCityid: '', //当前城市id
-        //     hotcity: [],     //热门城市列表
-        //     groupcity: {},   //所有城市列表
-        // }
+  data () {
+    return {
+      allcities :{}, // 所有城市的数据
+      hotcities:{}, //热门城市
+      guesscities:{},//'北京'//定位城市
+
+     
+    }
+  },
+  component:{
+  //注册组件
+
+  },
+  mounted:function(){
+  //生命周期
+      this.$axios.get('https://elm.cangdu.org/v1/cities?type=group').then(data => {
+        //console.log(data)
+        this.allcities = data.data
+      });
+
+      this.$axios.get('http://cangdu.org:8001/v1/cities?type=hot').then((data)=>{
+        //console.log(data)
+        this.hotcities = data.data
+      });
+
+      this.$axios.get('http://cangdu.org:8001/v1/cities?type=guess').then((data)=>{
+        console.log(data)
+        this.guesscities = data.data
+      });
+  },
+  computed:{
+  //计算属性
+    getlist(){
+       var mycitylist = {};
+       for(var i=65; i<=90; i++){
+        // console.log(i, String.fromCharCode(i))
+         var str = String.fromCharCode(i) // ABCD
+         mycitylist[str] = this.allcities[str]  // 这样就把 
+       }
+       return mycitylist
+    }
+
+  },
+  methods:{
+  //函数
+    changecity(city){
+      this.guesscities = city;
+      console.log(this.guesscities)
+     this.$router.push({path:'/city/'+ this.guesscities.id, query:{keyword:this.guesscities.name}})   
     },
-
-	// mounted(){
-    //     // 获取当前城市
-    //     cityGuess().then(res => {
-    //         this.guessCity = res.name;
-    //         this.guessCityid = res.id;
-    //     })
-
-    //     //获取热门城市
-    //     hotcity().then(res => {
-    //         this.hotcity = res;
-    //     })
-
-    //     //获取所有城市
-    //     groupcity().then(res => {
-    //         //console.log(res)
-    //         this.groupcity = res;
-    //     })
-    // },
-
-    components:{
-        headTop
-    },
-
-    // computed:{
-    //     //将获取的数据按照A-Z字母开头排序
-    //     sortgroupcity(){
-    //        // console.log(groupcity())
-    //         let sortobj = {};
-    //         for (let i = 65; i <= 90; i++) {
-    //             if (this.groupcity[String.fromCharCode(i)]) {
-    //                 sortobj[String.fromCharCode(i)] = this.groupcity[String.fromCharCode(i)];
-    //             }
-    //         }
-    //         //console.log(sortobj)
-    //         return sortobj
-    //     }
-    // },
-
-    // methods:{
-    //     //点击图标刷新页面
-    //     reload(){
-    //         window.location.reload();
-    //     }
-    // },
+    login(){
+      this.$router.push('/login')
+    }
+  }
 }
-
 </script>
 
-<style lang="scss" scoped>
-    @import '../../style/mixin';
-    .head_logo{
-        left: 0.4rem;
-        font-weight: 400;
-        @include sc(0.7rem, #fff);
-        @include wh(2.3rem, 0.7rem);
-        @include ct;
-    }
-    .city_nav{
-        // padding-top: 2.35rem;
-        // border-top: 1px solid $bc;
-        background-color: #fff;
-        margin-bottom: 0.4rem;
-        .city_tip{
-            @include fj;
-            line-height: 1.45rem;
-            padding: 0 0.45rem;
-            span:nth-of-type(1){
-                @include sc(0.55rem, #666);
-            }
-            span:nth-of-type(2){
-                font-weight: 900;
-                @include sc(0.475rem, #9f9f9f);
-            }
-
-        }
-        .guess_city{
-            @include fj;
-            align-items: center;
-            height: 1.8rem;
-            padding: 0 0.45rem;
-            border-top: 1px solid $bc;
-            border-bottom: 2px solid $bc;
-            @include font(0.75rem, 1.8rem);
-            span:nth-of-type(1){
-                color: $blue;
-            }
-            .arrow_right{
-                @include wh(.6rem, .6rem);
-                fill: #999;
-            }
-        }
-    }
-    #hot_city_container{
-        background-color: #fff;
-        margin-bottom: 0.4rem;
-    }
-    .citylistul{
-        li{
-            float: left;
-            text-align: center;
-            color: $blue;
-            border-bottom: 0.025rem solid $bc;
-            border-right: 0.025rem solid $bc;
-            @include wh(25%, 1.75rem);
-            @include font(0.6rem, 1.75rem);
-        }
-        li:nth-of-type(4n){
-            border-right: none;
-        }
-    }
-    .city_title{
-        color: #666;
-        font-weight: 400;
-        text-indent: 0.45rem;
-        border-top: 2px solid $bc;
-        border-bottom: 1px solid $bc;
-        @include font(0.55rem, 1.45rem, "Helvetica Neue");
-        span{
-            @include sc(0.475rem, #999);
-        }
-    }
-    
-    .letter_classify_li{
-        margin-bottom: 0.4rem;
-        background-color: #fff;
-        border-bottom: 1px solid $bc;
-        .groupcity_name_container{
-            li{
-                color: #666;
-            }
-        }
-    }
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.itembox>div{
+  width:25%;
+  float:left;
+  text-align:center;
+  height:40px;
+  line-height:40px;
+  box-sizing: border-box;
+  border-right:1px solid #e4e4e4;
+  border-bottom:1px solid #e4e4e4;
+  font-size: 12px;
+  font-family: '微软雅黑'
+}
+.itembox>div:nth-child(4n){
+  border-right:0px;
+}
+.nowarp{
+    white-space:nowrap;          /* 不换行 */
+    overflow:hidden;               /* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;   /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
 
 </style>
