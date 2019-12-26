@@ -78,6 +78,7 @@ body{
 .right{
     float: right;
 }
+.fonts12{ font-size: 12px;}
 
 .clear{
     clear: both;

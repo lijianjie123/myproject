@@ -9,6 +9,8 @@ import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.use(Mint)
 
+import Icon from 'vue-svg-icon/Icon.vue';
+Vue.component('icon', Icon);
 
 import Router from 'vue-router'  // 引入vue-router 组件
 import routes from './router/routers'

@@ -9,7 +9,7 @@
                      
                      @mouseover="tabImg(index)">
                         <div  
-                         :style="{background:'url(../../static/img/' + item.src + ') center '}"
+                         :style="{background:'url(./static/img/' + item.src + ') center '}"
                          :class="{'filterGray': itemIndex === index }"></div>
                         <!-- <img :src="imgurl" alt=""> -->
                     </li> 

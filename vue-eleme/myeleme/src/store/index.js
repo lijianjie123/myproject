@@ -8,6 +8,7 @@ import getters from './getters'
 Vue.use(Vuex)
 
 const state = {
+	nav:'nav1',// 默认底部导航显示第一个选项
 	//userInfo: null, //用户信息
 	
 }

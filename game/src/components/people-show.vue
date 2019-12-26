@@ -8,7 +8,7 @@
             <!-- :class="{'active': itemIndex === index}" -->
             <img :class="{'noTransform': itemIndex ===  index }"
             v-for = "(item,index) in data" 
-            :key = "index" :src="'../../static/img/' + item.src"  
+            :key = "index" :src="'./static/img/' + item.src"  
             @mouseover = "tabImg(index)"  >
         </div>
     </div>

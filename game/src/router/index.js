@@ -32,7 +32,7 @@ import all from "@/components/news/all";
 import serverList from "@/components/serverList"
 
  let router = new Router({ //这的router 要注入到根组件中main.js 里
-  mode:"history",
+  mode:"hash",
   linkActiveClass:'active',
   //滚动行为
   scrollBehavior(to, from, savePosition) {

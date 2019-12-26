@@ -36,7 +36,7 @@
                         <label @dblclick="editTodo(item)">{{item.title}}</label>
                         <button class="destroy" @click="deltodo(item)"></button>
                     </div>
-                    <input type="text" class="edit" v-focus="editTodos===item" v-model="item.title" @blur="editTodoed(item)" @keyup.enter="editTodoed(item)"
+                    <input type="text" class="edit" v-focus1="editTodos===item" v-model="item.title" @blur="editTodoed(item)" @keyup.enter="editTodoed(item)"
                         @keyup.esc="editCanel(item)" />
                 </li>
             </ul>
@@ -118,13 +118,20 @@
             },
             // 自定义指令
             directives: {
-                "focus": {
+                "focus1": {
                     update(el, binding) {
                         if (binding.value) {
                             el.focus();
                         }
 
-                    }
+                    },
+                    // bind(){
+
+                    // },
+                    // inserted(){
+
+                    // },
+
                 }
             }
 
